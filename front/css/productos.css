@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Hachi+Maru+Pop&family=Patrick+Hand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Hachi+Maru+Pop&family=Patrick+Hand&display=swap");
 :root {
   /* Variables de colores */
-  --background: #9A1515;;
-  --background-titulo: #E5AC57;;
+  --background: #9a1515;
+  --background-titulo: #e5ac57;
   --negro: #494953;
   --gris: #edf2f6;
 
@@ -32,9 +32,12 @@
   padding: 1em;
   overflow: hidden;
   flex-direction: row;
-}*/
-
-#card_section-root{
+}
+*/
+a {
+  text-decoration: none;
+}
+#card_section-root {
   background-color: var(--background);
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -68,7 +71,7 @@ h1 {
   padding: 1em;
 }
 
-section  {
+section {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -91,7 +94,7 @@ section  {
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   background-color: #0a0000;
   border-radius: 20px;
-} 
+}
 
 #card_section-root div h3 {
   margin: 0.5em 0em;
@@ -105,20 +108,20 @@ section  {
   font-weight: normal;
 }
 
-#card_section-root  div .button {
+#card_section-root div .button {
   width: 100%;
   border: none;
   padding: 0.7em;
   color: var(--background);
   margin: 0.5em 0em;
   border-radius: 20px;
-  background-color:  #88ACE0;
-text-align: center;
-font-family: Bangers;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  background-color: #88ace0;
+  text-align: center;
+  font-family: Bangers;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 #card_section-root div:hover {
@@ -148,10 +151,25 @@ line-height: normal;
   gap: 5rem;
 }*/
 
-.titulo {
+/*.titulo {
   width: 100%;
   justify-content: center;
   text-align: center;
+}*/
+
+div.card_section-titulo a {
+  background-color: var(--background-titulo);
+  color: var(--background-titulo);
+  width: 100%;
+  border: 3px solid #000;
+
+  color: #fff;
+  text-align: center;
+  font-family: Bangers;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 div.card_section-titulo h2.card_section-titulo1 {
@@ -160,15 +178,13 @@ div.card_section-titulo h2.card_section-titulo1 {
   width: 100%;
   border: 3px solid #000;
 
-
-
-color: #FFF;
-text-align: center;
-font-family: Bangers;
-font-size: 50px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  color: #fff;
+  text-align: center;
+  font-family: Bangers;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 div.card_section-titulo h2.card_section-titulo2 {
@@ -176,19 +192,15 @@ div.card_section-titulo h2.card_section-titulo2 {
 
   width: 100%;
   border: 3px solid #000;
-background: #1E1E1E;
-color: #C1C1C1;
-text-align: center;
-font-family: Bangers;
-font-size: 50px;
-font-style: normal;
-font-weight: 400;
-
-
-
+  background: #1e1e1e;
+  color: #c1c1c1;
+  text-align: center;
+  font-family: Bangers;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
 }
- div.card_section-titulo {
-  
+div.card_section-titulo {
   background-color: var(--background);
   font-size: large;
   width: 100%;
@@ -201,21 +213,26 @@ font-weight: 400;
 }
 
 img {
-  width:300px;
+  width: 300px;
   height: 400px;
-
 }
 
 h1 {
-  color: #E5AC57;
-text-align: center;
-font-family: Bangers;
-font-size: 50px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-background-color: var(--background);
+  color: #e5ac57;
+  text-align: center;
+  font-family: Bangers;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: var(--background);
 }
+
+ .card-content {
+  transform: rotateY(-360deg);
+ text-align: center
+};
+/*
 
 
 /* TABLET */
@@ -249,8 +266,8 @@ background-color: var(--background);
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: #0a0000;
   }
- 
-  #card_section-titulo{
+
+  #card_section-titulo {
     padding-top: 5px;
     font-size: large;
     width: 100%;
@@ -259,9 +276,8 @@ background-color: var(--background);
     align-items: center;
   }
   img {
-    width:300px;
+    width: 300px;
     height: 400px;
-  
   }
 }
 
@@ -306,22 +322,42 @@ background-color: var(--background);
   img {
     width: 100%;
   }
- .card_section-titulo1 {
+  .card_section-titulo1 {
     background-color: rgb(23, 23, 22);
     color: var(--background-titulo);
   }
-  
- .card_section-titulo2 {
+
+  .card_section-titulo2 {
     background-color: var(--background-titulo);
     color: rgb(11, 11, 10);
   }
   .card_section-titulo {
     padding-top: 25px;
-    background-color:var(--background);  
+    background-color: var(--background);
     font-size: large;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+  }
+  #card_section-root div .button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    color: var(--background);
+    margin: 10px;
+    border-radius: 20px;
+    background-color: #88ace0;
+    text-align: center;
+    font-family: Bangers;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  #card_section-root .card-content {
+    padding: 0px;
+    text-align: center;
   }
 }
