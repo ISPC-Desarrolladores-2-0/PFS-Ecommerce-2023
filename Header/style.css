@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+
+#menu{
+    background-color: #1E1E1E !important;
+    width: auto 0 !important;
+    height: 132px !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='Goldenrod' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-toggler{
+    border: solid #E5AC57 !important;
+}
+
+#logo{
+    background:lightgray 50% cover no-repeat;
+    width: 190px;
+    height: 111px;
+    margin-bottom: 5px;  
+}
+
+#search{
+    width: 350px;
+    height: 41px;
+    border-radius: 20px;
+    background: #FABCBC;
+    margin-left: 80px;
+}
+
+#lens{
+    width: 35px;
+    height: 34px;
+    border-radius: 20px;
+    background: #FABCBC;
+    margin-right: 140px;
+}
+ul {
+    justify-content: space-around;
+    padding: 18px;    
+}
+li{
+    padding:3px 12px 3px 12px;
+} 
+
+li:hover {
+    background: #9a1515;
+    border-radius: 50px;
+    
+}
+
+#qs{
+    color: #FCD69E;
+    text-align: center;
+    font-family: 'Bangers';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;    
+}
+
+#product{
+    color: #E5AC57;
+    text-align: center;
+    font-family: 'Bangers';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    /* margin-left: 50px; */
+    
+}
+
+#contact{
+    color: #FCD69E;
+    text-align: center;
+    font-family: 'Bangers';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    /* margin-left: 50px; */
+}
+
+#user{
+    width: 80px;
+    height: 64px;
+    margin-left: 80px;
+    padding: 5px 8px 5px 8px;
+    justify-content: center !important;  
+}
+
+#user:hover{
+    background: #9a1515;
+    border-radius: 50%;
+}
+
+@media(min-width:1024px){
+    .ul {
+        padding:10px !important;
+    }
+    .li {
+        padding: 2px 8px 2px 8px !important;
+    }
+   
+}   
