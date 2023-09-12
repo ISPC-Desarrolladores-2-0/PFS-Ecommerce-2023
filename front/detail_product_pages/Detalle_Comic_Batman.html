@@ -5,12 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planet Superheroes - Detalle Comic</title>
     <link rel="stylesheet" href="/front/css/detail.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">      
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Hachi+Maru+Pop&family=Patrick+Hand&display=swap');
-      </style>
-    <script src="https://kit.fontawesome.com/b10a384426.js" crossorigin="anonymous"></script>    
+    </style>
+    <script src="https://kit.fontawesome.com/b10a384426.js" crossorigin="anonymous"></script>   
 </head>
 <body>
+    <header class="">
+        <nav class="navbar">
+            <input type="checkbox" id="check">
+            <label for="check">
+                <i class="fas fa-bars" id="btn-nav"></i>
+                <i class="fas fa-times" id="cancel"></i>
+
+
+            </label>
+            <a class="navbar-logo" href="#">
+                <img class="logo-new" src="/front/images/logo_planet.png" alt="Planet SuperHeroes">
+            </a>            
+            <ul class="nav-op">                        
+                <li class="new-li">
+                    <a class="nav-link" href="#">¿QUIENES SOMOS?</a>
+                </li>
+                <li class="new-li">
+                    <a class="nav-link" href="#">PRODUCTOS</a>
+                </li>
+                <li class="new-li">
+                    <a class="nav-link" href="#">CONTACTO</a>
+                </li>
+                <li class="new-li">
+                    <a class="nav-link" href="#">INGRESAR</a>
+                </li>
+                <li class="new-li">
+                    <a class="nav-link" href="#">REGISTRO</a>
+                </li>
+            </ul>   
+        </nav>
+    </header>        
+    
     <div class="card-wrapper">
         <div class="card">
             <!--Card Izq-->
@@ -97,7 +130,12 @@
         </div>
 
     </div>
-    <script src="/front/js/script.js"></script>
+        
     
+    
+    <script src="/front/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
 </body>
 </html>
