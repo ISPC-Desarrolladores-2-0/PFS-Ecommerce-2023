@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+    box-shadow: border-box;
+}
 
 #menu{
     background-color: #1E1E1E !important;
-    width: auto 0 !important;
+    /* width: auto 0 !important; */
     height: 132px !important;
 }
 
@@ -51,7 +56,18 @@ li:hover {
     
 }
 
-#qs{
+#btns{
+
+    color: #E5AC57;
+    text-align: center;
+    font-family: 'Bangers';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* #qs{
     color: #FCD69E;
     text-align: center;
     font-family: 'Bangers';
@@ -69,7 +85,6 @@ li:hover {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    /* margin-left: 50px; */
     
 }
 
@@ -81,10 +96,10 @@ li:hover {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    /* margin-left: 50px; */
-}
 
-#user{
+} */
+
+/* #user{
     width: 80px;
     height: 64px;
     margin-left: 80px;
@@ -95,14 +110,30 @@ li:hover {
 #user:hover{
     background: #9a1515;
     border-radius: 50%;
-}
+} */
 
-@media(min-width:1024px){
+@media screen and (max-width:1600px){
+    #menu{
+        width: auto 0 !important;
+        background-color: #1E1E1E !important;
+    }
     .ul {
-        padding:10px !important;
+        padding:auto !important;
     }
     .li {
-        padding: 2px 8px 2px 8px !important;
+        padding: auto !important;
     }
    
+}
+@media screen and (min-width:768px){
+    #menu{
+        width: auto 0 !important;
+        background-color: #1E1E1E !important;
+    }
+    .ul {
+        padding:auto !important;
+    }
+    .li {
+        padding: auto !important;
+    }
 }   
