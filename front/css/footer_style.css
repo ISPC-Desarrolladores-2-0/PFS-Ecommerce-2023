@@ -1,43 +1,42 @@
-* {
+/* Estilos generales */
+footer * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     list-style: none;
 }
 
-body {
+footer body {
     font-family: sans-serif;
     text-transform: capitalize;
 }
 
-.container {
+footer.container {
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .footer {
-   background-color: chocolate;
-    padding: 80px 0;
+    background-color: chocolate;
+    padding: 20px 0;
+    text-align: center; /* Centra el contenido del footer */
 }
 
 .footer-row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between; /* Alineación de los elementos en el espacio entre ellos */
 }
 
-.footer-links {
-    width: 25%;
-    padding: 0 15px;
+#footer-links {
+    width: calc(25% - 20px); /* Ajustar el ancho y dejar espacio entre elementos */
+    padding: 0 10px; /* Espacio interno reducido */
+    text-align: left; /* Alinea el texto de los elementos a la izquierda */
 }
 
-.footer-links h4 {
-    font-size: 20px;
-    background-color: #ffffff;
-    margin-bottom: 25px;
-    font-weight: 500;
-    border-bottom: 2px solid #00C3FF;
-    padding-bottom: 10px;
-    display: inline-block;
+.footer-links ul {
+    list-style: none;
+    padding-left: 0;
 }
 
 .footer-links ul li a {
@@ -45,7 +44,7 @@ body {
     text-decoration: none;
     color: #bbbbbb;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reducción del espacio entre enlaces */
     transition: all .3s ease;
 }
 
@@ -55,7 +54,6 @@ body {
 }
 
 .social-link a {
-
     display: inline-block;
     min-height: 40px;
     width: 40px;
@@ -66,21 +64,28 @@ body {
     border-radius: 50%;
     color: #ffffff;
     transition: all .5s ease;
-
 }
 
 .social-link a:hover {
     background-color: #00C3FF;
 }
 
-@media(max-width:991px) {
-    .footer-row {
-        text-align: center;
-    }
+/* Estilo para .footer-row2 */
+.footer-row2 {
+    width: 100%;
+    text-align: center; /* Centra el contenido de .footer-row2 */
+    margin-top: 20px; /* Espacio entre .footer-row y .footer-row2 */
+    display: flex;
+    flex-wrap: wrap; /* Para que los elementos dentro de .footer-row2 se coloquen en una fila */
+    justify-content: center; /* Alinea los elementos al centro horizontalmente */
+}
 
-    .footer-links{
-        width: 100%;
-        margin-bottom: 30px;
-
-    }
+.footer-links h4 {
+    font-size: 20px;
+    margin-bottom: 20px; /* Reducción del espacio entre títulos */
+    font-weight: 500;
+    border-bottom: 2px solid #00C3FF;
+    padding-bottom: 10px;
+    display: inline-block;
+    background-color: #7a15139f; /* Cambia el color de fondo a tu preferencia */
 }
