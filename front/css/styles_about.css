@@ -51,14 +51,16 @@ p {
 
 
 /* Estilos para dispositivos móviles (menos de 768px de ancho) */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     #aboutMain .col-md-6 img {
         width: 25em;
         height: 20em; 
         margin: 0 auto;
         display: block;
         border-radius: 30px;
-    }
+     padding-top: 10px;
+    /*     background-color: rgb(23, 94, 217);
+ */    }
 }
 
 /* Estilos para pantallas medianas (entre 768px y 991px de ancho) */
