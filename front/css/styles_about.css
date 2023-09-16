@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Hachi+Maru+Pop&family=Patrick+Hand&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #1e1e1e;
+    color: #fbf0f0;
+    font-family: 'Architects Daughter', sans-serif;
+    text-align: center;
+    height: 80px;
+    border-bottom: red 1px solid;
+}
+
+#aboutMain {
+    padding-top: 0.5em;
+    color: #88ACE0;
+    background-color: #1e1e1e;
+}
+
+#aboutMain h1 {
+    -webkit-text-stroke: 1.2px black;
+    text-shadow: #fbf0f0 0 -2px;
+    font-family: 'Bangers', sans-serif;
+    color: #fbf0f0;
+    text-align: center;
+}
+
+#aboutLogo {
+    display: block;
+    max-width: 15em;
+    max-height: 15em;
+    margin: auto; /* Centramos vertical y horizontalmente */
+}
+
+p {
+    font-family: 'Architects Daughter', sans-serif;
+}
+
+#aboutMain .io5 {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* Estilos para dispositivos móviles (menos de 768px de ancho) */
+@media (max-width: 767px) {
+    #aboutMain .col-md-6 img {
+        width: 25em;
+        height: 20em; 
+        margin: 0 auto;
+        display: block;
+        border-radius: 30px;
+     padding-top: 10px;
+    /*     background-color: rgb(23, 94, 217);
+ */    }
+}
+
+/* Estilos para pantallas medianas (entre 768px y 991px de ancho) */
+@media (min-width: 768px) and (max-width: 991px) {
+    #aboutMain .container {
+        padding: 20px;
+    }
+
+    #aboutMain .col-md-6 {
+        display: flex;
+        margin-bottom: 0;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    /* Alinea las imágenes en una fila y el texto en la siguiente fila */
+    #aboutMain .row:nth-child(2) {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #aboutMain .col-md-6 img {
+        max-width: 20em;
+        min-height: 15em;
+        margin: 0 auto;
+        display: block;
+        border-radius: 30px;
+    }
+}
+
+/* Estilos para pantallas grandes (más de 992px de ancho) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    #aboutMain .container {
+        padding: 30px;
+    }
+
+    #aboutMain .col-md-6 {
+        margin-bottom: 20px;
+    }
+
+    /* Ajusta el tamaño de las imágenes al 2/3 */
+    #aboutMain .col-md-6 img {
+        max-width: 25rem;
+        min-width: 420px;
+        margin: 0;
+        max-height: 20rem;
+    }
+
+    /* Alinea las imágenes en una fila y el texto en la siguiente fila */
+    #aboutMain .row:nth-child(2) {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    /* Alinea el texto verticalmente con las imágenes */
+    #aboutMain .col-md-6 p {
+        margin-top: 10px;
+    }
+    #aboutLogo{
+        float: right;
+    }
+}
+
+/* Estilos para pantallas grandes (más de 1199px de ancho) */
+@media (min-width: 1199px) {
+    #aboutMain .container {
+        padding: 30px;
+    }
+
+    #aboutMain .col-md-6 {
+        margin-bottom: 20px;
+    }
+
+    /* Ajusta el tamaño de las imágenes al 2/3 */
+    #aboutMain .col-md-6 img {
+        max-width: 25rem;
+        min-width: 500px;
+        margin: 0;
+        max-height: 20rem;
+    }
+
+    /* Alinea las imágenes en una fila y el texto en la siguiente fila */
+    #aboutMain .row:nth-child(2) {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    /* Alinea el texto verticalmente con las imágenes */
+    #aboutMain .col-md-6 p {
+        margin-top: 10px;
+    }
+
+    #aboutLogo{
+        float: right;
+    }
+}
