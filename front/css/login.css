@@ -16,14 +16,14 @@ body{
 
 .form-login{
     width: 600px;
-    height: 600px;
+    height: 500px;
     background: #1e1e1e; ;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 2rem;
     box-shadow: 7px 13px 37px #000;
-    padding: 20px 30px;
     border-top: 20px solid #9a1515;
     color: #ffffff;
+    padding: 2rem;
 }
 .form-login h1{
     text-align: center;
@@ -60,6 +60,11 @@ body{
     color: #1e1e1e;
     margin-bottom: 16px;
     font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.botom:hover{
+    background: #c77171;
 }
 .form-login p{
     height: 40px;
@@ -73,4 +78,22 @@ body{
 }
 .form-login a:hover {
     text-decoration: underline;
+}
+
+.go_back{
+    text-decoration: none;
+    background-color: #008bce;
+    color: whitesmoke;
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.go_back:hover{
+    transform: scale(1.1);
 }

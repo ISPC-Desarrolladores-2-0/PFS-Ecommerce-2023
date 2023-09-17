@@ -450,7 +450,6 @@ form{
 #footer .container{
     max-width: 1200px;
     margin: 0 auto;
-
 }
 
 .footer-row{
@@ -526,11 +525,13 @@ li{
 
 
 .copyright{
-    color: #cc3333;
-    background-color:transparent;
+    color: whitesmoke;
+    background-color:#795622;
     text-align: center;    
     font-family:'Architects Daughter', sans-serif;
     padding: 10px;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 @media (max-width: 860px){
