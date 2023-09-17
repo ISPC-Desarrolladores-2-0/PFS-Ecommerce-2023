@@ -1,71 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bangers&family=Hachi+Maru+Pop&family=Patrick+Hand&display=swap');
 
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 /*<----------Navbar--------->*/
 header{
-    width: 100%;
-    height: 80px;
-    position: absolute;
-    top: 0;
-    background-color: #1e1e1e;
-    padding: 10px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  background-color: #1e1e1e;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo{
+  object-fit: contain;
+  width: 100px;
 }
   
-  .logo{
-    object-fit: contain;
-    width: 100px;
-  }
+.logo:hover{
+  transform: scale(1.1);
+}
   
-  .logo:hover{
-    transform: scale(1.1);
-  }
+.nav__links li {
+  display: inline-block;
+  color: #fcd69e;
+  padding: 8px;
+  margin-left: 1rem;
+}
   
-  .nav__links li {
-    display: inline-block;
-    color: #fcd69e;
-    padding: 8px 6px;
-  }
+.nav__links li a {
+  font-family: 'Bangers', sans-serif;
+  font-size: 1.5rem;
+  color: #fcd69e;
+}
   
-  .nav__links li a {
-    font-family: 'Bangers', sans-serif;
-    font-size: 1.5rem;
-    color: #fcd69e;
-  }
+.nav__links a:hover {
+  color: #e5ac57;
+  box-shadow: #9a1515 2px;
+}
   
-  .nav__links a:hover {
-    color: #e5ac57;
-    box-shadow: #9a1515 2px;
-  }
+label #btn-nav,
+label #cancel{
+  color: #fcd69e;
+  font-size: 30px;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+} 
   
-  label #btn-nav,
-  label #cancel{
-    color: #fcd69e;
-    font-size: 30px;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
-    cursor: pointer;
-    display: none;
-  } 
-  
-  #check{
-    display: none;
-  
-  }
+#check{
+  display: none;
+}
   
   @media (max-width: 860px) {
     label #btn-nav{
