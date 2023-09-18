@@ -43,7 +43,7 @@ img{
 
 .img-showcase img{
     min-width: 100%;
-    height: 30rem;
+    height: 35rem;    
     object-fit: cover;
 }
 
@@ -58,7 +58,8 @@ img{
 .img-item:nth-child(1),
 .img-item:nth-child(2),
 .img-item:nth-child(3){
-    margin-right: 0;
+    margin-right: 0; 
+
 }
 
 .img-item:hover{
@@ -191,6 +192,9 @@ img{
 .purchase-info .btn-shop{
     cursor: pointer;
     color: #fbf0f0;
+}
+.purchase-info .btn-shop:first-of-type{
+    background-color: #1e1e1e;
 }
 
 .purchase-info .btn-shop:last-of-type{
