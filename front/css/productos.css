@@ -45,8 +45,12 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 10%;
+  padding: 20px;
   background-color: #1e1e1e;
+}
+
+.navbar{
+  padding: 10px;
 }
 
 .logo{
@@ -61,7 +65,8 @@ header{
 .nav__links li {
   display: inline-block;
   color: #fcd69e;
-  padding: 8px 6px;
+  padding: 8px;
+  margin-left: 1rem;
 }
 
 .nav__links li a {
@@ -88,7 +93,6 @@ label #cancel{
 
 #check{
   display: none;
-
 }
 
 @media (max-width: 860px) {
@@ -522,7 +526,7 @@ li{
   text-align: center;
   width: 35px;
   height: 35px;
-  padding: 3px 2px 0 2px;
+  padding: 7px;
   color: #fcd69e;
   background-color: #1e1e1e;
   margin: 0 0.2rem;
@@ -541,6 +545,11 @@ li{
   font-size: 1.5rem;
 }
 
+.social-link i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .copyright{
   color: whitesmoke;

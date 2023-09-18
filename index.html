@@ -12,32 +12,33 @@
     <script src="https://kit.fontawesome.com/b10a384426.js" crossorigin="anonymous"></script>   
 </head>
 <body>
-    <!-- Header -->
-    <header class="">
+    <header>
+        <a class="navbar-logo" href="/index.html">
+            <img class="logo" src="/front/images/logo_planet.png" alt="Planet SuperHeroes">
+        </a>  
         <nav class="navbar">
+            <!-- Menu Hamburguesa -->
             <input type="checkbox" id="check">
             <label for="check">
                 <i class="fas fa-bars" id="btn-nav"></i>
                 <i class="fas fa-times" id="cancel"></i>
-            </label>
-            <a class="navbar-logo" href="#">
-                <img class="logo-new" src="/front/images/logo_planet.png" alt="Planet SuperHeroes">
-            </a>            
-            <ul class="nav-op">                        
-                <li class="new-li">
-                    <a class="nav-link" href="./about.html">¿QUIENES SOMOS?</a>
+            </label>  
+            <!-- Fin Menu Hamburguesa  -->
+            <ul class="nav__links">  
+                <li>
+                    <a href="#">INICIO</a>
+                </li>                      
+                <li>
+                    <a href="/about.html">¿QUIENES SOMOS?</a>
                 </li>
-                <li class="new-li">
-                    <a class="nav-link" href="/front/marvelProducts.html">PRODUCTOS</a>
+                <li>
+                    <a href="/front/marvelProducts.html">PRODUCTOS</a>
                 </li>
-                <li class="new-li">
-                    <a class="nav-link" href="#form">CONTACTO</a>
+                <li>
+                    <a href="/login.html">INGRESAR</a>
                 </li>
-                <li class="new-li">
-                    <a class="nav-link" href="./login.html">INGRESAR</a>
-                </li>
-                <li class="new-li">
-                    <a class="nav-link" href="./registro.html">REGISTRO</a>
+                <li>
+                    <a href="/registro.html">REGISTRO</a>
                 </li>
             </ul>   
         </nav>
@@ -103,9 +104,9 @@
                       ></iframe>
                     </div>
                     <div class="contact_info">
-                        <p><i class="fa-solid fa-phone"></i>3582-141414</p>
-                        <p><i class="fa-solid fa-envelope"></i>mail@gmail.com</p>
-                        <p><i class="fa-solid fa-location-dot"></i>dirección falsa 123</p>
+                        <p><i class="fa-solid fa-phone"></i>(351) 43727282</p>
+                        <p><i class="fa-solid fa-envelope"></i>info@planetsuper.com.ar</p>
+                        <p><i class="fa-solid fa-location-dot"></i>Galería Muñoz-9 de julio 160</p>
                     </div>
                     <div class="social_links">
                         <span class="second_text"> Redes Sociales: </span>
@@ -126,24 +127,16 @@
                     </div>
                     <form action="">
                         <div class="input_box">
-                            <input type="text" placeholder="Ingrese su nombre completo" required>
+                            <input type="text" placeholder="Ingrese su nombre completo" style="font-size: 15px; font-family:'Patrick Hand', sans-serif"  required>
                         </div>
                         <div class="input_box">
-                            <input type="email" placeholder="Ingrese su email" required>
+                            <input type="email" placeholder="Ingrese su email" style="font-size: 15px; font-family:'Patrick Hand', sans-serif"  required>
                         </div>
                         <div class="input_text">
-                            <textarea name="" id="message" cols="30" rows="8" placeholder="Mensaje" required></textarea>
+                            <textarea style="font-family:'Patrick Hand', sans-serif" name="" id="message" cols="30" rows="8" placeholder="Mensaje" required></textarea>
                         </div>
                         <input class="btn_submit" type="submit" value="Enviar Mensaje">
                     </form>
-
-                    <div class="social_links_form">
-                        <ul class="social_list">
-                            <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-square-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-square-instagram"></i></a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
