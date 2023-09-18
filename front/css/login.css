@@ -16,10 +16,10 @@ body{
 
 .form-login{
     width: 600px;
-    height: 500px;
+    height: 700px;
     background: #1e1e1e; ;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 3rem;
     box-shadow: 7px 13px 37px #000;
     border-top: 20px solid #9a1515;
     color: #ffffff;
@@ -96,4 +96,10 @@ body{
 
 .go_back:hover{
     transform: scale(1.1);
+}
+.logo{
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
 }
