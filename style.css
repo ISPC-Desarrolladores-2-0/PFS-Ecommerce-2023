@@ -24,65 +24,47 @@ body{
 /*<----------Navbar--------->*/
 header{
     width: 100%;
-}
-
-nav ul li a{
-    font-family: 'Bangers', sans-serif;
-    color: #fcd69e;
-    font-size: 1.5rem;
-    position: relative; 
-    text-decoration: none;
-    padding: 8px 6px;  
-}
-
-nav ul li a::before{
-    position: absolute;
-    content: '';
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 100%;
-    background: #e5ac57;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform .4s linear;
-}
-
-nav ul li a:hover:before{
-    transform: scaleX(1);
-    transform-origin: left;
-
-}
-
-.new-li a:hover{
-    color: #e5ac57;
-    box-shadow: #9a1515 2px;
-    
-}
-
-.logo-new{    
-    width: 110px;     
-    position: absolute;
-    top: 10px;
-    left: 5%;
-}
-
-nav{
     height: 80px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
     background-color: #1e1e1e;
-    border-radius: 2px #ddd7d7;
 }
 
-nav ul{
-    text-align: right; 
-    margin-right: 25px;
+.navbar{
+    padding: 10px;
 }
 
-nav ul li{
-    display: inline-block;
-    line-height: 80px; 
-    margin: 0 15px; 
+.logo{
+    object-fit: contain;
+    width: 120px;
 }
+  
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.nav__links li {
+  display: inline-block;
+  color: #fcd69e;
+  padding: 8px;
+  margin-left: 1rem;
+}
+
+.nav__links li a {
+  font-family: 'Bangers', sans-serif;
+  font-size: 1.5rem;
+  color: #fcd69e;
+}
+
+.nav__links a:hover {
+  color: #e5ac57;
+  box-shadow: #9a1515 2px;
+}
+
 
 label #btn-nav,
 label #cancel{
@@ -97,20 +79,7 @@ label #cancel{
 
 #check{
     display: none;
-
 }
-
-@media (max-width: 944px) {
-    nav img{
-        left: 6%;
-        top: 20px;
-        width: 130px;
-    }
-    nav ul li a{
-        font-size: 17px;
-    }
-}
-
 
 @media (max-width: 860px) {
     label #btn-nav{
@@ -118,28 +87,27 @@ label #cancel{
     }
     nav ul{        
         width: 100%;
-        height: 100vh;
+        height:80vh;
         background: #1e1e1e;
         top: 80px;
         left: -100%;
         text-align: center;
         transition: all .5s;
         position: absolute;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
     }
     nav ul li{
         display: block;
-        margin: 50px 0;
+        margin: 20px 0;
         line-height: 30px;
     }
     nav ul li a{
         font-size: 20px;
     }
     #check:checked ~ ul{
-        left: 0;
-        
-    }
-    .img-showcase{
-        position: static;
+        left: 0; 
     }
     #check:checked ~ label #btn-nav {
         display: none;
@@ -147,7 +115,6 @@ label #cancel{
     #check:checked ~ label #cancel{
         display: block;
     }
-    
 }
 /* <----------End Navbar---------> */
 
@@ -160,7 +127,7 @@ label #cancel{
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.66);
     border-radius: 15px;
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 5rem;
 }
 
 .carruseles {
@@ -398,12 +365,15 @@ form{
 
 .btn_submit{
     background-color:#e5ac57;
-    color: whitesmoke;
-    padding: 10px;
+    padding: 5px 15px;
     border: 1px solid black;
     border-radius: 7px;
     cursor: pointer;
     transition: all ease-in-out .3s;
+    font-family:'Patrick Hand';
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
 }
 
 .btn_submit:hover{
@@ -412,10 +382,6 @@ form{
 
 .input_text{
     border-radius: 7px;
-}
-
-.social_links_form{
-    display: none;
 }
 
 @media(max-width: 800px){
@@ -427,14 +393,13 @@ form{
     }
 
     .social_links_form{
-        display: block;
-        margin-top: 10px;
+        display: none;
     }
 }
 
 @media(max-width: 503px){
-    .social_links_form{
-        display: none;
+    form{
+        padding: 0 10px;
     }
 }
 /*  <----------End Contact Section--------->  */
