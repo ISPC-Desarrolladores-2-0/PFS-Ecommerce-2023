@@ -12,6 +12,7 @@ body {
     overflow-x: hidden;
 }
 
+
 /*<----------Navbar--------->*/
 header{
     width: 100%;
@@ -127,7 +128,9 @@ header{
 }
 
 p {
-    font-family: 'Architects Daughter', sans-serif;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.3rem;
+  color: #fbf0f0;
 }
 
 #aboutMain .io5 {
@@ -138,6 +141,8 @@ p {
     font-weight: bold;
     text-align: center;
     padding: 10px;
+    color: #668ee6;
+    font-family: sans-serif;
 }
 
 

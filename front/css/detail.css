@@ -384,7 +384,7 @@ label #cancel{
     
 }
 
-/*<----------Footer--------->*/
+/*<----------Footer---->*/
 
 #footer{
     background-color: #e5ac57;
@@ -423,8 +423,8 @@ label #cancel{
     text-shadow: #fbf0f0 0 -2px;
 }
 
-li{
-    text-decoration: none;
+.footer-links ul li{
+    list-style: none;
 }
 
 .footer-links ul li a{
@@ -487,3 +487,5 @@ li{
 
     }
 }
+
+
