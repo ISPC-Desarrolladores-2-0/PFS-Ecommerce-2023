@@ -77,6 +77,24 @@ body{
     text-decoration: underline;
 }
 
+.title{
+       display: flex;
+       position: relative;
+       top: 15px;
+       justify-content: space-around;
+       right: 45px;
+}
+.logo-register{
+       width: 100px;
+       height: 65px;
+       margin-left: 15px;
+    
+}
+
+input{
+       height: 30px;
+}
+
 .go_back{
        text-decoration: none;
        background-color: #008bce;
