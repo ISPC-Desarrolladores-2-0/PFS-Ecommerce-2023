@@ -62,7 +62,6 @@ body{
     font-size: 1.5rem;
     cursor: pointer;
 }
-
 .botom:hover{
     background: #c77171;
 }
@@ -79,7 +78,6 @@ body{
 .form-login a:hover {
     text-decoration: underline;
 }
-
 .go_back{
     text-decoration: none;
     background-color: #008bce;
