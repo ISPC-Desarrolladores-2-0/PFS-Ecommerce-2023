@@ -43,7 +43,7 @@ img{
 
 .img-showcase img{
     min-width: 100%;
-    height: 30rem;
+    height: 35rem;    
     object-fit: cover;
 }
 
@@ -58,7 +58,8 @@ img{
 .img-item:nth-child(1),
 .img-item:nth-child(2),
 .img-item:nth-child(3){
-    margin-right: 0;
+    margin-right: 0; 
+
 }
 
 .img-item:hover{
@@ -192,6 +193,9 @@ img{
     cursor: pointer;
     color: #fbf0f0;
 }
+.purchase-info .btn-shop:first-of-type{
+    background-color: #1e1e1e;
+}
 
 .purchase-info .btn-shop:last-of-type{
     background-color: #9a1515;
@@ -257,7 +261,7 @@ img{
 
 /*<----------Style Product Detail--------->*/
 
-/*<----------Navbar--------->*/
+/*<----------Navbar Modelo 1-------------->*/
 nav ul li a{
     font-family: 'Bangers', sans-serif;
     color: #fcd69e;
@@ -384,7 +388,105 @@ label #cancel{
     
 }
 
-/*<----------Footer--------->*/
+/*<------------Navbar modelo 1--------->*/
+
+
+/*<----------Navbar modelo 2
+
+header{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    background-color: #1e1e1e;
+    padding: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo{
+    object-fit: contain;
+    width: 100px;
+  }
+    
+  .logo:hover{
+    transform: scale(1.1);
+  }
+    
+  .nav__links li {
+    display: inline-block;
+    color: #fcd69e;
+    padding: 8px;
+    margin-left: 1rem;
+  }
+    
+  .nav__links li a {
+    font-family: 'Bangers', sans-serif;
+    font-size: 1.5rem;
+    color: #fcd69e;
+  }
+    
+  .nav__links a:hover {
+    color: #e5ac57;
+    box-shadow: #9a1515 2px;
+  }
+    
+  label #btn-nav,
+  label #cancel{
+    color: #fcd69e;
+    font-size: 30px;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+  } 
+    
+  #check{
+    display: none;
+  }
+    
+  @media (max-width: 860px) {
+    label #btn-nav{
+      display: block;
+    }
+    nav ul{        
+      width: 100%;
+      height: 80vh;
+      background: #1e1e1e;
+      top: 80px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+      position: absolute;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+    nav ul li{
+      display: block;
+      margin: 20px 0;
+      line-height: 30px;
+    }
+    nav ul li a{
+      font-size: 20px;
+    }
+    #check:checked ~ ul{
+      left: 0;
+    }
+    #check:checked ~ label #btn-nav {
+      display: none;
+    }
+    #check:checked ~ label #cancel{
+      display: block;
+    } 
+  }   
+
+-Navbar modelo 2-------->*/
+
+
+/*<----------Footer----------------->*/
 
 #footer{
     background-color: #e5ac57;
@@ -423,8 +525,8 @@ label #cancel{
     text-shadow: #fbf0f0 0 -2px;
 }
 
-li{
-    text-decoration: none;
+.footer-links ul li{
+    list-style: none;
 }
 
 .footer-links ul li a{
@@ -487,3 +589,5 @@ li{
 
     }
 }
+
+

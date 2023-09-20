@@ -382,6 +382,7 @@ form{
 
 .input_text{
     border-radius: 7px;
+    font-family: 'Patrick Hand', sans-serif;
 }
 
 @media(max-width: 800px){
