@@ -94,7 +94,7 @@ const createProducts = () =>
             <h3>$${product.price}</h3>
             <h4>${product.description}</h4>
            
-            <button id='${product.id}' class='button'>Agregar al carrito</button>
+            <button id='${product.id}' class='button'>Ver Mas</button>
             </div>
             </div>
           
