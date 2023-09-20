@@ -22,7 +22,7 @@ body{
      margin-top: 2rem;
      box-shadow: 7px 13px 37px #000;
      padding: 5px 40px;
-     border-top: 20px solid #9a1515;
+     /* border-top: 20px solid #9a1515; */
       color: #ffffff;
 }
 .form-register h1{
@@ -75,6 +75,25 @@ body{
 }
 .form-register a:hover {
     text-decoration: underline;
+}
+
+.title{
+       display: flex;
+       position: relative;
+       top: 15px;
+       justify-content: space-around;
+       right: 45px;
+}
+
+.logo-register{
+       width: 100px;
+       height: 65px;
+       margin-left: 15px;
+    
+}
+
+input{
+       height: 30px;
 }
 
 .go_back{
