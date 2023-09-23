@@ -190,7 +190,7 @@ section {
   padding: 25px;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
-  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+ /* transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);*/
   background-color: #0a0000;
   border-radius: 20px;
 }
@@ -227,7 +227,7 @@ section {
   transform: translateY(-10px);
   box-shadow: 1.25px 1.25px 10px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transform: rotateY(180deg);
+ /* transform: rotateY(180deg);*/
 }
 
 /*img  {
@@ -328,7 +328,7 @@ h1 {
 }
 
  .card-content {
-  transform: rotateY(-360deg);
+ /* transform: rotateY(-360deg);*/
  text-align: center
 };
 /*
@@ -362,7 +362,7 @@ h1 {
     padding: 25px;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    /*transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);*/
     background-color: #0a0000;
   }
 
