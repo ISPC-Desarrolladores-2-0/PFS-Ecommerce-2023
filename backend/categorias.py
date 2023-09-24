@@ -19,3 +19,9 @@ class Categoria():
             return self.filtrarListaCategoria
         def setFiltrarListaCategoria(self):
             return self.filtrarListaCategoria
+        
+        def setIdCategoria(self, idCategoria):
+            self.idCategoria = idCategoria
+
+        def setNombreCategoria(self, nombreCategoria):
+            self.nombreCategoria = nombreCategoria
