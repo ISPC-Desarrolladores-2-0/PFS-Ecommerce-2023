@@ -7,6 +7,8 @@ Este repositorio contiene el código fuente y la documentación relacionada con 
 
 ▶ **Inicio:** presenta a los visitantes un atractivo banner publicitario que destaca ofertas, novedades o promociones. Además, incluye un formulario de contacto que permite a los usuarios comunicarse fácilmente con el equipo de la tienda.
 
+▶ **Quienes somos:** se ofrece información detallada sobre la tienda, incluyendo su historia, misión y valores. Los visitantes pueden conocer más acerca del propósito y la visión de la tienda, así como obtener un mayor entendimiento sobre la comunidad a la que se dirige.
+
 ▶ **Productos:** se divide en dos categorías principales: DC y Marvel. Cada una de estas secciones muestra el stock de cómics disponibles en la tienda. Al hacer clic en un cómic específico, los usuarios pueden acceder a una página de detalle que proporciona información detallada sobre el cómic, incluyendo una breve sinopsis, especificaciones técnicas y su precio.
 
 ▶ **Ingresar:** está destinada a los clientes registrados. Aquí, los usuarios pueden iniciar sesión utilizando sus credenciales previamente registradas. Proporciona un acceso rápido y seguro a sus cuentas personales.
