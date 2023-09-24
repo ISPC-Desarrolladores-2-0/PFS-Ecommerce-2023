@@ -222,13 +222,29 @@ section {
   font-weight: 400;
   line-height: normal;
 }
-
+/* ANTIGUOS ESTILOS
 #card_section-root div:hover {
   transform: translateY(-10px);
   box-shadow: 1.25px 1.25px 10px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   transform: rotateY(180deg);
 }
+
+#card_section-root div:hover {
+  transform: translateY(-10px);
+  box-shadow: 1.25px 1.25px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+*/
+
+#card_section-root div:hover {
+  transform: scale(1.05); /* Aumenta el tamaño en un 5% */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Aumenta la sombra */
+  cursor: pointer;
+}
+
+
+
 
 /*img  {
   height: 75%;

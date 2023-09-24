@@ -3,6 +3,7 @@ from consultas_productos import ConsultasProductos
 from autenticacion import Autenticacion
 from buscar_productos import buscar_productos
 import configurar_bd # Importar el script de configuración de la base de datos
+import back.pedidos_comic as pedidos_comic
 
 # Ejecutar el script para configurar las tablas de la base de datos
 configurar_bd.configurar_base_de_datos()
@@ -56,6 +57,8 @@ def menu_principal():
     print("5. Salir")
 
 def main():
+    print("MENU")
+    menu_pedidos()
     while True:
         menu_principal()
         opcion = input("Elija una opción: ")
