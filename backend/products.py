@@ -2,13 +2,13 @@ class Product:
     id_products = ""
     name = ""
     description = ""
-    price = ""
-    discount = ""
-    stock = ""
+    price = 0
+    discount = 0
+    stock = 0
     image = ""
-    pages = ""
+    pages = 0
     formato = ""
-    weight = ""
+    weight = 0
     isbn = ""
     id_categories = ""
 

@@ -14,21 +14,38 @@ class Usuario:
 
         def getDni(self):
             return self.dni
+
         def getName(self):
             return self.name
+
         def getLastName(self):
             return self.lastName
-        def getEmailAdress (self):
+
+        def getEmailAdress(self):
             return self.emailAdress
-        def getPassword (self):
+
+        def getPassword(self):
             return self.password
+
         
-        
+        def setDni(self, dni):
+         self.dni = dni
+
+        def setName(self, name):
+            self.name = name
+
+        def setLastName(self, lastName):
+            self.lastName = lastName
+
+        def setEmailAdress(self, emailAdress):
+            self.emailAdress = emailAdress
+
+        def setPassword(self, password):
+            self.password = password
+
 
 name = input("Nombre:")
-lastName = input ("Apellido:")
-dni = input ("DNI:")
-emailAdress = input ("Email: ")
-password = input ("Contraseña: ")    
-
-
+lastName = input("Apellido:")
+dni = input("DNI:")
+emailAdress = input("Email: ")
+password = input("Contraseña: ")
