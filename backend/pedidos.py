@@ -20,6 +20,18 @@ class pedidos:
         def getDetalleTotal(self):
             return self.detalleTotal
         
+        def setIdPedido(self, idPedido):
+            self.idPedido = idPedido
+
+        def setFechaPedido(self, fechaPedido):
+          self.fechaPedido = fechaPedido
+
+        def setIdUsuario(self, idUsuario):
+            self.idUsuario = idUsuario
+
+        def setDetalleTotal(self, detalleTotal):
+            self.detalleTotal = detalleTotal
+        
      
 
 idProducto = input(int("Id Producto"))
