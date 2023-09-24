@@ -15,7 +15,7 @@ Este repositorio contiene el código fuente y la documentación relacionada con 
 
 ## PROTOTIPO DEL DISEÑO:
 
-[Diseño interactivo]([URL](https://www.figma.com/proto/O3BzmmLej6K3qpF2dIefST/Planet-Superheroes?type=design&node-id=1-2&t=TYZMZ6cCmqcnFEov-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A2))
+Diseño interactivo: https://www.figma.com/proto/O3BzmmLej6K3qpF2dIefST/Planet-Superheroes?type=design&node-id=1-2&t=TYZMZ6cCmqcnFEov-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A2 
 
 ![image](https://github.com/ISPC-Desarrolladores-2-0/PFS-Ecommerce-2023/assets/81953405/8db1e439-5ab5-45ad-a68c-ef70b87ed4ae)
 
