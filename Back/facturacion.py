@@ -47,7 +47,7 @@ class Facturacion:
     def get_id_cliente(self):
         return self.id_cliente
         
-    def Set_name(self, nombre):
+    def set_name(self, nombre):
         self.nombre = nombre
     
     def set_apellido(self, apellido):
