@@ -1,4 +1,10 @@
 class Usuario:
+    dni = 0
+    name = ""
+    lastName = ""
+    emailAdress = ""
+    password = ""
+
     def __init__(self, dni, name, lastName, emailAdress, password):
         self.dni = dni
         self.name = name

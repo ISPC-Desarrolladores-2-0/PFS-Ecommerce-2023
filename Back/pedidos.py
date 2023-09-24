@@ -1,4 +1,10 @@
 class pedidos:
+    idPedido = 0
+    fechaPedido = 0
+    idUsuario = 0
+    detalleTotal = 0
+
+
     def __init__(self, idPedido, fechaPedido, idUsuario, detalleTotal):
         self.idPedido = idPedido
         self.fechaPedido = fechaPedido
