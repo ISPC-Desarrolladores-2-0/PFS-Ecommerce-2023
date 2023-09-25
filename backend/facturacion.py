@@ -46,5 +46,32 @@ class Facturacion:
     
     def get_id_cliente(self):
         return self.id_cliente
+    
+    def set_name(self, nombre):
+        self.nombre = nombre
+    
+    def set_apellido(self, apellido):
+        self.apellido = apellido
+    
+    def set_dni(self, dni):
+        self.dni = dni
+    
+    def set_direccion(self, direccion):
+        self.direccion = direccion
+    
+    def set_numero_calle(self, numero_calle):
+        self.numero_calle = numero_calle
+    
+    def set_localidad(self, localidad):
+        self.localidad = localidad
+    
+    def set_metodo_pago(self, metodo_pago):
+        self.metodo_pago = metodo_pago
+    
+    def set_id_facturacion(self, id_facturacion):
+        self.id_facturacion = id_facturacion
+    
+    def set_id_cliente(self, id_cliente):
+        self.id_cliente = id_cliente
         
         
