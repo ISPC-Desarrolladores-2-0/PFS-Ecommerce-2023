@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
   CONSTRAINT `fk_order_items_products1`
     FOREIGN KEY (`id_products`)
     REFERENCES `planetSuperheroesDB`.`products` (`id_products`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE   -- Esta línea habilita la eliminación en cascada
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_items_orders1`
     FOREIGN KEY (`id_order`)
