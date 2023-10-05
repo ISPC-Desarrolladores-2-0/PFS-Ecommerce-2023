@@ -5,22 +5,52 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Login</title>
     <link rel="icon" href="/front/images/logo-favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/front/css/login.css">
+    <link rel="stylesheet" href="/PFS-Ecommerce-2023/front/css/login.css">
 </head>
 <!-- Formulario Iniciar Sesión -->
 <body>
     <section class="form-login">
+        <form action="" id="form">
         <img src="/front/images/logo_planet.png" alt="Logo" class="logo">
         <h1>PLANET SUPER HEROES</h1>
         <h3>
             Inicio Sesión
         </h3>
-        <input class="controles" type="text" name="usuario" value="" placeholder="Usuario">
-        <input class="controles" type="password" name="Contraseña" value="" placeholder="Contraseña">
-        <input class="botom" type="submit" name="" value="Ingresar">
-            <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+        <div class="form__field">
+            <input 
+                class="controles" 
+                type="text" 
+                name="usuario" 
+                placeholder="Usuario" 
+                id="usuario"
+                autocomplete="off"
+                value=""
+            />
+            <small></small>
+        </div>
+
+        <div class="form__field">
+            <input 
+                class="controles" 
+                type="password" 
+                name="password" 
+                placeholder="Contraseña" 
+                id="password"
+                autocomplete="off"
+                value=""
+            />
+            <small></small>
+        </div>
+
+        <div>
+            <input class="botom" type="submit" value="Ingresar" />
+        </div>
+        
+        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
         
         <a class="go_back" href="/index.html">Volver al Inicio</a>
+        </form>
     </section>
+    <script src="/PFS-Ecommerce-2023/front/js/validacionLogin.js"></script>
 <body>
 </html>
