@@ -270,3 +270,4 @@ def manage_products(connection):
 
         elif choice == "5":
             break
+
