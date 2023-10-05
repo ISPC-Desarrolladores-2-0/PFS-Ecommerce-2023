@@ -191,7 +191,6 @@ def manage_products(connection):
         choice = input("Selecciona una opción: ")
 
         if choice == "1":
-            # Crear producto
             name = input("Nombre del producto: ")
             description = input("Descripción del producto: ")
             price = float(input("Precio del producto: "))
@@ -210,7 +209,6 @@ def manage_products(connection):
                 print(f"Producto creado con ID: {product_id}")
 
         elif choice == "2":
-            # Leer productos
             products = read_all_products(connection)
             if products:
                 print("\nListado de productos:")
@@ -218,7 +216,6 @@ def manage_products(connection):
                     print_product(product)
 
         elif choice == "3":
-            # Actualizar producto
             product_id = int(input("ID del producto a actualizar: "))
             product_to_update = read_product_by_id(connection, product_id)
             if product_to_update:
@@ -263,7 +260,6 @@ def manage_products(connection):
                 print("Producto actualizado")
 
         elif choice == "4":
-            # Eliminar producto
             product_id = int(input("ID del producto a eliminar: "))
             delete_product(connection, product_id)
             print("Producto eliminado")
