@@ -1,0 +1,17 @@
+ /* Estilos para las columnas */
+ .column {
+    float: left;
+    width: 23%; /* Ancho de cada columna */
+    margin: 1%;
+    padding: 10px;
+    background-color: #9b2c2c;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* Estilos para limpiar los flotadores */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

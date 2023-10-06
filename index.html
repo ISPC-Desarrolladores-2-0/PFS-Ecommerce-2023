@@ -1,198 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planet Superheroes</title>
-    <link rel="icon" href="/front/images/logo_planet - favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="front/css/style.css" />
-    <script
-      src="https://kit.fontawesome.com/6ff66d206f.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://kit.fontawesome.com/b10a384426.js" crossorigin="anonymous"></script>   
+    <title>Reseñas</title>
+    <style>
+        /* Estilo para el cuerpo (body) */
+        body {
+            background-color: #852424; /* Cambia el color de fondo del body a gris claro */
+        }
+
+        /* Estilos para las columnas */
+        .column {
+            float: left;
+            width: 23%; /* Ancho de cada columna */
+            margin: 1%;
+            padding: 10px;
+            background-color: #f3f0f0; /* Color de fondo de las columnas */
+            border: 1px solid #120000;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para limpiar los flotadores */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Estilo para el título de la reseña */
+        .review-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para los nombres */
+        .column h2 {
+            display: inline-block; /* Muestra los nombres en la misma línea que las imágenes */
+            margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del nombre */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <a class="navbar-logo" href="/index.html">
-            <img class="logo" src="/front/images/logo_planet.png" alt="Planet SuperHeroes">
-        </a>  
-        <nav class="navbar">
-            <!-- Menu Hamburguesa -->
-            <input type="checkbox" id="check">
-            <label for="check">
-                <i class="fas fa-bars" id="btn-nav"></i>
-                <i class="fas fa-times" id="cancel"></i>
-            </label>  
-            <!-- Fin Menu Hamburguesa  -->
-            <ul class="nav__links">  
-                                 
-                <li>
-                    <a href="/front/pages/about.html">¿QUIENES SOMOS?</a>
-                </li>
-                <li>
-                    <a href="/front/pages/marvelProducts.html">PRODUCTOS</a>
-                </li>
-                <li>
-                    <a href="#form">CONTACTO</a>
-                </li>
-                <li>
-                    <a href="/front/pages/login.html">INGRESAR</a>
-                </li>
-                <li>
-                    <a href="/front/pages/registro.html">REGISTRO</a>
-                </li>
-            </ul>   
-        </nav>
-    </header> 
 
-    <!-- Carrusel -->
-    <section> 
-    <div class="container-carousel">
-        <div class="carruseles" id="slider">
-           
-            <section class="slider-section">
-                <img src="/front/images/SuscribeteCarousel.jpeg">
-            </section>
-
-            <section class="slider-section">
-                <img src="/front/images/SpiderCarousel.jpeg">
-            </section>
-            
-            <section class="slider-section">
-                <img src="/front/images/EnviosCarousel.jpeg">
-            </section>
-            <section class="slider-section">
-                <img src="/front/images/CapitanCarousel.jpeg">
-            </section>
-          
-        </div>
-        <div class="btn-left"><i class='bx bx-chevron-left'></i></div>
-        <div class="btn-right"><i class='bx bx-chevron-right'></i></div>
-    </div>
-</section>
-<!-- Sección Banner -->
-<section id="banner">
-<div class="container">
-    <div class="button">
-        <img src="/front/images/free.png" alt="Envío gratis Córdoba capital">
-        <p class="button-text">Envío gratis Córdoba capital</p>
-    </div>
-    <div class="button">
-        <img src="/front/images/tarjetas.png" alt="Todos los medios de pago">
-        <p class="button-text">Todos los medios de pago</p>
-    </div>
-    <div class="button">
-        <img src="/front/images/30dto.png" alt="Descuentos Exclusivos">
-        <p class="button-text">Descuentos Exclusivos</p>
-    </div>
+<div class="review-title">
+    <h1>Reseñas</h1>
 </div>
-</section>
 
-    <!-- formulario de contacto -->
-    <section id="form">
-        <div class="form_contact__container">
-            <div class="item">
-                <div class="contact">
-                    <div class="first_title">
-                        <h2>Donde encontrarnos</h2>
-                    </div>
-                    <div class="map">
-                        <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32392.505862546128!2d-64.19564154332299!3d-31.418458108462413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432985f478f5b69%3A0xb0a24f9a5366b092!2zQ8OzcmRvYmE!5e0!3m2!1ses-419!2sar!4v1664386748040!5m2!1ses-419!2sar"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                      ></iframe>
-                    </div>
-                    <div class="contact_info">
-                        <p><i class="fa-solid fa-phone"></i>(351) 43727282</p>
-                        <p><i class="fa-solid fa-envelope"></i>info@planetsuper.com.ar</p>
-                        <p><i class="fa-solid fa-location-dot"></i>Galería Muñoz-9 de julio 160</p>
-                    </div>
-                    <div class="social_links">
-                        <span class="second_text"> Redes Sociales: </span>
-                        <ul class="social_list">
-                            <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-square-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-square-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="submit_form">
-                    <div class="first_text">
-                        Contacto
-                    </div>
-                    <div class="intro_contact_text">
-                        Si tenes alguna pregunta o sugerencia, no dudes en comunicarte con nosotros. 
-                        Nuestro equipo está aquí para ayudarte y proporcionarte cualquier información que necesites.
-                    </div>
-                    <form action="">
-                        <div class="input_box">
-                            <input type="text" placeholder="Ingrese su nombre completo" style="font-size: 15px; font-family:'Patrick Hand', sans-serif"  required>
-                        </div>
-                        <div class="input_box">
-                            <input type="email" placeholder="Ingrese su email" style="font-size: 15px; font-family:'Patrick Hand', sans-serif"  required>
-                        </div>
-                        <div class="input_text">
-                            <textarea style="font-family:'Patrick Hand', sans-serif" name="" id="message" cols="30" rows="8" placeholder="Mensaje" required></textarea>
-                        </div>
-                        <input class="btn_submit" type="submit" value="Enviar Mensaje">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="column">
+    <img src="imagenes/prueba 5/5 estrellas.png" alt="">
+    <p>Excelente atención, necesitaba hacer un regalo y me llegaron los comics el mismo día.</p>
+    <img src="imagenes/prueba 1/juan.jpg" alt="Juan"><h2>Juan</h2>
+</div>
+
+<div class="column">
+    <img src="imagenes/prueba 5/5 estrellas.png" alt="">
+    <p>La selección de cómics es impresionante, ¡nunca dejo de sorprenderme con lo que encuentro!</p>
+    <img src="imagenes/prueba 2/Maria.jpg" alt="Maria"><h2>Maria</h2>
+</div>
+
+<div class="column">
+    <img src="imagenes/prueba 5/5 estrellas.png" alt="">
+    <p>Esta tienda hace que mi niño interior se emocione cada vez que entro, ¡es un lugar mágico!</p>
+    <img src="imagenes/prueba 3/Pilar.jpg" alt="Pilar"><h2>Pilar</h2>
+</div>
+
+<div class="column">
+    <img src="imagenes/prueba 5/5 estrellas.png" alt="">
+    <p>Los empleados son súper amables y conocedores, hacen que cada visita sea una experiencia genial.</p>
+    <img src="imagenes/prueba 4/Lautaro.jpg" alt="Lautaro"><h2>Lautaro</h2>
+</div>
+
+<!-- Limpieza de flotadores -->
+<div class="clearfix"></div>
+
 </body>
-
-<!-- footer -->
-<footer class="footer" id="footer">
-    <div class="container">
-        <div class="footer-row">
-            <div class="footer-links">
-                <h4>Preguntas frecuentes</h4>
-                <ul>
-                    <li><a class="link-sec" href="#">Como comprar</a></li>
-                    <li><a href="#">Política de envíos</a></li>
-                    <li><a href="#">Novedades</a></li>
-                    <li><a href="#">Precios mayoristas</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>MEDIOS DE PAGO</h4>
-                <ul>
-                    <li><a href="#">Tarjetas de Crédito</a></li>
-                    <li><a href="#">Tarjetas de Débito</a></li>
-                    <li><a href="#">Transferencias</a></li>
-                    <li><a href="#">Efectivo</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>PLANET SUPERHEROES CENTRO</h4>
-                <ul>
-                    <li><a href="#">Galería Muñoz-9 de julio 160</a></li>
-                    <li><a href="#">(351) 43727282</a></li>
-                    <li><a href="#">info@planetsuper.com.ar</a></li>
-                    <li><a href="#">Lunes a Sábado:10:00 a 18:00</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4> SÍGUENOS EN NUESTRAS REDES</h4> 
-                <div class="social-link">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa- fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>    
-</footer>
-<div class="copyright">
-    &copy; Desarrolladores 2.0
-</div>
-<script src="/front/js/script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-</script>
-<script src="/front/js/carrusel.js"></script>
 </html>
