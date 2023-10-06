@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
   CONSTRAINT `fk_order_items_products1`
     FOREIGN KEY (`id_products`)
     REFERENCES `planetSuperheroesDB`.`products` (`id_products`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE   
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_items_orders1`
     FOREIGN KEY (`id_order`)
@@ -245,7 +245,7 @@ VALUES (
 ),
 (
   'Batman: Killing Joker',
-  'De acuerdo con el motor de locura y caos conocido como el Joker, eso es todo lo que separa a los cuerdos de los psicóticos. Liberado una vez más de los confines del Asilo Arkham, está dispuesto a demostrar su perturbador punto. Y va a usar al principal policía de Gotham, el comisionado Jim Gordon, y a su brillante y bella hija Bárbara para hacerlo. Ahora Batman deberá correr para detener a su archienemigo antes de que su reinado de terror reclame a dos de los amigos más cercanos del Caballero Oscuro. ¿Podrá finalmente poner fin al ciclo de sed de sangre y locura que une a estos dos enemigos icónicos antes de que conduzca a su conclusión fatal? Y a medida que finalmente se revela el horroroso origen del Príncipe Payaso del Crimen, ¿la delgada línea que separa a la nobleza de Batman y la locura del Joker se romperá de una vez por todas?',
+  'De acuerdo con el motor de locura y caos conocido como el Joker, eso es todo lo que separa a los cuerdos de los psicóticos.',
   9800.00,
   30,
   50,
@@ -258,7 +258,7 @@ VALUES (
 ),
 (
   'Black Widow',
-  'La historia de espías del siglo! Natasha Romanoff es la espía más letal del Universo Marvel y el corazón palpitante de los Avengers. Pero cuando una figura misteriosa comienza a explotar su turbio pasado, ¡Black Widow debe pasar a la clandestinidad y desaparecer del mapa! ¿En quién puede confiar en esta red de engaños? Y lo que es más importante, ¿pueden sus amigos seguir confiando en ella? Natasha debe analizar todos los nombres de su pasado, ¡comenzando con Tony Stark y Bucky Barnes! Black Widow y el Soldado del Invierno tienen una gran historia, pero cuando se reúnan, pueden terminar sin futuro. Su compañera Yelena Belova llama a su puerta, pero, ¿puede ayudar a Natasha a superar su pasado? Y cuando Black Widow apunte a Hawkeye, ¡ella podría recibir un disparo en el corazón!',
+  'La historia de espías del siglo! Natasha Romanoff es la espía más letal del Universo Marvel y el corazón palpitante de los Avengers. ',
   9800.00,
   30,
   50,
@@ -271,7 +271,7 @@ VALUES (
 ),
 (
   'Batman: Rebirth',
-  'Hay dos nuevos héroes en la ciudad: un par de metahumanos enmascarados que tienen los poderes de Superman y muestran una devoción inquebrantable por preservar todo lo bueno de esta enfermiza urbe. Se hacen llamar Gotham y Gotham Girl, ha salvado la vida de Batman, han luchado junto a él y le han tomado como referente y ejemplo en su aprendizaje. Pero... ¿qué ocurre si los nuevos guardianes de Gotham se vuelven malvados? ¿Y si culpan al Caballero Oscuro de las tinieblas que amenazan con engullir su ciudad?',
+  'Hay dos nuevos héroes en la ciudad',
   9800.00,
   30,
   15,
@@ -292,12 +292,12 @@ VALUES (
 -- Insertar valores en users
 INSERT INTO `planetSuperheroesDB`.`users` (first_name, last_name, email, password, address, image)
 VALUES
-('John', 'Doe', 'johndoe@example.com', 'password', '123 Main St', 'john_doe.jpg'),
-('Joan', 'Doe', 'joane@example.com', 'password', '456 Main St', 'joan_doe.jpg'),
-('Alice', 'Smith', 'alice@example.com', 'password', '789 Elm St', 'alice_smith.jpg'),
-('Bob', 'Johnson', 'bob@example.com', 'password', '101 Oak St', 'bob_johnson.jpg'),
-('Eva', 'Williams', 'eva@example.com', 'password', '246 Pine St', 'eva_williams.jpg'),
-('Michael', 'Brown', 'michael@example.com', 'password', '555 Maple St', 'michael_brown.jpg');
+('John', 'Doe', 'johndoe@mail.com', 'password', '123 Main St', 'john_doe.jpg'),
+('Joan', 'Doe', 'joane@mail.com', 'password', '456 Main St', 'joan_doe.jpg'),
+('Alice', 'Smith', 'alice@mail.com', 'password', '789 Elm St', 'alice_smith.jpg'),
+('Bob', 'Johnson', 'bob@mail.com', 'password', '101 Oak St', 'bob_johnson.jpg'),
+('Eva', 'Williams', 'eva@mail.com', 'password', '246 Pine St', 'eva_williams.jpg'),
+('Michael', 'Brown', 'michael@mail.com', 'password', '555 Maple St', 'michael_brown.jpg');
 
 -- Insertar un rol para el usuario en roles
 INSERT INTO `planetSuperheroesDB`.`roles` (id_role, name, users_id_users)
@@ -322,9 +322,7 @@ VALUES
 (4, 5, 3),
 (1, 6, 4);
 
-
-
-
+select * from  products
 
 
 
