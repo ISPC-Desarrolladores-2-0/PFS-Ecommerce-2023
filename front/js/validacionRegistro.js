@@ -4,7 +4,7 @@ const userInput = document.getElementById("user_name");
 const emailInput = document.getElementById("email");
 const phoneInput = document.getElementById("phone");
 const pass2Input = document.getElementById("password2");
-// const addressInput = document.getElementById("address");
+const addressInput = document.getElementById("address");
 
 
 const checkUserName = () => {
@@ -72,9 +72,25 @@ const checkPhone = () => {
     return valid;
 };
 
-// const checkAddress = () => {
+const checkPasswordsMatch = () => {
+    if (passInput.value !== pass2Input.value) {
+      showError(pass2Input, "Las contraseñas no coinciden");
+      return false;
+    } else {
+      showSuccess(pass2Input);
+      return true;
+    }
+};
 
-// };
+const checkAddress = () => {
+    if (isEmpty(addressInput.value)) {
+        showError(addressInput, "*Dirección requerida");
+        return false;
+    } else {
+        showSuccess(addressInput);
+        return true;
+    }
+};
 
 const isEmpty = (value) => value === "";
 
@@ -125,5 +141,6 @@ form.addEventListener("submit", (e) => {
     checkPassword(); 
     checkEmail(); 
     checkPhone(); 
-    // checkAddress(); 
+    checkPasswordsMatch();
+    checkAddress(); 
 });
