@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 class Facturacion: 
     id_facturacion = 0
@@ -104,29 +105,39 @@ class Facturacion:
         while len(nombre_titular.split()) != 2:
             nombre_titular = input("El nombre del titular debe tener nombre y apellido. Ingrese nuevamente: ")
         return nombre_titular
-
+    
+    @staticmethod
     def validar_vencimiento(vencimiento):
         while True:
-            if not re.match(r"^(0[1-9]|1[0-2])\/\d{2}$", vencimiento):
+            if not re.match(r"^[0-9/]+$", vencimiento):
+                vencimiento = input("El formato no es válido. Por favor, ingrese solo 2 números para el mes, seguido de '/', y luego 2 números para el año: ")
+            elif not re.match(r"^(0[1-9]|1[0-2])\/\d{2}$", vencimiento):
                 vencimiento = input("El formato de vencimiento no es válido. Ingrese nuevamente (MM/AA): ")
-                continue
+            else:
+                mes, anio = vencimiento.split('/')
 
-            mes, anio = vencimiento.split('/')
+                if not (mes.isdigit() and anio.isdigit()):
+                    vencimiento = input("El formato de vencimiento no es válido. Ingrese nuevamente (MM/AA): ")
+                    continue
 
-            if not (mes.isdigit() and anio.isdigit()):
-                vencimiento = input("El formato de vencimiento no es válido. Ingrese nuevamente (MM/AA): ")
-                continue
+                mes, anio = int(mes), int(anio)
 
-            mes, anio = int(mes), int(anio)
+                if not (1 <= mes <= 12 and 0 <= anio <= 99):
+                    vencimiento = input("El formato de vencimiento no es válido. Ingrese nuevamente (MM/AA): ")
+                    continue
 
-            if not (1 <= mes <= 12 and 0 <= anio <= 99):
-                vencimiento = input("El formato de vencimiento no es válido. Ingrese nuevamente (MM/AA): ")
-                continue
+                # Obtener la fecha actual
+                fecha_actual = datetime.now()
+                fecha_comparar = datetime(fecha_actual.year % 100, fecha_actual.month, 1)
 
-            return vencimiento
+                if fecha_comparar > datetime(anio, mes, 1):
+                    vencimiento = input("La fecha ingresada está vencida. Ingrese nuevamente (MM/AA): ")
+                    continue
+                
+            return vencimiento    
+        return vencimiento
         
-    
-
+        
     def validar_codigo_verificacion(self, codigo_verificacion):
         while not codigo_verificacion.isdigit() or len(codigo_verificacion) != 3:
             codigo_verificacion = input("El código de verificación no es válido. Ingrese nuevamente: ")

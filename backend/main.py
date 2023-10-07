@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 from connection import create_db_connection, close_db_connection
 from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 from users import User, create_user, read_all_users, update_user, delete_user, manage_users, read_user_by_id
@@ -53,4 +51,3 @@ def menu_principal():
 
 if __name__ == "__main__":
     menu_principal()
->>>>>>> 38d267965a24c13ee85822a8ff3b4a36b18689ce
