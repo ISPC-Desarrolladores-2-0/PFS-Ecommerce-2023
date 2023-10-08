@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`categories` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_categories`)
 ) ENGINE = InnoDB;
+
+
 -- Tabla products
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`products` (
   `id_products` INT NOT NULL AUTO_INCREMENT,  
@@ -79,12 +81,12 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`orders` (
   UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC)
 ) ENGINE = InnoDB;
 
--- Tabla order_items
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
   `id_order_items` INT NOT NULL AUTO_INCREMENT,
   `quantity` INT NOT NULL,
   `id_products` INT NULL,
   `id_order` INT NOT NULL,
+  `product_name` VARCHAR(255) NOT NULL,  -- Se agregó la columna product_name
   PRIMARY KEY (`id_order_items`),
   INDEX `fk_order_items_products1_idx` (`id_products` ASC),
   INDEX `fk_order_items_orders1_idx` (`id_order` ASC),
@@ -100,12 +102,54 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
+
+
 -- Insertar valores en categories
 INSERT INTO `planetSuperheroesDB`.`categories` ( name) VALUES (  'Marvel'), ( 'DC');
 
 -- Insertar valores en products
 INSERT INTO `planetSuperheroesDB`.`products` (name, description, price, discount, stock, image, pages, formato, weight, isbn, id_categories)
-VALUES (
+VALUES 
+(
+  'Batman: Killing Joker',
+  'De acuerdo con el motor de locura y caos conocido como el Joker, eso es todo lo que separa a los cuerdos de los psicóticos. Liberado una vez más de los confines del Asilo Arkham, está dispuesto a demostrar su perturbador punto. Y va a usar al principal policía de Gotham, el comisionado Jim Gordon, y a su brillante y bella hija Bárbara para hacerlo. Ahora Batman deberá correr para detener a su archienemigo antes de que su reinado de terror reclame a dos de los amigos más cercanos del Caballero Oscuro. ¿Podrá finalmente poner fin al ciclo de sed de sangre y locura que une a estos dos enemigos icónicos antes de que conduzca a su conclusión fatal? Y a medida que finalmente se revela el horroroso origen del Príncipe Payaso del Crimen, ¿la delgada línea que separa a la nobleza de Batman y la locura del Joker se romperá de una vez por todas?',
+  9800.00,
+  30,
+  50,
+  'batman-killing-joker.jpg', 
+  64,
+  '20x29x2cm',
+  0.55,
+  '978-987-819-184-3',
+  1
+),
+(
+  'Batman: Rebirth',
+  'Hay dos nuevos héroes en la ciudad: un par de metahumanos enmascarados que tienen los poderes de Superman y muestran una devoción inquebrantable por preservar todo lo bueno de esta enfermiza urbe. Se hacen llamar Gotham y Gotham Girl, ha salvado la vida de Batman, han luchado junto a él y le han tomado como referente y ejemplo en su aprendizaje. Pero... ¿qué ocurre si los nuevos guardianes de Gotham se vuelven malvados? ¿Y si culpan al Caballero Oscuro de las tinieblas que amenazan con engullir su ciudad?',
+  9800.00,
+  30,
+  15,
+  'dc-batman.jpg',
+  64,
+  '20x29x2cm',
+  0.55,
+  '978-987-819-184-3',
+  2 
+),
+(
+  'Black Widow',
+  'La historia de espías del siglo! Natasha Romanoff es la espía más letal del Universo Marvel y el corazón palpitante de los Avengers. Pero cuando una figura misteriosa comienza a explotar su turbio pasado, ¡Black Widow debe pasar a la clandestinidad y desaparecer del mapa! ¿En quién puede confiar en esta red de engaños? Y lo que es más importante, ¿pueden sus amigos seguir confiando en ella? Natasha debe analizar todos los nombres de su pasado, ¡comenzando con Tony Stark y Bucky Barnes! Black Widow y el Soldado del Invierno tienen una gran historia, pero cuando se reúnan, pueden terminar sin futuro. Su compañera Yelena Belova llama a su puerta, pero, ¿puede ayudar a Natasha a superar su pasado? Y cuando Black Widow apunte a Hawkeye, ¡ella podría recibir un disparo en el corazón!',
+  9800.00,
+  30,
+  50,
+  'marvel-blackwidow.jpg',  
+  64,
+  '20x29x2cm',
+  0.60,
+  '9788416998166',
+  1  
+),
+(
   'Capitan America',
   'El primer año de la revolucionaria etapa que devolvió toda su gloria al Centinela de la Libertad. Después de que fuera dado por muerto por los suyos...',
   9800.00,
@@ -248,45 +292,6 @@ VALUES (
     0.60,
     '9788416998166',
     1
-),
-(
-  'Batman: Killing Joker',
-  'De acuerdo con el motor de locura y caos conocido como el Joker, eso es todo lo que separa a los cuerdos de los psicóticos. Liberado una vez más de los confines del Asilo Arkham, está dispuesto a demostrar su perturbador punto. Y va a usar al principal policía de Gotham, el comisionado Jim Gordon, y a su brillante y bella hija Bárbara para hacerlo. Ahora Batman deberá correr para detener a su archienemigo antes de que su reinado de terror reclame a dos de los amigos más cercanos del Caballero Oscuro. ¿Podrá finalmente poner fin al ciclo de sed de sangre y locura que une a estos dos enemigos icónicos antes de que conduzca a su conclusión fatal? Y a medida que finalmente se revela el horroroso origen del Príncipe Payaso del Crimen, ¿la delgada línea que separa a la nobleza de Batman y la locura del Joker se romperá de una vez por todas?',
-  9800.00,
-  30,
-  50,
-  'batman-killing-joker.jpg', 
-  64,
-  '20x29x2cm',
-  0.55,
-  '978-987-819-184-3',
-  1
-),
-(
-  'Black Widow',
-  'La historia de espías del siglo! Natasha Romanoff es la espía más letal del Universo Marvel y el corazón palpitante de los Avengers. Pero cuando una figura misteriosa comienza a explotar su turbio pasado, ¡Black Widow debe pasar a la clandestinidad y desaparecer del mapa! ¿En quién puede confiar en esta red de engaños? Y lo que es más importante, ¿pueden sus amigos seguir confiando en ella? Natasha debe analizar todos los nombres de su pasado, ¡comenzando con Tony Stark y Bucky Barnes! Black Widow y el Soldado del Invierno tienen una gran historia, pero cuando se reúnan, pueden terminar sin futuro. Su compañera Yelena Belova llama a su puerta, pero, ¿puede ayudar a Natasha a superar su pasado? Y cuando Black Widow apunte a Hawkeye, ¡ella podría recibir un disparo en el corazón!',
-  9800.00,
-  30,
-  50,
-  'marvel-blackwidow.jpg',  
-  64,
-  '20x29x2cm',
-  0.60,
-  '9788416998166',
-  1  
-),
-(
-  'Batman: Rebirth',
-  'Hay dos nuevos héroes en la ciudad: un par de metahumanos enmascarados que tienen los poderes de Superman y muestran una devoción inquebrantable por preservar todo lo bueno de esta enfermiza urbe. Se hacen llamar Gotham y Gotham Girl, ha salvado la vida de Batman, han luchado junto a él y le han tomado como referente y ejemplo en su aprendizaje. Pero... ¿qué ocurre si los nuevos guardianes de Gotham se vuelven malvados? ¿Y si culpan al Caballero Oscuro de las tinieblas que amenazan con engullir su ciudad?',
-  9800.00,
-  30,
-  15,
-  'dc-batman.jpg',
-  64,
-  '20x29x2cm',
-  0.55,
-  '978-987-819-184-3',
-  2 
 );
 
 
