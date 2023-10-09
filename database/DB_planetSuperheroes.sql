@@ -8,11 +8,10 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`categories` (
   PRIMARY KEY (`id_categories`)
 ) ENGINE = InnoDB;
 
-
 -- Tabla products
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`products` (
   `id_products` INT NOT NULL AUTO_INCREMENT,  
-  `name` VARCHAR(100) NULL,
+  `name` VARCHAR(100) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `price` DECIMAL NOT NULL,
   `discount` INT NULL,
@@ -32,13 +31,6 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`products` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
--- Agregar restricción de unicidad al nombre de producto
-ALTER TABLE `planetSuperheroesDB`.`products`
-ADD CONSTRAINT `unique_product_name`
-UNIQUE (`name`);
-
-
-
 -- Tabla users
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
   `id_users` INT NOT NULL AUTO_INCREMENT,
@@ -52,10 +44,9 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)
 ) ENGINE = InnoDB;
 
-
 -- Tabla roles
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`roles` (
-  `id_role` INT NOT NULL,
+  `id_role` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `users_id_users` INT NOT NULL,
   PRIMARY KEY (`id_role`),
@@ -81,12 +72,13 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`orders` (
   UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC)
 ) ENGINE = InnoDB;
 
+-- Tabla order_items
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
   `id_order_items` INT NOT NULL AUTO_INCREMENT,
   `quantity` INT NOT NULL,
-  `id_products` INT NULL,
+  `id_products` INT NOT NULL,
   `id_order` INT NOT NULL,
-  `product_name` VARCHAR(255) NOT NULL,  -- Se agregó la columna product_name
+  `product_name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_order_items`),
   INDEX `fk_order_items_products1_idx` (`id_products` ASC),
   INDEX `fk_order_items_orders1_idx` (`id_order` ASC),
@@ -102,6 +94,18 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
+-- Agregar un disparador para mantener actualizado product_name en order_items
+DELIMITER //
+CREATE TRIGGER update_product_name
+BEFORE INSERT ON `planetSuperheroesDB`.`order_items`
+FOR EACH ROW
+BEGIN
+  DECLARE product_name VARCHAR(255);
+  SELECT `name` INTO product_name FROM `planetSuperheroesDB`.`products` WHERE `id_products` = NEW.`id_products`;
+  SET NEW.`product_name` = product_name;
+END;
+//
+DELIMITER ;
 
 
 -- Insertar valores en categories
@@ -322,14 +326,42 @@ VALUES
 (1, 'Procesado', '2023-09-28', 'PayPal', 'Envío exprés', 'Aprobado', 300.00),
 (2, 'Enviado', '2023-09-29', 'Tarjeta de crédito', 'Envío estándar', 'Aprobado', 180.00),
 (1, 'Entregado', '2023-09-30', 'PayPal', 'Envío estándar', 'Completado', 75.00);
--- Insertar valores en order_items
-INSERT INTO `planetSuperheroesDB`.`order_items` (quantity, id_products, id_order)
-VALUES
-(3, 1, 1),
-(2, 2, 1),
-(1, 3, 2),
-(2, 4, 3),
-(4, 5, 3),
-(1, 6, 4);
 
 
+  -- Insertar valores en order_items con el nombre del producto
+INSERT INTO `planetSuperheroesDB`.`order_items` (quantity, id_products, id_order, product_name)
+SELECT 
+  3, 
+  1, 
+  1, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 1)
+UNION
+SELECT 
+  2, 
+  2, 
+  1, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 2)
+UNION
+SELECT 
+  1, 
+  3, 
+  2, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 3)
+UNION
+SELECT 
+  2, 
+  4, 
+  3, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 4)
+UNION
+SELECT 
+  4, 
+  5, 
+  3, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 5)
+UNION
+SELECT 
+  1, 
+  6, 
+  4, 
+  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 6);
