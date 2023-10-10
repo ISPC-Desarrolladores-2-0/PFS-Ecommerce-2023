@@ -1,6 +1,33 @@
 CREATE SCHEMA IF NOT EXISTS `planetSuperheroesDB` DEFAULT CHARACTER SET utf8 ;
 USE `planetSuperheroesDB` ;
 
+-- Tabla users
+CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
+  `id_users` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) NULL,  
+  `image` VARCHAR(255) NULL,
+  PRIMARY KEY (`id_users`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC)
+) ENGINE = InnoDB;
+
+-- Tabla roles
+CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`roles` (
+  `id_role` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `users_id_users` INT NOT NULL,
+  PRIMARY KEY (`id_role`),
+  INDEX `fk_roles_users1_idx` (`users_id_users` ASC),
+  CONSTRAINT `fk_roles_users1`
+    FOREIGN KEY (`users_id_users`)
+    REFERENCES `planetSuperheroesDB`.`users` (`id_users`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
 -- Tabla categories
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`categories` (
   `id_categories` INT NOT NULL AUTO_INCREMENT,
@@ -27,33 +54,6 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`products` (
   CONSTRAINT `fk_products_categories1`
     FOREIGN KEY (`id_categories`)
     REFERENCES `planetSuperheroesDB`.`categories` (`id_categories`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-) ENGINE = InnoDB;
-
--- Tabla users
-CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
-  `id_users` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `address` VARCHAR(255) NULL,  
-  `image` VARCHAR(255) NULL,
-  PRIMARY KEY (`id_users`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC)
-) ENGINE = InnoDB;
-
--- Tabla roles
-CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`roles` (
-  `id_role` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `users_id_users` INT NOT NULL,
-  PRIMARY KEY (`id_role`),
-  INDEX `fk_roles_users1_idx` (`users_id_users` ASC),
-  CONSTRAINT `fk_roles_users1`
-    FOREIGN KEY (`users_id_users`)
-    REFERENCES `planetSuperheroesDB`.`users` (`id_users`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
@@ -328,40 +328,12 @@ VALUES
 (1, 'Entregado', '2023-09-30', 'PayPal', 'Envío estándar', 'Completado', 75.00);
 
 
-  -- Insertar valores en order_items con el nombre del producto
+-- Insertar valores en order_items con el nombre del producto
 INSERT INTO `planetSuperheroesDB`.`order_items` (quantity, id_products, id_order, product_name)
-SELECT 
-  3, 
-  1, 
-  1, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 1)
-UNION
-SELECT 
-  2, 
-  2, 
-  1, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 2)
-UNION
-SELECT 
-  1, 
-  3, 
-  2, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 3)
-UNION
-SELECT 
-  2, 
-  4, 
-  3, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 4)
-UNION
-SELECT 
-  4, 
-  5, 
-  3, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 5)
-UNION
-SELECT 
-  1, 
-  6, 
-  4, 
-  (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 6);
+VALUES
+  (3, 1, 1, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 1)),
+  (2, 2, 1, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 2)),
+  (1, 3, 2, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 3)),
+  (2, 4, 3, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 4)),
+  (4, 5, 3, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 5)),
+  (1, 6, 4, (SELECT name FROM `planetSuperheroesDB`.`products` WHERE id_products = 6));

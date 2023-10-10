@@ -231,8 +231,8 @@ def associate_products_with_order(connection, order_id, product_ids, quantities)
         connection.commit()
     except Error as e:
         print(f"Error al asociar productos con el pedido: {e}")
-
 def display_order(order):
+    print("****************************************************")
     print(f"ID de Pedido: {order.id_order}")
     print(f"ID de Usuario: {order.id_user}")
     print(f"Estado: {order.state}")
@@ -242,8 +242,13 @@ def display_order(order):
     print(f"Estado de Pago: {order.payment_status}")
     print(f"Total Amount: {order.total_amount:.2f}")
     print("Productos en el pedido:")
+    
     for product_detail in order.product_details:
         print(f"Nombre: {product_detail['product_name']}, Cantidad: {product_detail['quantity']}")
+    
+    print("****************************************************")
+
+
 
 def get_order_by_id(connection, order_id):
     try:
