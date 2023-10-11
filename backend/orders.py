@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
-from connection import create_db_connection
+from connection import create_db_connection, close_db_connection
+from tabulate import tabulate
 
 class Order:
     def __init__(self, id_order, id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount):
@@ -12,401 +13,372 @@ class Order:
         self.shipping_method = shipping_method
         self.payment_status = payment_status
         self.total_amount = total_amount
-        self.product_details = []
 
+    # Getters and setters for Order class
     def get_id_order(self):
         return self.id_order
-
-    def get_id_user(self):
-        return self.id_user
-
-    def get_state(self):
-        return self.state
-
-    def get_order_date(self):
-        return self.orderDate
-
-    def get_payment_method(self):
-        return self.payment_method
-
-    def get_shipping_method(self):
-        return self.shipping_method
-
-    def get_payment_status(self):
-        return self.payment_status
-
-    def get_total_amount(self):
-        return self.total_amount
 
     def set_id_order(self, id_order):
         self.id_order = id_order
 
+    def get_id_user(self):
+        return self.id_user
+
     def set_id_user(self, id_user):
         self.id_user = id_user
+
+    def get_state(self):
+        return self.state
 
     def set_state(self, state):
         self.state = state
 
-    def set_order_date(self, orderDate):
+    def get_orderDate(self):
+        return self.orderDate
+
+    def set_orderDate(self, orderDate):
         self.orderDate = orderDate
+
+    def get_payment_method(self):
+        return self.payment_method
 
     def set_payment_method(self, payment_method):
         self.payment_method = payment_method
 
+    def get_shipping_method(self):
+        return self.shipping_method
+
     def set_shipping_method(self, shipping_method):
         self.shipping_method = shipping_method
+
+    def get_payment_status(self):
+        return self.payment_status
 
     def set_payment_status(self, payment_status):
         self.payment_status = payment_status
 
+    def get_total_amount(self):
+        return self.total_amount
+
     def set_total_amount(self, total_amount):
         self.total_amount = total_amount
-
-
-def list_products(connection):
+        
+        
+def list_available_products(connection):
     try:
-        cursor = connection.cursor()
-        query = "SELECT id_products, name, price, stock FROM products"
-        cursor.execute(query)
-        products = []
-        for row in cursor.fetchall():
-            product = {
-                'id_products': row[0],
-                'name': row[1],
-                'price': row[2],
-                'stock': row[3]
-            }
-            products.append(product)
-        return products
-    except Error as e:
-        print(f"Error al listar productos: {e}")
-        return None
-
-def list_orders(connection):
-    try:
-        cursor = connection.cursor()
-        query = """
-            SELECT o.id_order, o.id_user, o.state, o.orderDate, o.payment_method, o.shipping_method, o.payment_status, o.total_amount,
-                   oi.id_products, p.name AS product_name, oi.quantity, p.price
-            FROM orders o
-            INNER JOIN order_items oi ON o.id_order = oi.id_order
-            INNER JOIN products p ON oi.id_products = p.id_products
-        """
-        cursor.execute(query)
-
-        orders = []
-
-        current_order_id = None
-        current_order = None
-
-        for row in cursor.fetchall():
-            (
-                order_id, id_user, state, order_date, payment_method, shipping_method, payment_status, total_amount,
-                product_id, product_name, quantity, product_price
-            ) = row
-
-            if current_order_id is None or order_id != current_order_id:
-                if current_order is not None:
-                    orders.append(current_order)
-                current_order = Order(
-                    order_id, id_user, state, order_date, payment_method, shipping_method, payment_status, total_amount
-                )
-                current_order.product_details = []
-                current_order_id = order_id
-
-            current_order.product_details.append(
-                {
-                    'product_id': product_id,
-                    'product_name': product_name,
-                    'quantity': quantity,
-                    'product_price': product_price
-                }
-            )
-
-        if current_order is not None:
-            orders.append(current_order)
-
-        return orders
-    except Error as e:
-        print(f"Error al listar pedidos: {e}")
-        return None
-
-def create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status):
-    try:
-        cursor = connection.cursor()
-        query = """
-            INSERT INTO orders
-            (id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
-
-        cursor.execute("SELECT id_products, name, price, stock FROM products")
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT id_products, name, price, stock FROM products WHERE stock > 0")
         products = cursor.fetchall()
+        cursor.close()
 
         if not products:
             print("No hay productos disponibles.")
-            return None
+        else:
+            table = []
+            for product in products:
+                table.append([
+                    product['id_products'],
+                    product['name'],
+                    f"${product['price']:.2f}",  # Agregar "$" al precio
+                    product['stock']
+                ])
 
-        print("Lista de Productos:")
-        selected_products = []
+            headers = ["ID", "Nombre", "Precio", "Stock"]
+            print(tabulate(table, headers, tablefmt="fancy_grid"))
+    except Error as e:
+        print(f"Error al listar los productos: {e}")
 
-        for product in products:
-            print(f"{product[0]}. {product[1]} - Precio: ${product[2]} - Stock: {product[3]}")
-            selected_products.append({'id_products': product[0], 'name': product[1], 'quantity': 0, 'stock': product[3]})
 
-        product_ids = []
-        quantities = []
 
-        while True:
-            product_id = input("Ingrese el ID del producto que desea agregar (0 para finalizar): ")
-            if product_id == "0":
-                break
-            try:
-                product_id = int(product_id)
-                product = next((p for p in selected_products if p['id_products'] == product_id), None)
-                if product:
-                    quantity = int(input(f"Ingrese la cantidad de {product['name']} que desea agregar: "))
-                    if 0 < quantity <= product['stock']:
-                        product_ids.append(product_id)
-                        quantities.append(quantity)
-                        product['quantity'] += quantity
-                    else:
-                        print(f"No hay suficiente stock para {product['name']}. Stock disponible: {product['stock']}")
-                else:
-                    print(f"No se encontró ningún producto con el ID {product_id}")
-            except ValueError:
-                print("Ingrese un ID de producto válido.")
+def create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status, product_items):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("START TRANSACTION")
 
-        total_amount = calculate_total_amount(connection, product_ids, quantities)
+        total_amount = 0  # Inicializa el total_amount
 
-        if total_amount is None:
-            print("No se pudo calcular el total del pedido.")
-            return None
-
-        values = (id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount)
-        cursor.execute(query, values)
-        connection.commit()
+        # Crear el pedido
+        query_create_order = """
+            INSERT INTO orders (id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(query_create_order, (id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount))
         order_id = cursor.lastrowid
 
-        associate_products_with_order(connection, order_id, product_ids, quantities)
-
-        return order_id, selected_products
-    except Error as e:
-        print(f"Error al crear un pedido: {e}")
-        return None
-
-def update_product_stock(connection, product_ids, quantities):
-    try:
-        cursor = connection.cursor()
-        for product_id, quantity in zip(product_ids, quantities):
-            query = "UPDATE products SET stock = stock - %s WHERE id_products = %s"
-            cursor.execute(query, (quantity, product_id))
-        connection.commit()
-    except Error as e:
-        print(f"Error al actualizar el stock de productos: {e}")
-
-def calculate_total_amount(connection, product_ids, quantities):
-    try:
-        cursor = connection.cursor()
-        total_amount = 0
-        for product_id, quantity in zip(product_ids, quantities):
-            query = "SELECT price FROM products WHERE id_products = %s"
-            cursor.execute(query, (product_id,))
-            price = cursor.fetchone()
-            if price is not None:
-                total_amount += price[0] * quantity
-            else:
-                return None
-        return total_amount
-    except Error as e:
-        print(f"Error al calcular el total del pedido: {e}")
-        return None
-
-def associate_products_with_order(connection, order_id, product_ids, quantities):
-    try:
-        cursor = connection.cursor()
-        for product_id, quantity in zip(product_ids, quantities):
-            query = "INSERT INTO order_items (id_order, id_products, quantity) VALUES (%s, %s, %s)"
-            cursor.execute(query, (order_id, product_id, quantity))
-        connection.commit()
-    except Error as e:
-        print(f"Error al asociar productos con el pedido: {e}")
-def display_order(order):
-    print("****************************************************")
-    print(f"ID de Pedido: {order.id_order}")
-    print(f"ID de Usuario: {order.id_user}")
-    print(f"Estado: {order.state}")
-    print(f"Fecha de Pedido: {order.orderDate}")
-    print(f"Método de Pago: {order.payment_method}")
-    print(f"Método de Envío: {order.shipping_method}")
-    print(f"Estado de Pago: {order.payment_status}")
-    print(f"Total Amount: {order.total_amount:.2f}")
-    print("Productos en el pedido:")
-    
-    for product_detail in order.product_details:
-        print(f"Nombre: {product_detail['product_name']}, Cantidad: {product_detail['quantity']}")
-    
-    print("****************************************************")
-
-
-
-def get_order_by_id(connection, order_id):
-    try:
-        cursor = connection.cursor()
-        query = """
-            SELECT o.id_order, o.id_user, o.state, o.orderDate, o.payment_method, o.shipping_method, o.payment_status, o.total_amount,
-                   oi.id_products, p.name AS product_name, oi.quantity, p.price
-            FROM orders o
-            INNER JOIN order_items oi ON o.id_order = oi.id_order
-            INNER JOIN products p ON oi.id_products = p.id_products
-            WHERE o.id_order = %s
+        # Agregar los productos al pedido con verificaciones
+        query_create_order_items = """
+            INSERT INTO order_items (id_order, id_products, quantity)
+            VALUES (%s, %s, %s)
         """
-        cursor.execute(query, (order_id,))
-        rows = cursor.fetchall()
+        for product in product_items:
+            # Verificar si el producto existe y si hay suficiente stock
+            cursor.execute("SELECT id_products, stock, price FROM products WHERE id_products = %s", (product['id'],))
+            product_info = cursor.fetchone()
 
-        if not rows:
-            print(f"No se encontró ningún pedido con el ID {order_id}")
-            return None
+            if not product_info:
+                cursor.execute("ROLLBACK")
+                print(f"El producto con ID {product['id']} no existe. Introduce un ID de producto válido.")
+                return None  # Terminar la creación del pedido
 
-        (
-            order_id, id_user, state, order_date, payment_method, shipping_method, payment_status, total_amount,
-            product_id, product_name, quantity, product_price
-        ) = rows[0]
+            if product['quantity'] <= 0 or product['quantity'] > product_info[1]:  # Usar índices numéricos
+                cursor.execute("ROLLBACK")
+                print(f"La cantidad del producto con ID {product['id']} no es válida o excede el stock disponible. Introduce una cantidad válida.")
+                return None  # Terminar la creación del pedido
 
-        order = Order(order_id, id_user, state, order_date, payment_method, shipping_method, payment_status, total_amount)
-        order.product_details.append(
-            {
-                'product_id': product_id,
-                'product_name': product_name,
-                'quantity': quantity,
-                'product_price': product_price
-            }
-        )
+            # Actualizar el total_amount con el costo total del producto
+            total_amount += product_info[2] * product['quantity']
 
-        return order
+            cursor.execute(query_create_order_items, (order_id, product['id'], product['quantity']))
+
+            # Actualizar el stock de los productos
+            query_update_stock = """
+                UPDATE products
+                SET stock = stock - %s
+                WHERE id_products = %s
+            """
+            cursor.execute(query_update_stock, (product['quantity'], product['id']))
+
+        # Actualizar el total_amount en la base de datos
+        query_update_total_amount = "UPDATE orders SET total_amount = %s WHERE id_order = %s"
+        cursor.execute(query_update_total_amount, (total_amount, order_id))
+
+        cursor.execute("COMMIT")
+        return order_id
     except Error as e:
-        print(f"Error al obtener un pedido por ID: {e}")
+        cursor.execute("ROLLBACK")
+        print(f"Error al crear el pedido: {e}")
         return None
 
-def update_order(connection, order):
+
+# Función para leer los detalles de un pedido
+def read_order_with_details(connection, order_id):
     try:
-        cursor = connection.cursor()
+        cursor = connection.cursor(dictionary=True)
         query = """
-            UPDATE orders
-            SET id_user = %s, state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s, total_amount = %s
+            SELECT orders.id_order, orders.id_user, orders.state, orders.orderDate, 
+            orders.payment_method, orders.shipping_method, orders.payment_status, 
+            orders.total_amount
+            FROM orders
             WHERE id_order = %s
         """
-        values = (
-            order.id_user, order.state, order.orderDate, order.payment_method,
-            order.shipping_method, order.payment_status, order.total_amount, order.id_order
-        )
-        cursor.execute(query, values)
-        connection.commit()
+        cursor.execute(query, (order_id,))
+        order = cursor.fetchone()
+        if not order:
+            return None
 
-        # Eliminar productos asociados al pedido
-        cursor.execute("DELETE FROM order_items WHERE id_order = %s", (order.id_order,))
-        connection.commit()
-
-        # Asociar productos actualizados al pedido
-        for product_detail in order.product_details:
-            cursor.execute(
-                "INSERT INTO order_items (id_order, id_products, quantity) VALUES (%s, %s, %s)",
-                (order.id_order, product_detail['product_id'], product_detail['quantity'])
-            )
-            connection.commit()
-
-        print(f"Pedido con ID {order.id_order} actualizado exitosamente.")
+        order['products'] = get_products_for_order(connection, order_id)
+        return order
     except Error as e:
-        print(f"Error al actualizar un pedido: {e}")
+        print(f"Error al obtener los detalles del pedido: {e}")
+        return None
 
+# Función para obtener productos asociados a un pedido
+def get_products_for_order(connection, order_id):
+    try:
+        cursor = connection.cursor(dictionary=True)
+        query = """
+            SELECT products.id_products, products.name, order_items.quantity, products.price
+            FROM order_items
+            LEFT JOIN products ON order_items.id_products = products.id_products
+            WHERE order_items.id_order = %s
+        """
+        cursor.execute(query, (order_id,))
+        products = cursor.fetchall()
+        return products
+    except Error as e:
+        print(f"Error al obtener los productos para el pedido: {e}")
+
+# Función para actualizar un pedido
+def update_order(connection, order_id, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("START TRANSACTION")
+
+        query_update_order = """
+            UPDATE orders
+            SET state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s
+            WHERE id_order = %s
+        """
+        cursor.execute(query_update_order, (new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status, order_id))
+
+        cursor.execute("COMMIT")
+        return True
+    except Error as e:
+        cursor.execute("ROLLBACK")
+        print(f"Error al actualizar el pedido: {e}")
+        return False
+    
+    
 def delete_order(connection, order_id):
     try:
         cursor = connection.cursor()
-        # Obtener los productos asociados al pedido
-        cursor.execute("SELECT id_products, quantity FROM order_items WHERE id_order = %s", (order_id,))
-        product_quantities = cursor.fetchall()
+        cursor.execute("START TRANSACTION")
 
-        # Actualizar el stock de productos
-        for product_quantity in product_quantities:
-            product_id, quantity = product_quantity
-            cursor.execute("UPDATE products SET stock = stock + %s WHERE id_products = %s", (quantity, product_id))
-            connection.commit()
+        # Eliminar los registros relacionados en order_items
+        query_delete_order_items = "DELETE FROM order_items WHERE id_order = %s"
+        cursor.execute(query_delete_order_items, (order_id,))
 
-        # Eliminar el pedido y sus productos asociados
-        cursor.execute("DELETE FROM orders WHERE id_order = %s", (order_id,))
-        connection.commit()
-        print(f"Pedido con ID {order_id} eliminado exitosamente.")
+        # Eliminar el pedido
+        query_delete_order = "DELETE FROM orders WHERE id_order = %s"
+        cursor.execute(query_delete_order, (order_id,))
+
+        cursor.execute("COMMIT")
+        return True
     except Error as e:
-        print(f"Error al eliminar un pedido: {e}")
+        cursor.execute("ROLLBACK")
+        print(f"Error al eliminar el pedido: {e}")
+        return False
+
+
+# Función para listar todos los pedidos con los nombres de los productos uno debajo del otro
+def list_all_orders(connection):
+    try:
+        cursor = connection.cursor(dictionary=True)
+        query = """
+    SELECT orders.id_order, orders.id_user, orders.state, orders.orderDate, 
+    orders.payment_method, orders.shipping_method, orders.payment_status, 
+    orders.total_amount
+    FROM orders
+"""
+
+        cursor.execute(query)
+        orders = cursor.fetchall()
+
+        if not orders:
+            print("No hay pedidos disponibles.")
+        else:
+            for order in orders:
+                order_id = order['id_order']
+
+                cursor.execute("SELECT products.name FROM order_items LEFT JOIN products ON order_items.id_products = products.id_products WHERE order_items.id_order = %s", (order_id,))
+                product_info = cursor.fetchall()
+                
+                print("\nDetalles del pedido:")
+                details = {
+                    "ID del Pedido": order['id_order'],
+                    "ID del Usuario": order['id_user'],
+                    "Estado": order['state'],
+                    "Fecha": order['orderDate'],
+                    "Método de Pago": order['payment_method'],
+                    "Método de Envío": order['shipping_method'],
+                    "Estado del Pago": order['payment_status'],
+                    "Monto Total": "${:.2f}".format(order['total_amount'])  # Agregamos el símbolo "$"
+                }
+                
+                if product_info:
+                    details["Nombres de los Productos"] = "\n".join([product['name'] for product in product_info])
+                else:
+                    details["Nombres de los Productos"] = "No hay productos en este pedido."
+                
+                headers = details.keys()
+                table = [list(details.values())]
+                print(tabulate(table, headers, tablefmt="fancy_grid"))
+    except Error as e:
+        print(f"Error al listar los pedidos: {e}")
+
+
+
+# Función para imprimir los detalles de un pedido
+def print_order_with_details(order):
+    if not order:
+        print("Pedido no encontrado.")
+        return
+
+    print("\nDetalles del pedido:")
+    print(f"ID del Pedido: {order['id_order']}")
+    print(f"ID del Usuario: {order['id_user']}")
+    print(f"Estado: {order['state']}")
+    print(f"Fecha: {order['orderDate']}")
+    print(f"Método de Pago: {order['payment_method']}")
+    print(f"Método de Envío: {order['shipping_method']}")
+    print(f"Estado del Pago: {order['payment_status']}")
+    print(f"Monto Total: ${order['total_amount']:.2f}")  # Agregamos el símbolo "$"
 
 if __name__ == "__main__":
     try:
-        conn = create_db_connection()
-        if conn.is_connected():
-            print("Conexión a la base de datos exitosa")
+        connection = create_db_connection()
+        cursor = connection.cursor()  # Define cursor aquí
 
+        with connection:
             while True:
-                print("\nMenú de Gestión de Pedidos:")
-                print("1. Crear Pedido")
-                print("2. Listar Pedidos")
-                print("3. Actualizar Pedido")
-                print("4. Eliminar Pedido")
-                print("5. Salir")
-                option = input("Selecciona una opción: ")
+                print("\nMenú de pedidos:")
+                print("1. Listar productos disponibles")
+                print("2. Crear un pedido")
+                print("3. Leer detalles de un pedido")
+                print("4. Actualizar un pedido")
+                print("5. Eliminar un pedido")
+                print("6. Listar todos los pedidos")
+                print("7. Salir")
+                choice = input("Elige una opción: ")
 
-                if option == "1":
-                    id_user = input("ID de Usuario: ")
+                if choice == "1":
+                    list_available_products(connection)
+                elif choice == "2":
+                    id_user = int(input("ID de usuario: "))
                     state = input("Estado: ")
-                    orderDate = input("Fecha de Pedido (YYYY-MM-DD): ")
-                    payment_method = input("Método de Pago: ")
-                    shipping_method = input("Método de Envío: ")
-                    payment_status = input("Estado de Pago: ")
-                    order_id, selected_products = create_order(
-                        conn, id_user, state, orderDate, payment_method, shipping_method, payment_status
-                    )
-                    if order_id is not None:
+                    orderDate = input("Fecha del pedido (YYYY-MM-DD): ")
+                    payment_method = input("Método de pago: ")
+                    shipping_method = input("Método de envío: ")
+                    payment_status = input("Estado del pago: ")
+
+                    product_items = []  # Lista para almacenar los productos y cantidades
+
+                    while True:
+                        list_available_products(connection)  # Listar productos disponibles
+                        product_id = input("ID del producto (0 para terminar): ")
+
+                        if product_id == "0":
+                            break  # Si el usuario ingresa "0", salimos del bucle
+                        try:
+                            product_id = int(product_id)
+                            # Verificar si el producto existe
+                            cursor.execute("SELECT id_products, stock FROM products WHERE id_products = %s", (product_id,))
+                            product_info = cursor.fetchone()
+
+                            if product_info:
+                                quantity = int(input("Cantidad: "))
+                                if quantity > 0 and quantity <= product_info[1]:
+                                    product_items.append({'id': product_info[0], 'quantity': quantity})
+                                else:
+                                    print("La cantidad del producto no es válida o excede el stock disponible.")
+                            else:
+                                print(f"El producto con ID {product_id} no existe.")
+                        except ValueError:
+                            print("ID del producto no válido. Debe ser un número entero.")
+                            continue
+
+                    order_id = create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status, product_items)
+                    if order_id:
                         print(f"Pedido creado con ID: {order_id}")
-                        print("Productos en el pedido:")
-                        for product in selected_products:
-                            print(f"{product['name']} - Cantidad: {product['quantity']}")
-
-                elif option == "2":
-                    orders = list_orders(conn)
-                    if orders:
-                        print("Listado de Pedidos:")
-                        for order in orders:
-                            display_order(order)
-
-                elif option == "3":
-                    order_id = input("ID del pedido que desea actualizar: ")
-                    order = get_order_by_id(conn, order_id)
-                    if order is not None:
-                        print("Detalles del Pedido:")
-                        display_order(order)
-                        id_user = input("ID de Usuario: ")
-                        state = input("Estado: ")
-                        orderDate = input("Fecha de Pedido (YYYY-MM-DD): ")
-                        payment_method = input("Método de Pago: ")
-                        shipping_method = input("Método de Envío: ")
-                        payment_status = input("Estado de Pago: ")
-                        order.id_user = id_user
-                        order.state = state
-                        order.orderDate = orderDate
-                        order.payment_method = payment_method
-                        order.shipping_method = shipping_method
-                        order.payment_status = payment_status
-                        update_order(conn, order)
-
-                elif option == "4":
-                    order_id = input("ID del pedido que desea eliminar: ")
-                    delete_order(conn, order_id)
-
-                elif option == "5":
+                elif choice == "3":
+                    order_id = int(input("ID del pedido: "))
+                    order = read_order_with_details(connection, order_id)
+                    print_order_with_details(order)
+                elif choice == "4":
+                    order_id = int(input("ID del pedido a actualizar: "))
+                    new_state = input("Nuevo estado: ")
+                    new_orderDate = input("Nueva fecha del pedido (YYYY-MM-DD): ")
+                    new_payment_method = input("Nuevo método de pago: ")
+                    new_shipping_method = input("Nuevo método de envío: ")
+                    new_payment_status = input("Nuevo estado del pago: ")
+                    if update_order(connection, order_id, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+                        print("Pedido actualizado con éxito.")
+                    else:
+                        print("Error al actualizar el pedido.")
+                elif choice == "5":
+                    order_id = int(input("ID del pedido a eliminar: "))
+                    if delete_order(connection, order_id):
+                        print("Pedido eliminado con éxito.")
+                    else:
+                        print("Error al eliminar el pedido.")
+                elif choice == "6":
+                    list_all_orders(connection)
+                elif choice == "7":
+                    print("Saliendo del programa.")
                     break
-
+                else:
+                    print("Opción no válida. Introduce un número del 1 al 7.")
     except Error as e:
         print(f"Error en la base de datos: {e}")
     finally:
-        if conn.is_connected():
-            conn.close()
-            print("Conexión a la base de datos cerrada")
+        close_db_connection(connection)
