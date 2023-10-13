@@ -2,6 +2,7 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 class Order:
     def __init__(self, id_order, id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount):
         self.id_order = id_order
@@ -107,6 +108,7 @@ def read_all_orders(connection):
         return orders
     except Error as e:
         print(f"Error al leer pedidos: {e}")
+    
         
 def update_order(connection, id_order, id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount):
     try:
@@ -159,15 +161,19 @@ def read_order_by_id(connection, id_order):
     except Error as e:
         print(f"Error al leer pedido por ID: {e}")
         return None
-
+    
+ 
 def manage_orders(connection):
     while True:
         print("\nMenú de Gestión de Pedidos:")
         print("1. Crear pedido")
         print("2. Leer pedidos")
-        print("3. Actualizar pedido")
-        print("4. Eliminar pedido")
-        print("5. Salir")
+        print("3. Leer pedidos por Id de usuario")
+        print("4. Actualizar pedido")
+        print("5. Eliminar pedido")
+        print("6. Salir")
+        
+       
 
         choice = input("Selecciona una opción: ")
 
@@ -191,7 +197,7 @@ def manage_orders(connection):
                 for order in orders:
                     print_order(order)
 
-        elif choice == "3":
+        elif choice == "4":
             order_id = int(input("ID del pedido a actualizar: "))
             order_to_update = read_order_by_id(connection, order_id)
             if order_to_update:
@@ -219,13 +225,47 @@ def manage_orders(connection):
                 update_order(connection, *updated_order)
                 print("Pedido actualizado")
 
-        elif choice == "4":
+        elif choice == "5":
             order_id = int(input("ID del pedido a eliminar: "))
             delete_order(connection, order_id)
             print("Pedido eliminado")
 
-        elif choice == "5":
+        elif choice == "6":
             break
 
+        elif choice == "3":
+         id_user = int(input("ID del usuario para mostrar productos comprados: "))
 
-        
+         query = f"""
+             
+             SELECT p.id_products, p.name, p.description, p.stock, p.price
+             FROM products p
+             INNER JOIN order_items oi ON oi.Id_products = p.id_products
+             INNER JOIN orders o ON o.Id_order = oi.Id_order
+             WHERE o.Id_user = {id_user}
+   """
+
+         
+         try:
+             cursor = connection.cursor()
+             cursor.execute(query)
+
+             products = cursor.fetchall()
+             if products:
+                print("\nProductos comprados por el usuario:")
+                for product in products:
+                   print(f"ID del producto: {product[0]}")
+                   print(f"Nombre: {product[1]}")
+                   print(f"Descripción: {product[2]}")
+                   print(f"Stock: {product[3]}")
+                   print(f"Precio: {product[4]}\n")
+             else:
+                 print("El usuario no ha comprado ningún producto.")
+
+         except Error as e:
+              print(f"Error al consultar los productos comprados por el usuario: {e}")
+
+
+
+
+
