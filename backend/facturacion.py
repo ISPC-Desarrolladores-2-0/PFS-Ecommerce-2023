@@ -209,7 +209,7 @@ def validar_localidad_cba(localidad):
 
 def pago_en_efectivo(localidad):    
     if validar_localidad_cba(localidad):
-        print("\n\tOpciones para pago en efectivo:")
+        print("\n\Opciones para pago en efectivo:")
         print("1. Retirar en el local")
         print("2. Abonar al recibir en domicilio")
         opcion_efectivo = input("➤Elija una opción ingresando el N°: ")
