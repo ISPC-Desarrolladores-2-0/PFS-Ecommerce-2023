@@ -219,34 +219,73 @@ def manage_products(connection):
 
         if choice == "1":
             name = input("Nombre del producto: ").lower()
+            while not name:
+                print("El nombre no puede estar en blanco.")
+                name = input("Nombre del producto: ").lower()
+
             description = input("Descripción del producto: ").lower()
+            while not description:
+                print("La descripción no puede estar en blanco.")
+                description = input("Descripción del producto: ").lower()
+
             price = input("Precio del producto: ")
+            while not is_valid_number(price):
+                print("El precio no es válido. Ingresa un número válido.")
+                price = input("Precio del producto: ")
+
             discount = input("Descuento (%): ")
+            while not is_valid_discount(discount):
+                print("El descuento no es válido. Ingresa un número entre 0 y 100.")
+                discount = input("Descuento (%): ")
+
             stock = input("Cantidad en stock: ")
-            image = input("Ruta de la imagen: ").lower()
-            pages = input("Número de páginas: ")
-            formato = input("Formato: ").lower()
-            weight = input("Peso (kg): ")
-            isbn = input("ISBN: ").lower()
-            id_categories = input("ID de categoría: ")
-
-            if (is_valid_string(name) and is_valid_string(description) and is_valid_number(price) and is_valid_discount(discount) and
-                is_valid_stock(stock) and is_valid_string(image) and is_valid_pages(pages) and is_valid_string(formato) and
-                is_valid_weight(weight) and is_valid_string(isbn) and is_valid_id_categories(id_categories)):
-
-                if is_valid_number(stock) and float(stock) > 0:  # Verificar si hay stock disponible
-                    new_product = Product(None, name, description, float(price), int(discount), int(stock), image,
-                                        int(pages), formato, float(weight), isbn, int(id_categories))
-                    product_id = create_product(connection, new_product)
-                    if product_id:
-                        print(f"Producto creado con ID: {product_id}")
-                    else:
-                        print("Error al crear el producto.")
+            while not is_valid_stock(stock) or int(stock) <= 0:
+                if not is_valid_stock(stock):
+                    print("La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
                 else:
-                    print("No se puede crear un producto con stock no disponible.")
-            else:
-                print("Datos ingresados no válidos. Asegúrate de ingresar valores válidos.")
+                    print("Error: El stock debe ser mayor que cero.")
+                stock = input("Cantidad en stock: ")
 
+            image = input("Ruta de la imagen: ").lower()
+            while not is_valid_string(image):
+                print("La ruta de la imagen no puede estar en blanco.")
+                image = input("Ruta de la imagen: ").lower()
+
+            pages = input("Número de páginas: ")
+            while not is_valid_pages(pages):
+                print("El número de páginas no es válido. Ingresa un número válido mayor a 0.")
+                pages = input("Número de páginas: ")
+
+            formato = input("Formato: ").lower()
+            while not is_valid_string(formato):
+                print("El formato no puede estar en blanco.")
+                formato = input("Formato: ").lower()
+
+            weight = input("Peso (kg): ")
+            while not is_valid_weight(weight):
+                print("El peso no es válido. Ingresa un número válido mayor a 0.")
+                weight = input("Peso (kg): ")
+
+            isbn = input("ISBN: ").lower()
+            while not is_valid_string(isbn):
+                print("El ISBN no puede estar en blanco.")
+                isbn = input("ISBN: ").lower()
+
+            id_categories = input("ID de categoría: ")
+            while not is_valid_id_categories(id_categories):
+                print("El ID de categoría no es válido. Ingresa un número válido mayor a 0.")
+                id_categories = input("ID de categoría: ")
+
+            if float(stock) > 0:  # Verificar si hay stock disponible
+                new_product = Product(None, name, description, float(price), int(discount), int(stock), image,
+                                    int(pages), formato, float(weight), isbn, int(id_categories))
+                product_id = create_product(connection, new_product)
+                if product_id:
+                    print(f"Producto creado con ID: {product_id}")
+                else:
+                    print("Error al crear el producto.")
+            else:
+                print("No se puede crear un producto con stock no disponible.")
         elif choice == "2":
             products = read_all_products(connection)
             if products:
