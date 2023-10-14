@@ -16,7 +16,6 @@ def menu_principal():
         opcion = input("\n⮞ Ingrese una opción: ")
 
         if opcion == "1":
-            # Opción para gestionar productos
             connection = create_db_connection()
             if connection:
                 manage_products(connection)
@@ -25,7 +24,6 @@ def menu_principal():
                 print("No se pudo establecer una conexión a la base de datos de productos.")
         
         elif opcion == "2":
-            # Opción para gestionar usuarios
             connection = create_db_connection()
             if connection:
                 manage_users(connection)

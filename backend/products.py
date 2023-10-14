@@ -189,7 +189,7 @@ def read_product_by_id(connection, product_id):
 
 
 def is_valid_string(value):
-    return bool(value.strip())  # Verifica que no esté en blanco
+    return bool(value.strip())  
 
 
 def is_valid_number(value):
@@ -338,15 +338,13 @@ def manage_products(connection):
 
                     stock = input("Nueva cantidad en stock (deja en blanco para mantener el mismo): ")
 
-                    if stock.strip():  # Comprueba si se ingresó un valor, no está en blanco
+                    if stock.strip():  
                         while not stock.isdigit() or int(stock) < 0:
                             print("La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
                             stock = input("Nueva cantidad en stock (deja en blanco para mantener el mismo): ")
                         
-                        # El usuario ingresó un valor distinto de cero o dejó en blanco, actualiza el stock.
                         product_to_update.stock = int(stock)
                     else:
-                        # El usuario dejó en blanco, no se actualiza el stock.
                         print("Stock no modificado.")
 
 
