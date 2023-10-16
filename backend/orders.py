@@ -79,7 +79,7 @@ def list_available_products(connection):
                 table.append([
                     product['id_products'],
                     product['name'],
-                    f"${product['price']:.2f}",  # Agregar "$" al precio
+                    f"${product['price']:.2f}", 
                     product['stock']
                 ])
 
@@ -94,7 +94,7 @@ def create_order(connection, id_user, state, orderDate, payment_method, shipping
     try:
         cursor = connection.cursor()
         cursor.execute("START TRANSACTION")
-
+          
         total_amount = 0  # Inicializa el total_amount
 
         # Crear el pedido
@@ -262,7 +262,7 @@ def list_all_orders(connection):
                     "Método de Pago": order['payment_method'],
                     "Método de Envío": order['shipping_method'],
                     "Estado del Pago": order['payment_status'],
-                    "Monto Total": "${:.2f}".format(order['total_amount'])  # Agregamos el símbolo "$"
+                    "Monto Total": "${:.2f}".format(order['total_amount'])  
                 }
                 
                 if product_info:
@@ -292,12 +292,12 @@ def print_order_with_details(order):
     print(f"Método de Pago: {order['payment_method']}")
     print(f"Método de Envío: {order['shipping_method']}")
     print(f"Estado del Pago: {order['payment_status']}")
-    print(f"Monto Total: ${order['total_amount']:.2f}")  # Agregamos el símbolo "$"
+    print(f"Monto Total: ${order['total_amount']:.2f}")  
 
-if __name__ == "__main__":
+
+def manage_orders(connection):
     try:
-        connection = create_db_connection()
-        cursor = connection.cursor()  # Define cursor aquí
+        cursor = connection.cursor()
 
         with connection:
             while True:
@@ -380,5 +380,12 @@ if __name__ == "__main__":
                     print("Opción no válida. Introduce un número del 1 al 7.")
     except Error as e:
         print(f"Error en la base de datos: {e}")
-    finally:
+if __name__ == "__main__":
+    connection = create_db_connection()
+
+    if connection:
+        manage_orders(connection)
         close_db_connection(connection)
+    else:
+        print("No se pudo establecer una conexión a la base de datos.")
+

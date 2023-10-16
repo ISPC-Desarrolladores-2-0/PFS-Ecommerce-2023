@@ -203,7 +203,7 @@ def manage_products(connection):
         print("2. Leer productos")
         print("3. Actualizar producto")
         print("4. Eliminar producto")
-        print("5. Lista de productos")  # Updated option
+        print("5. Lista de productos")  
         print("6. Salir")  
 
         choice = input("Selecciona una opción: ")
@@ -244,8 +244,10 @@ def manage_products(connection):
                 name = input("Nuevo nombre (dejar en blanco para mantener el mismo): ")
                 description = input("Nueva descripción (dejar en blanco para mantener la misma): ")
                 price = float(input("Nuevo precio (0 para mantener el mismo): "))
-                discount = int(input("Nuevo descuento (%): "))
-                stock = int(input("Nueva cantidad en stock (0 para mantener la misma): "))
+                discount = int(input("Nuevo descuento (%): ").strip()) if input("Nuevo descuento (%): ").strip() else product_to_update.discount
+                stock = int(input("Nueva cantidad en stock (0 para cambiar a cero): ").strip())
+
+
                 image = input("Nueva ruta de la imagen (dejar en blanco para mantener la misma): ")
                 pages = int(input("Nuevo número de páginas (0 para mantener el mismo): "))
                 formato = input("Nuevo formato (dejar en blanco para mantener el mismo): ")

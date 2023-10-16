@@ -1,8 +1,7 @@
 from connection import create_db_connection, close_db_connection
 from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 from users import User, create_user, read_all_users, update_user, delete_user, manage_users, read_user_by_id
-from orders import Order, create_order, read_all_orders, update_order, delete_order, read_order_by_id, manage_orders
-
+from orders import *
 
 def menu_principal():
     menu = True
