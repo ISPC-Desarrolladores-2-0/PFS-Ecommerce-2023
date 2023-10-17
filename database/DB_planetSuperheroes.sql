@@ -45,6 +45,19 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
 ) ENGINE = InnoDB;
 
 
+/* CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`users` (
+  `id_user` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) NULL,  
+  `image` VARCHAR(255) NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC)
+) ENGINE = InnoDB; */
+
+
 -- Tabla roles
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`roles` (
   `id_role` INT NOT NULL,
@@ -72,6 +85,29 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`orders` (
   PRIMARY KEY (`id_order`),
   UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC)
 ) ENGINE = InnoDB;
+
+
+-- Tabla orders
+/* CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`orders` (
+  `id_order` INT NOT NULL AUTO_INCREMENT,
+  `id_user` INT NULL,
+  `state` VARCHAR(45) NOT NULL,
+  `orderDate` DATE NULL,
+  `payment_method` VARCHAR(45) NOT NULL,
+  `shipping_method` VARCHAR(45) NULL,
+  `payment_status` VARCHAR(45) NULL,
+  `total_amount` DECIMAL(10, 2) NULL,
+  PRIMARY KEY (`id_order`),
+  UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC),
+  INDEX `fk_orders_users_idx` (`id_user` ASC),
+  CONSTRAINT `fk_orders_users`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `planetSuperheroesDB`.`users` (`id_user`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+ */
+
 
 -- Tabla order_items
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (

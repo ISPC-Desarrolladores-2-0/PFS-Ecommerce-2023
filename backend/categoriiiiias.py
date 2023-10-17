@@ -51,15 +51,14 @@ def list_products_by_category(connection, category_id):
 
 
 def categories_main(connection):
-    selected_products = []  # Lista para almacenar los productos seleccionados
+   
 
     while True:
         print("\nMenú:")
         print("1. Listar todos los productos")
         print("2. Listar productos de Marvel")
         print("3. Listar productos de DC")
-        print("4. Finalizar selección")
-        print("5. Salir")
+        print("4. Salir")
 
         choice = input("Selecciona una opción: ")
 
@@ -88,14 +87,15 @@ def categories_main(connection):
                 for product in dc_products:
                     print(f"ID: {product['id_products']}, Nombre: {product['name']}, Precio: {product['price']}")
 
+    
         elif choice == "4":
-            return selected_products  # Devuelve la lista de productos seleccionados
-
-        elif choice == "5":
             return None  # Si elige salir, devuelve None
 
-        # Opción adicional para seleccionar productos
-        elif choice.isdigit() and int(choice) <= len(products):
-            product_to_select = products[int(choice) - 1]
-            selected_products.append((product_to_select['id_products'], product_to_select['name']))
-            print(f"Producto '{product_to_select['name']}' seleccionado.")
+
+if __name__ == "__main__":
+    connection = create_db_connection()  # Establecer una conexión a la base de datos
+    if connection is not None:
+        categories_main(connection)  # Llamar a la función del menú principal
+        connection.close()  # Cerrar la conexión a la base de datos al finalizar
+    else:
+        print("Error al conectar a la base de datos")

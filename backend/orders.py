@@ -63,7 +63,10 @@ class Order:
     def set_total_amount(self, total_amount):
         self.total_amount = total_amount
         
-        
+
+
+
+
 def list_available_products(connection):
     try:
         cursor = connection.cursor(dictionary=True)
@@ -87,6 +90,7 @@ def list_available_products(connection):
             print(tabulate(table, headers, tablefmt="fancy_grid"))
     except Error as e:
         print(f"Error al listar los productos: {e}")
+
 
 
 
@@ -150,6 +154,7 @@ def create_order(connection, id_user, state, orderDate, payment_method, shipping
         return None
 
 
+
 # Función para leer los detalles de un pedido
 def read_order_with_details(connection, order_id):
     try:
@@ -188,18 +193,38 @@ def get_products_for_order(connection, order_id):
     except Error as e:
         print(f"Error al obtener los productos para el pedido: {e}")
 
+
+
 # Función para actualizar un pedido
-def update_order(connection, order_id, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+def update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
     try:
         cursor = connection.cursor()
         cursor.execute("START TRANSACTION")
 
+        # Consultar el pedido existente para obtener los valores anteriores
+        cursor.execute("SELECT id_user, state, orderDate, payment_method, shipping_method, payment_status FROM orders WHERE id_order = %s", (order_id,))
+        existing_order = cursor.fetchone()
+
+        # Verificar si se dejó en blanco un campo y mantener el valor anterior si es necesario
+        if new_id_user == "":
+            new_id_user = existing_order[0]
+        if new_state == "":
+            new_state = existing_order[1]
+        if new_orderDate == "":
+            new_orderDate = existing_order[2]
+        if new_payment_method == "":
+            new_payment_method = existing_order[3]
+        if new_shipping_method == "":
+            new_shipping_method = existing_order[4]
+        if new_payment_status == "":
+            new_payment_status = existing_order[5]
+
         query_update_order = """
             UPDATE orders
-            SET state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s
+            SET id_user = %s, state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s
             WHERE id_order = %s
         """
-        cursor.execute(query_update_order, (new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status, order_id))
+        cursor.execute(query_update_order, (new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status, order_id))
 
         cursor.execute("COMMIT")
         return True
@@ -207,6 +232,8 @@ def update_order(connection, order_id, new_state, new_orderDate, new_payment_met
         cursor.execute("ROLLBACK")
         print(f"Error al actualizar el pedido: {e}")
         return False
+
+
     
     
 def delete_order(connection, order_id):
@@ -295,6 +322,75 @@ def print_order_with_details(order):
     print(f"Monto Total: ${order['total_amount']:.2f}")  
 
 
+
+
+
+#VALIDACIONES
+#
+#
+import re
+from datetime import datetime
+
+# Función para verificar si el usuario existe en la base de datos
+def user_exists(cursor, user_id):
+        cursor.execute("SELECT COUNT(*) FROM users WHERE id_user = %s", (user_id,))
+        return cursor.fetchone()[0] > 0
+
+
+def validate_date(date_str):
+    try:
+        # Intenta convertir la cadena de fecha al objeto datetime
+        datetime.strptime(date_str, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
+
+
+# Función para validar texto compuesto solo por letras y no vacío
+def validate_alpha(text, error_message=""):
+    return text.isalpha() and bool(text)
+
+
+def input_with_validation(prompt, validation_functions, error_messages):
+    while True:
+        user_input = input(prompt)
+        valid_input = True
+        for validation_function, error_message in zip(validation_functions, error_messages):
+            if not validation_function(user_input):
+                valid_input = False
+                print(error_message)
+                break
+        if valid_input:
+            return user_input
+        
+        
+def input_update_with_validation(prompt, current_value, validation_functions, error_messages):
+    while True:
+        user_input = input(f"{prompt} (deja en blanco para mantener el valor anterior - {current_value}): ")
+        
+        if user_input == "":
+            return current_value  # Mantener el valor anterior
+
+        valid_input = True
+        for validation_function, error_message in zip(validation_functions, error_messages):
+            if not validation_function(user_input):
+                valid_input = False
+                print(error_message)
+                break
+
+        if valid_input:
+            return user_input
+
+
+def validate_positive_integer(value):
+        try:
+            number = int(value)
+            return number > 0
+        except ValueError:
+            return False
+
+#MENU PRINCIPAL    
+
 def manage_orders(connection):
     try:
         cursor = connection.cursor()
@@ -313,13 +409,20 @@ def manage_orders(connection):
 
                 if choice == "1":
                     list_available_products(connection)
+
                 elif choice == "2":
-                    id_user = int(input("ID de usuario: "))
-                    state = input("Estado: ")
-                    orderDate = input("Fecha del pedido (YYYY-MM-DD): ")
-                    payment_method = input("Método de pago: ")
-                    shipping_method = input("Método de envío: ")
-                    payment_status = input("Estado del pago: ")
+                    while True:
+                        id_user = input("ID de usuario: ")
+                        if user_exists(cursor, id_user):
+                            break
+                        else:
+                            print("El usuario no existe en la base de datos. Introduce un ID de usuario válido.")
+
+                    state = input_with_validation("Estado: ", [validate_alpha], ["El estado solo debe contener letras."])
+                    orderDate = input_with_validation("Fecha del pedido (YYYY-MM-DD): ", [validate_date], ["Formato de fecha incorrecto. Debe ser 'YYYY-MM-DD'"])
+                    payment_method = input_with_validation("Método de pago: ", [validate_alpha], ["El método de pago solo debe contener letras."])
+                    shipping_method = input_with_validation("Método de envío: ", [validate_alpha], ["El método de envío solo debe contener letras."])
+                    payment_status = input_with_validation("Estado del pago: ", [validate_alpha], ["El estado solo debe contener letras."])
 
                     product_items = []  # Lista para almacenar los productos y cantidades
 
@@ -329,6 +432,7 @@ def manage_orders(connection):
 
                         if product_id == "0":
                             break  # Si el usuario ingresa "0", salimos del bucle
+
                         try:
                             product_id = int(product_id)
                             # Verificar si el producto existe
@@ -336,9 +440,9 @@ def manage_orders(connection):
                             product_info = cursor.fetchone()
 
                             if product_info:
-                                quantity = int(input("Cantidad: "))
-                                if quantity > 0 and quantity <= product_info[1]:
-                                    product_items.append({'id': product_info[0], 'quantity': quantity})
+                                quantity = input("Cantidad: ")
+                                if validate_positive_integer(quantity) and int(quantity) <= product_info[1]:
+                                    product_items.append({'id': product_info[0], 'quantity': int(quantity)})
                                 else:
                                     print("La cantidad del producto no es válida o excede el stock disponible.")
                             else:
@@ -350,21 +454,53 @@ def manage_orders(connection):
                     order_id = create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status, product_items)
                     if order_id:
                         print(f"Pedido creado con ID: {order_id}")
+
                 elif choice == "3":
                     order_id = int(input("ID del pedido: "))
                     order = read_order_with_details(connection, order_id)
                     print_order_with_details(order)
+
                 elif choice == "4":
-                    order_id = int(input("ID del pedido a actualizar: "))
-                    new_state = input("Nuevo estado: ")
-                    new_orderDate = input("Nueva fecha del pedido (YYYY-MM-DD): ")
-                    new_payment_method = input("Nuevo método de pago: ")
-                    new_shipping_method = input("Nuevo método de envío: ")
-                    new_payment_status = input("Nuevo estado del pago: ")
-                    if update_order(connection, order_id, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
-                        print("Pedido actualizado con éxito.")
+                    order_id = int(input("ID del pedido a actualizar:"))
+
+                    # Obtener detalles del pedido
+                    order = read_order_with_details(connection, order_id)
+
+                    if order:
+                        # Mostrar los detalles del pedido
+                        print_order_with_details(order)
+
+                        # Solicitar si se desea cambiar el ID de usuario
+                        change_user_id = input("¿Cambiar el ID de usuario? (S/N): ").strip()
+                        if change_user_id.lower() == "s":
+                            while True:
+                                new_id_user = input("Nuevo ID de usuario: ").strip()
+                                if new_id_user == "":
+                                    print("El ID de usuario no puede quedar vacío.")
+                                elif not user_exists(cursor, new_id_user):
+                                    print("El usuario no existe en la base de datos. Introduce un ID de usuario válido.")
+                                else:
+                                    break
+                        else:
+                            # Mantener el valor actual del ID de usuario
+                            new_id_user = order.get('id_user')
+
+
+                        # Solicitar actualización de campos
+                        new_state = input_update_with_validation("Nuevo estado", order.get('Estado', ''), [validate_alpha], ["El estado solo debe contener letras"])
+                        new_orderDate = input_update_with_validation("Nueva fecha del pedido (YYYY-MM-DD)", order.get('Fecha', ''), [validate_date], ["Formato de fecha incorrecto. Debe ser 'YYYY-MM-DD'"])
+                        new_payment_method = input_update_with_validation("Nuevo método de pago", order.get('Método de Pago', ''), [validate_alpha], ["El método de pago solo debe contener letras"])
+                        new_shipping_method = input_update_with_validation("Nuevo método de envío", order.get('Método de Envío', ''), [validate_alpha], ["El método de envío solo debe contener letras"])
+                        new_payment_status = input_update_with_validation("Nuevo estado del pago", order.get('Estado del Pago', ''), [validate_alpha], ["El estado solo debe contener letras"])
+
+                        # Actualizar el pedido en la base de datos
+                        if update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+                            print("Pedido actualizado con éxito.")
+                        else:
+                            print("Error al actualizar el pedido.")
                     else:
-                        print("Error al actualizar el pedido.")
+                        print(f"No se encontró un pedido con el ID {order_id}.")
+
                 elif choice == "5":
                     order_id = int(input("ID del pedido a eliminar: "))
                     if delete_order(connection, order_id):
@@ -373,14 +509,18 @@ def manage_orders(connection):
                         print("Error al eliminar el pedido.")
                 elif choice == "6":
                     list_all_orders(connection)
+
                 elif choice == "7":
                     print("Saliendo del programa.")
                     break
                 else:
                     print("Opción no válida. Introduce un número del 1 al 7.")
-    except Error as e:
+                    continue  # Volver al menú
+    except Exception as e:
         print(f"Error en la base de datos: {e}")
-if __name__ == "__main__":
+
+# Llamar a la función main al final del script
+def main():
     connection = create_db_connection()
 
     if connection:
@@ -389,3 +529,5 @@ if __name__ == "__main__":
     else:
         print("No se pudo establecer una conexión a la base de datos.")
 
+if __name__ == "__main__":
+    main()
