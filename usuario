@@ -1,7 +1,0 @@
-class Usuario:
-    def __init__(self, dni, nombre, apellido, email, contraseña):
-        self.dni = dni
-        self.nombre = nombre
-        self.apellido = apellido
-        self.email = email
-        self.contraseña = contraseña
