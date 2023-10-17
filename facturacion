@@ -1,7 +1,0 @@
-class Facturación:
-  def __init__(self, debito, credito, tranferencia):
-
-        self.debito = debito
-        self.credito = credito
-        self.tranferencia = tranferencia
-
