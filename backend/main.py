@@ -51,13 +51,10 @@ def menu_principal():
         elif opcion == "6":
             print("Sección de Contacto (en construcción)")
 
-            
-        
         elif opcion == "7":
             print("Ha salido del programa. ¡Hasta luego!")
             menu = False
             
-        
         else:
             print("Opción inválida. Por favor, ingrese una opción válida.")
 

@@ -94,7 +94,7 @@ def read_user_by_id(connection, user_id):
         row = cursor.fetchone()
 
         if row:
-            return Usuario(*row)
+            return read_all_users(*row)#modificado era usuario
         else:
             print("Usuario no encontrado")
             return None
