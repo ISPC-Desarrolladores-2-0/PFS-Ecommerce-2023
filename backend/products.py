@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-
+from categories import Category 
 
 class Product:
     def __init__(self, id_products, name, description, price, discount, stock, image, pages, formato, weight, isbn, id_categories):
@@ -90,26 +90,70 @@ class Product:
         self.id_categories = id_categories
 
 
+        
+def get_categories(connection):
+    try:
+        cursor = connection.cursor()
+        query = "SELECT * FROM categories"
+        cursor.execute(query)
+        categories = []
+
+        for row in cursor.fetchall():
+            category = Category(*row)
+            categories.append(category)
+
+        return categories
+    except Error as e:
+        print(f"Error al obtener las categorías: {e}")
+        
+def select_valid_category(connection):
+    cursor = connection.cursor()
+    while True:
+        print("Categorías disponibles:")
+        categories = get_categories(connection)
+        for category in categories:
+            print(f"{category.id_categories}: {category.name}")
+
+        category_id = input("Selecciona el ID de la categoría: ")
+
+        if category_id.isdigit():
+            category_id = int(category_id)
+
+            check_category_query = "SELECT id_categories FROM categories WHERE id_categories = %s"
+            cursor.execute(check_category_query, (category_id,))
+
+            if cursor.fetchone():
+                return category_id
+            else:
+                print("ID de categoría no válido. La categoría no existe en la base de datos.")
+        else:
+            print("ID de categoría no válido. Debe ser un número entero.")
+
+
 def create_product(connection, product):
     try:
         cursor = connection.cursor()
-        query = """
+        
+        print("Categorías disponibles:")
+        category_id = select_valid_category(connection)  # Get the selected category ID
+        
+        insert_query = """
             INSERT INTO products
             (name, description, price, discount, stock, image,
              pages, formato, weight, isbn, id_categories)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         values = (product.name, product.description, product.price, product.discount, product.stock,
-                  product.image, product.pages, product.formato, product.weight, product.isbn, product.id_categories)
-
-        cursor.execute(query, values)
+                  product.image, product.pages, product.formato, product.weight, product.isbn, category_id)
+    
+        cursor.execute(insert_query, values)
         connection.commit()
         return cursor.lastrowid
     except Error as e:
         print(f"Error al crear un producto: {e}")
         return None
 
-
+    
 def read_all_products(connection):
     try:
         cursor = connection.cursor()
@@ -129,7 +173,29 @@ def read_all_products(connection):
 def update_product(connection, product):
     try:
         cursor = connection.cursor()
-        query = """
+
+        print("Categorías disponibles:")
+        category_id = select_valid_category(connection)  # Get the selected category ID
+
+        if category_id == 0:
+            # The user has selected to keep the same category
+            category_id = product.id_categories
+        else:
+            try:
+                category_id = int(category_id)
+
+                check_category_query = "SELECT id_categories FROM categories WHERE id_categories = %s"
+                cursor.execute(check_category_query, (category_id,))
+
+                if cursor.fetchone():
+                    # The selected category is valid
+                    product.id_categories = category_id
+                else:
+                    print("ID de categoría no válido. La categoría no existe en la base de datos.")
+            except ValueError:
+                print("ID de categoría no válido. Debe ser un número entero o 0 para mantener la misma categoría.")
+
+        update_query = """
             UPDATE products
             SET name = %s, description = %s, price = %s, discount = %s, stock = %s,
                 image = %s, pages = %s, formato = %s, weight = %s, isbn = %s, id_categories = %s
@@ -139,10 +205,12 @@ def update_product(connection, product):
                   product.image, product.pages, product.formato, product.weight, product.isbn,
                   product.id_categories, product.id_products)
 
-        cursor.execute(query, values)
+        cursor.execute(update_query, values)
         connection.commit()
+        return product.id_products
     except Error as e:
         print(f"Error al actualizar el producto: {e}")
+        return None
 
 
 def delete_product(connection, product_id):
