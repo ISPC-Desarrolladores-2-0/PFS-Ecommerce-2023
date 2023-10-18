@@ -70,8 +70,16 @@ CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`orders` (
   `payment_status` VARCHAR(45) NULL,
   `total_amount` DECIMAL(10, 2) NULL,
   PRIMARY KEY (`id_order`),
-  UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC)
+  UNIQUE INDEX `id_order_UNIQUE` (`id_order` ASC),
+   INDEX `fk_orders_users1_idx` (`id_user` ASC),
+  CONSTRAINT `fk_orders_users1`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `planetSuperheroesDB`.`users` (`id_users`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+
 
 -- Tabla order_items
 CREATE TABLE IF NOT EXISTS `planetSuperheroesDB`.`order_items` (
@@ -322,7 +330,9 @@ VALUES
 (4, 5, 3),
 (1, 6, 4);
 
-select * from  products
+select * from orders
+
+
 
 
 
