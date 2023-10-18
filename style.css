@@ -1,17 +1,6 @@
- /* Estilos para las columnas */
- .column {
-    float: left;
-    width: 23%; /* Ancho de cada columna */
-    margin: 1%;
-    padding: 10px;
-    background-color: #9b2c2c;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-}
-
-/* Estilos para limpiar los flotadores */
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
+.review-title h1 {
+    font-family: Arial, sans-serif; /* Cambia "Arial, sans-serif" a la fuente que desees */
+    font-size: 24px; /* Cambia "24px" al tamaño de fuente deseado */
+    font-weight: bold; /* Puedes ajustar el grosor de la fuente si lo deseas */
+    /* Otros estilos de fuente, como color, se pueden aplicar aquí */
 }
