@@ -97,9 +97,27 @@ body{
 .go_back:hover{
     transform: scale(1.1);
 }
+
 .logo{
     max-width: 250px;
     height: auto;
     margin: 0 auto;
     display: block;
+}
+
+.form__field.error input {
+    border: solid 2px red;
+}
+
+.form__field.success input {
+    border: solid 2px rgb(13, 167, 13);
+}
+
+.form__field small{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#ce2d2d;
+    padding: 8px 0;
 }
