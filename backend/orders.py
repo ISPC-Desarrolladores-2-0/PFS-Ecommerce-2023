@@ -451,6 +451,7 @@ def manage_orders(connection):
             print("4. Actualizar un pedido")
             print("5. Eliminar un pedido")
             print("6. Listar todos los pedidos")
+            
             print("7. Salir")
             choice = input("Elige una opción: ")
 
