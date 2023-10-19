@@ -5,9 +5,8 @@ def create_db_connection():
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            port=3306,
             user='root',
-            password='hernan',
+            password='',
             database='planetSuperheroesDB'
         )
         if connection.is_connected():
@@ -21,5 +20,3 @@ def close_db_connection(connection):
     if connection.is_connected():
         connection.close()
         print("Conexión a la base de datos cerrada")
-
-

@@ -97,7 +97,6 @@ body{
 .go_back:hover{
     transform: scale(1.1);
 }
-
 .logo{
     max-width: 250px;
     height: auto;
