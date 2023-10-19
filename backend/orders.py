@@ -332,6 +332,39 @@ def print_order_with_details(order):
     print(f"Estado del Pago: {order['payment_status']}")
     print(f"Monto Total: ${order['total_amount']:.2f}")  
 
+def obtener_productos_comprados_por_usuario(conexion, id_usuario):
+    try:
+        cursor = conexion.cursor()
+
+        consulta = f"""
+            SELECT u.first_name, u.last_name, u.email, p.id_products, p.name, p.description, p.price, o.orderDate
+            FROM products p
+            INNER JOIN order_items oi ON oi.Id_products = p.id_products
+            INNER JOIN orders o ON o.Id_order = oi.Id_order
+            INNER JOIN users u ON u.id_users = o.id_user
+            WHERE o.Id_user = {id_usuario}
+        """
+
+        cursor.execute(consulta)
+
+        productos = cursor.fetchall()
+        if productos:
+            print("\nProductos comprados por el usuario:")
+            for producto in productos:
+                print(f"Nombre del Usuario: {producto[0]} {producto[1]}")
+                print(f"Email del Usuario: {producto[2]}")
+                print(f"ID del producto: {producto[3]}")
+                print(f"Nombre: {producto[4]}")
+                print(f"Descripción: {producto[5]}")
+                print(f"Precio: {producto[6]}\n")
+                print(f"Fecha del pedido: {producto[7]}")
+                print()
+                print("=========================")
+        else:
+            print("El usuario no ha comprado ningún producto.")
+
+    except mysql.connector.Error as e:
+        print(f"Error al consultar los productos comprados por el usuario: {e}")
 
 import re
 from datetime import datetime
@@ -451,8 +484,8 @@ def manage_orders(connection):
             print("4. Actualizar un pedido")
             print("5. Eliminar un pedido")
             print("6. Listar todos los pedidos")
-            
-            print("7. Salir")
+            print("7.Listar pedidos por ID de USUARIO")
+            print("8. Salir")
             choice = input("Elige una opción: ")
 
             if choice == "1":
@@ -605,7 +638,11 @@ def manage_orders(connection):
             elif choice == "6":
                 list_all_orders(connection)
 
-            elif choice == "7":
+            elif choice == "7" :
+                id_usuario = int(input("ID del usuario para mostrar productos comprados: "))
+                obtener_productos_comprados_por_usuario(connection, id_usuario)
+
+            elif choice == "8":
                 print("Saliendo del menú de pedidos.")
                 break
 
