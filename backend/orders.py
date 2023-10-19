@@ -501,7 +501,6 @@ def manage_orders(connection):
                 order_id = create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status, product_items)
                 if order_id:
                     print(f"Pedido creado con ID: {order_id}")
-                    
 
             elif choice == "3":
                 order_id = int(input("ID del pedido: "))
@@ -536,18 +535,15 @@ def manage_orders(connection):
                                 print("El usuario no existe en la base de datos. Introduce un ID de usuario válido.")
                     else:
                        new_id_user = order['id_user']
-                                  
-                               
-                        
+
                     new_state = input_with_validation("Nuevo estado (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El estado solo debe contener letras."], order['state'])
                     new_orderDate = input_with_validation("Nueva fecha del pedido (YYYY-MM-DD) (deje en blanco para mantener el valor actual): ", [validate_date], ["Formato de fecha incorrecto. Debe ser 'YYYY-MM-DD'"], order['orderDate'])
                     new_payment_method = input_with_validation("Nuevo método de pago (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El método de pago solo debe contener letras."], order['payment_method'])
                     new_shipping_method = input_with_validation("Nuevo método de envío (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El método de envío solo debe contener letras."], order['shipping_method'])
                     new_payment_status = input_with_validation("Nuevo estado del pago (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El estado solo debe contener letras."], order['payment_status'])
 
-                     # Agregar productos al pedido
-                    product_items = []  # Inicializar la lista de product_items para el pedido actual
-
+                    # Inicializar la lista de product_items para el pedido actual
+                    product_items = []
 
                     # Agregar productos al pedido
                     while True:
@@ -567,27 +563,8 @@ def manage_orders(connection):
                             if product_info:
                                 quantity = input("Cantidad: ")
                                 if validate_positive_integer(quantity) and int(quantity) <= product_info[1]:
-                                    product_items = [{'id': product_info[0], 'quantity': int(quantity)}]
-                                    
-                                    
-                                    new_total_amount = 0
-                                    for product in product_items:
-                                        cursor.execute("SELECT price FROM products WHERE id_products = %s", (product['id'],))
-                                        product_price = cursor.fetchone()[0]
-                                        new_total_amount += product_price * product['quantity']
-                                     
-                                     # Actualizar el pedido con los nuevos datos y el nuevo total_amount
-                                    if update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
-                                       # Actualizar los productos del pedido
-                                       update_order_products(connection, order_id, product_items)
+                                    product_items.append({'id': product_info[0], 'quantity': int(quantity)})
 
-
-                                    # Actualizar el total_amount en la base de datos
-                                    query_update_total_amount = "UPDATE orders SET total_amount = %s WHERE id_order = %s"
-                                    cursor.execute(query_update_total_amount, (new_total_amount, order_id))
-                                    connection.commit()
-                                    
-                                    print(f"Producto agregado con éxito al pedido con ID {order_id}.")
                                 else:
                                     print("La cantidad del producto no es válida o excede el stock disponible.")
                             else:
@@ -595,7 +572,25 @@ def manage_orders(connection):
                         except ValueError:
                             print("ID del producto no válido. Debe ser un número entero.")
                             continue
-                   
+
+                    # Actualizar el pedido con los nuevos datos y el nuevo total_amount (fuera del bucle de productos)
+                    new_total_amount = 0
+                    for product in product_items:
+                       cursor.execute("SELECT price FROM products WHERE id_products = %s", (product['id'],))
+                       product_price = cursor.fetchone()[0]
+                       new_total_amount += product_price * product['quantity']
+
+                    if update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+                        # Actualizar los productos del pedido
+                        update_order_products(connection, order_id, product_items)
+
+                    # Actualizar el total_amount en la base de datos
+                    query_update_total_amount = "UPDATE orders SET total_amount = %s WHERE id_order = %s"
+                    cursor.execute(query_update_total_amount, (new_total_amount, order_id))
+                    connection.commit()
+
+                    print(f"Pedido con ID {order_id} actualizado con éxito.")
+
                 else:
                     print("Pedido no encontrado.")
 
@@ -627,4 +622,3 @@ if __name__ == "__main__":
         close_db_connection(connection)  # Cerrar la conexión a la base de datos cuando hayas terminado
     else:
         print("No se pudo establecer una conexión a la base de datos.")
-
