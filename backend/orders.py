@@ -214,13 +214,27 @@ def update_order(connection, order_id, new_id_user, new_state, new_orderDate, ne
             print("El nuevo ID de usuario {} no existe.".format(new_id_user))
             return False
 
+        # Obtener el monto total actual
+        cursor.execute("SELECT total_amount FROM orders WHERE id_order = %s", (order_id,))
+        current_total_amount = cursor.fetchone()[0]
+
+        # Calcular el nuevo total_amount sumando el costo de los productos en el pedido
+        query = """
+            SELECT SUM(products.price * order_items.quantity)
+            FROM order_items
+            JOIN products ON order_items.id_products = products.id_products
+            WHERE order_items.id_order = %s
+        """
+        cursor.execute(query, (order_id,))
+        total_amount = cursor.fetchone()[0]
+
         # Actualizar los campos del pedido
         update_query = """
             UPDATE orders
-            SET id_user = %s, state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s
+            SET id_user = %s, state = %s, orderDate = %s, payment_method = %s, shipping_method = %s, payment_status = %s, total_amount = %s
             WHERE id_order = %s
         """
-        cursor.execute(update_query, (new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status, order_id))
+        cursor.execute(update_query, (new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status, total_amount, order_id))
 
         connection.commit()
         print("Pedido con ID {} actualizado con éxito.".format(order_id))
@@ -230,6 +244,7 @@ def update_order(connection, order_id, new_id_user, new_state, new_orderDate, ne
         connection.rollback()
         print("Error al actualizar el pedido:", str(e))
         return False
+
 
 
     
@@ -486,6 +501,7 @@ def manage_orders(connection):
                 order_id = create_order(connection, id_user, state, orderDate, payment_method, shipping_method, payment_status, product_items)
                 if order_id:
                     print(f"Pedido creado con ID: {order_id}")
+                    
 
             elif choice == "3":
                 order_id = int(input("ID del pedido: "))
@@ -529,8 +545,9 @@ def manage_orders(connection):
                     new_shipping_method = input_with_validation("Nuevo método de envío (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El método de envío solo debe contener letras."], order['shipping_method'])
                     new_payment_status = input_with_validation("Nuevo estado del pago (deje en blanco para mantener el valor actual): ", [validate_alpha], ["El estado solo debe contener letras."], order['payment_status'])
 
-                    if update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
-                        print(f"Pedido con ID {order_id} actualizado con éxito.")
+                     # Agregar productos al pedido
+                    product_items = []  # Inicializar la lista de product_items para el pedido actual
+
 
                     # Agregar productos al pedido
                     while True:
@@ -551,7 +568,25 @@ def manage_orders(connection):
                                 quantity = input("Cantidad: ")
                                 if validate_positive_integer(quantity) and int(quantity) <= product_info[1]:
                                     product_items = [{'id': product_info[0], 'quantity': int(quantity)}]
-                                    update_order_products(connection, order_id, product_items)
+                                    
+                                    
+                                    new_total_amount = 0
+                                    for product in product_items:
+                                        cursor.execute("SELECT price FROM products WHERE id_products = %s", (product['id'],))
+                                        product_price = cursor.fetchone()[0]
+                                        new_total_amount += product_price * product['quantity']
+                                     
+                                     # Actualizar el pedido con los nuevos datos y el nuevo total_amount
+                                    if update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
+                                       # Actualizar los productos del pedido
+                                       update_order_products(connection, order_id, product_items)
+
+
+                                    # Actualizar el total_amount en la base de datos
+                                    query_update_total_amount = "UPDATE orders SET total_amount = %s WHERE id_order = %s"
+                                    cursor.execute(query_update_total_amount, (new_total_amount, order_id))
+                                    connection.commit()
+                                    
                                     print(f"Producto agregado con éxito al pedido con ID {order_id}.")
                                 else:
                                     print("La cantidad del producto no es válida o excede el stock disponible.")
@@ -560,6 +595,7 @@ def manage_orders(connection):
                         except ValueError:
                             print("ID del producto no válido. Debe ser un número entero.")
                             continue
+                   
                 else:
                     print("Pedido no encontrado.")
 
