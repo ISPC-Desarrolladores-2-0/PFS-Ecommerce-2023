@@ -1,57 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registro</title>
-        <link rel="stylesheet" href="/front/css/registro.css">
-        <link rel="icon" href="/front/images/logo-favicon.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="./front/images/logo_planet - favicon.ico" type="image/x-icon">
-        <style>
-            
-        </style>
-    </head>
-    <body>
-        <section class="form-register">
-            <div class="title">
-                <img class= "logo-register" src="/front/images/logo_planet.png" alt="">
-                <h1>PLANET SUPER HEROES</h1>
-                
-            </div>
-            <h5>Crear nuevo usuario</h5>
-            <div class="cotenedor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro</title>
+    <link rel="stylesheet" href="/front/css/registro.css" />
+    <link
+      rel="icon"
+      href="/front/images/logo-favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="shortcut icon"
+      href="./front/images/logo_planet - favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <section class="form-register">
+      <form action="" id="form">
+        <div class="title">
+          <img
+            class="logo-register"
+            src="/front/images/logo_planet.png"
+            alt="logo"
+          />
+          <h1>PLANET SUPER HEROES</h1>
+        </div>
+        <h5>Crear nuevo usuario</h5>
+        <div class="cotenedor">
+          <div class="form__field">
+            <input
+              type="text"
+              placeholder="Nombre y Apellido"
+              autocomplete="off"
+              value=""
+              id="user_name"
+            />
+            <small></small>
+          </div>
 
-            <div class="nombre">
-                <input type="text" placeholder="Nombre y Apellido">
-            </div>
-            
-            <div class="correo">
-                <input type="text" placeholder="Email">
-                
-            </div>
-            <div class="telefono">
-            <input type="tel" placeholder="Número de Teléfono (opcional)">
+          <div class="form__field">
+            <input
+              type="email"
+              placeholder="Email"
+              autocomplete="off"
+              value=""
+              id="email"
+            />
+            <small></small>
+          </div>
 
-            </div>
-            <div class="Direccion">
-                <input type="text" placeholder="Dirección">
+          <div class="form__field">
+            <input
+              type="text"
+              placeholder="Teléfono"
+              autocomplete="off"
+              value=""
+              id="phone"
+            />
+            <small></small>
+          </div>
 
-            </div>
-            <div class="clave">
-                <input type="password" placeholder="Contraseña">
-                        
-            </div>
-            <div class="confirmarClave">
-                <input type="password" placeholder="Confirmar contraseña">
-            
-                                
-            </div>
-            <input type="submit" value="Registrate" class="button">
-            <p>Al registrarte, aceptas nuestras Condiciones de uso y Politica de privacidad. </p>
-            <p>¿Ya tenés una cuenta?<a class="link" href="login.html"> Iniciá sesión</a></p>
-            </div>
-            
-            <a class="go_back" href="/index.html">Volver al Inicio</a>
-        </section>
-    </body>
+          <div class="form__field">
+            <input
+              type="text"
+              placeholder="Dirección"
+              autocomplete="off"
+              value=""
+              id="address"
+            />
+            <small></small>
+          </div>
+
+          <div class="form__field">
+            <input
+              type="password"
+              placeholder="Contraseña"
+              id="password"
+              autocomplete="off"
+              value=""
+            />
+            <small></small>
+          </div>
+
+          <div class="form__field">
+            <input
+              type="password"
+              placeholder="Confirmar contraseña"
+              id="password2"
+              autocomplete="off"
+              value=""
+            />
+            <small></small>
+          </div>
+          <div>
+            <input type="submit" value="Registrate" class="button" />
+          </div>
+          <p>
+            Al registrarte, aceptas nuestras Condiciones de uso y Politica de
+            privacidad.
+          </p>
+          <p>
+            ¿Ya tenés una cuenta?<a class="link" href="login.html">
+              Iniciá sesión</a
+            >
+          </p>
+        </div>
+        <a class="go_back" href="/index.html">Volver al Inicio</a>
+      </form>
+    </section>
+    <script src="/front/js/validacionRegistro.js"></script>
+  </body>
 </html>
