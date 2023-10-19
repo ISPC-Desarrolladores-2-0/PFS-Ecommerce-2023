@@ -330,7 +330,7 @@ VALUES
 (4, 5, 3),
 (1, 6, 4);
 
-select * from orders
+
 
 
 

@@ -9,9 +9,9 @@ def menu_principal():
         print("\n•·.·•·.·•·.·•·.·• Menú Principal •·.·•·.·•·.·•·.·•\n")
         print("1. Gestionar Productos")
         print("2. Gestionar Usuarios")
-        print("3. Inicio")
-        print("4. Quienes Somos?")
-        print("5. Contacto")
+        print("3. Gestionar Ordenes")
+        print("4. Gestionar Facturas")
+        print("5. Gestionar Categorias")
         print("6. Salir")
         opcion = input("\n⮞ Ingrese una opción: ")
 
@@ -32,13 +32,13 @@ def menu_principal():
                 print("No se pudo establecer una conexión a la base de datos de usuarios.")
         
         elif opcion == "3":
-            print("Sección de Inicio (en construcción)")
+            print("Gestión de ordenes (en construcción)")
         
         elif opcion == "4":
-            print("Sección de Quiénes Somos? (en construcción)")
+            print("Gestión de facturas (en construcción)")
         
         elif opcion == "5":
-            print("Sección de Contacto (en construcción)")
+            print("Sección de Categorías (en construcción)")
         
         elif opcion == "6":
             print("Ha salido del programa. ¡Hasta luego!")

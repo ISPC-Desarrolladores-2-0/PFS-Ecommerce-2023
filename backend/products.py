@@ -135,8 +135,7 @@ def create_product(connection, product):
         cursor = connection.cursor()
         
         print("Categorías disponibles:")
-        category_id = select_valid_category(connection)  # Get the selected category ID
-        
+        category_id = select_valid_category(connection)  
         insert_query = """
             INSERT INTO products
             (name, description, price, discount, stock, image,
@@ -175,10 +174,9 @@ def update_product(connection, product):
         cursor = connection.cursor()
 
         print("Categorías disponibles:")
-        category_id = select_valid_category(connection)  # Get the selected category ID
+        category_id = select_valid_category(connection)  
 
         if category_id == 0:
-            # The user has selected to keep the same category
             category_id = product.id_categories
         else:
             try:
@@ -188,7 +186,6 @@ def update_product(connection, product):
                 cursor.execute(check_category_query, (category_id,))
 
                 if cursor.fetchone():
-                    # The selected category is valid
                     product.id_categories = category_id
                 else:
                     print("ID de categoría no válido. La categoría no existe en la base de datos.")
@@ -224,8 +221,11 @@ def delete_product(connection, product_id):
 
 
 def print_product(product):
-    print("\nDetalles del producto:")
-    print(f"ID: {product.id_products}")
+   
+    print("\n****************************")
+    print("Detalles del producto:")
+    print("****************************")
+    print(f"\nID: {product.id_products}")
     print(f"Nombre: {product.name}")
     print(f"Descripción: {product.description}")
     print(f"Precio: {product.price}")
@@ -237,6 +237,7 @@ def print_product(product):
     print(f"Peso (kg): {product.weight}")
     print(f"ISBN: {product.isbn}")
     print(f"ID de categoría: {product.id_categories}")
+    print("****************************")
 
 
 def read_product_by_id(connection, product_id):
