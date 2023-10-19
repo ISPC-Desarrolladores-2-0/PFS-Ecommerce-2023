@@ -12,8 +12,8 @@ body{
     background: url(../images/fondo2.jpg);
     background-size: cover;
     background-attachment: fixed
-       
 }
+
 .form-register{
      width: 600px;
      height: 680px;
@@ -43,7 +43,8 @@ body{
        font-size: 2rem;
        color:#fcd69e ;  
 }
-.nombre, .correo, .telefono, .Direccion, .clave, .confirmarClave {
+
+.form__field {
        display: flex;
        flex-direction: column;
        width: 100%;
@@ -61,7 +62,9 @@ body{
        color: #1e1e1e;
        margin-bottom: 16px;
        font-size: 1.5rem;
+       cursor: pointer;
 }
+
 .form-register p{
        height: 40px;
        text-align: center;
@@ -89,8 +92,8 @@ body{
        width: 100px;
        height: 65px;
        margin-left: 15px;
-    
 }
+
 input{
        height: 30px;
 }
@@ -106,8 +109,24 @@ input{
        display: flex;
        align-items: center;
        justify-content: center;
-   }
+}
    
-   .go_back:hover{
+.go_back:hover{
        transform: scale(1.1);
-   }
+}
+
+.form__field.error input {
+       border: solid 2px red;
+}
+   
+.form__field.success input {
+       border: solid 2px rgb(13, 167, 13);
+}
+   
+.form__field small{
+       text-align: center;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       color:#ce2d2d;
+}

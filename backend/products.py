@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-from categories import Category
+from categories import Category 
 
 class Product:
     def __init__(self, id_products, name, description, price, discount, stock, image, pages, formato, weight, isbn, id_categories):
