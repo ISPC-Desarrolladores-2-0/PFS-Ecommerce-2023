@@ -396,72 +396,27 @@ def manage_products(connection):
                 product_id = input("ID del producto a actualizar: ")
                 if product_id.isdigit():
                     product_id = int(product_id)
-                    product_to_update = read_product_by_id(
-                        connection, product_id)
+                    product_to_update = read_product_by_id(connection, product_id)
                     if product_to_update:
                         print(f"Producto a actualizar:")
                         print_product(product_to_update)
 
-                    name = input(
-                        "Nuevo nombre (dejar en blanco para mantener el mismo): ").lower()
-                    description = input(
-                        "Nueva descripción (dejar en blanco para mantener la misma): ").lower()
-
-                    price = input("Nuevo precio (0 para mantener el mismo): ")
-                    while not is_valid_number(price):
-                        print("El precio no es válido. Ingresa un número válido.")
+                        name = input("Nuevo nombre (dejar en blanco para mantener el mismo): ").lower()
+                        description = input("Nueva descripción (dejar en blanco para mantener la misma): ").lower()
                         price = input("Nuevo precio (0 para mantener el mismo): ")
-
-                    discount = input("Nuevo descuento (%): ")
-                    while not is_valid_discount(discount):
-                        print("El descuento no es válido. Ingresa un número entre 0 y 100.")
                         discount = input("Nuevo descuento (%): ")
+                        stock = input("Nueva cantidad en stock (dejar en blanco para mantener el mismo): ")
+                        image = input("Nueva ruta de la imagen (dejar en blanco para mantener la misma): ").lower()
+                        pages = input("Nuevo número de páginas (0 para mantener el mismo): ")
+                        formato = input("Nuevo formato (dejar en blanco para mantener el mismo): ").lower()
+                        weight = input("Nuevo peso (kg) (0 para mantener el mismo): ")
+                        isbn = input("Nuevo ISBN (dejar en blanco para mantener el mismo): ")
+                        id_categories = input("Nuevo ID de categoría (0 para mantener el mismo): ")
 
-                    stock = input("Nueva cantidad en stock (deja en blanco para mantener el mismo): ")
-
-                    if stock.strip():  
-                        while not stock.isdigit() or int(stock) < 0:
-                            print("La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
-                            stock = input("Nueva cantidad en stock (deja en blanco para mantener el mismo): ")
-                        
-                        product_to_update.stock = int(stock)
-                    else:
-                        print("Stock no modificado.")
-
-
-                    image = input(
-                        "Nueva ruta de la imagen (dejar en blanco para mantener la misma): ").lower()
-                    while not is_valid_string(image):
-                        print("La ruta de la imagen no puede estar en blanco.")
-                        image = input(
-                            "Nueva ruta de la imagen (dejar en blanco para mantener la misma): ").lower()
-
-                    pages = input(
-                        "Nuevo número de páginas (0 para mantener el mismo): ")
-                    while not is_valid_pages(pages):
-                        print(
-                            "El número de páginas no es válido. Ingresa un número mayor que 0.")
-                        pages = input(
-                            "Nuevo número de páginas (0 para mantener el mismo): ")
-
-                    formato = input(
-                        "Nuevo formato (dejar en blanco para mantener el mismo): ").lower()
-
-                    weight = input("Nuevo peso (kg) (0 para mantener el mismo): ")
-                    while not is_valid_weight(weight):
-                        print("El peso no es válido. Ingresa un número mayor que 0.")
-                        weight = input(
-                            "Nuevo peso (kg) (0 para mantener el mismo): ")
-
-                    isbn = input(
-                        "Nuevo ISBN (dejar en blanco para mantener el mismo): ").lower()
-                    id_categories = input(
-                        "Nuevo ID de categoría (0 para mantener el mismo): ")
-
-                    if is_valid_number(price) and is_valid_discount(discount) and is_valid_pages(pages) and is_valid_weight(weight) and is_valid_id_categories(id_categories):
-                        if name:
+                        # Verifica si se ingresó un valor válido para cada atributo y luego actualiza el producto
+                        if is_valid_string(name):
                             product_to_update.name = name
-                        if description:
+                        if is_valid_string(description):
                             product_to_update.description = description
                         if is_valid_number(price):
                             product_to_update.price = float(price)
@@ -469,30 +424,27 @@ def manage_products(connection):
                             product_to_update.discount = int(discount)
                         if is_valid_stock(stock):
                             product_to_update.stock = int(stock)
-                        if image:
+                        if is_valid_string(image):
                             product_to_update.image = image
                         if is_valid_pages(pages):
                             product_to_update.pages = int(pages)
-                        if formato:
+                        if is_valid_string(formato):
                             product_to_update.formato = formato
                         if is_valid_weight(weight):
                             product_to_update.weight = float(weight)
-                        if isbn:
+                        if is_valid_string(isbn):
                             product_to_update.isbn = isbn
                         if is_valid_id_categories(id_categories):
                             product_to_update.id_categories = int(id_categories)
-                            update_product(connection, product_to_update)
-                            print("Producto actualizado")
-                        else:
-                            print(
-                                "Datos ingresados no válidos. Asegúrate de ingresar valores válidos.")
-
-
+                        
+                        # Luego, llama a la función de actualización
+                        update_product(connection, product_to_update)
+                        print("Producto actualizado")
                     else:
                         print("Producto no encontrado.")
-
                 else:
                     print("ID de producto no válido.")
+
 
             elif choice == "4":
                 product_id = input("ID del producto a eliminar: ")
