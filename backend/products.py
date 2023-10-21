@@ -1,6 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 from categories import Category 
+from tabulate import tabulate
+
 
 class Product:
     def __init__(self, id_products, name, description, price, discount, stock, image, pages, formato, weight, isbn, id_categories):
@@ -220,25 +222,24 @@ def delete_product(connection, product_id):
         print(f"Error al eliminar el producto: {e}")
 
 
-def print_product(product):
-   
-    print("\n****************************")
-    print("Detalles del producto:")
-    print("****************************")
-    print(f"\nID: {product.id_products}")
-    print(f"Nombre: {product.name}")
-    print(f"Descripción: {product.description}")
-    print(f"Precio: {product.price}")
-    print(f"Descuento (%): {product.discount}")
-    print(f"Stock: {product.stock}")
-    print(f"Imagen: {product.image}")
-    print(f"Número de páginas: {product.pages}")
-    print(f"Formato: {product.formato}")
-    print(f"Peso (kg): {product.weight}")
-    print(f"ISBN: {product.isbn}")
-    print(f"ID de categoría: {product.id_categories}")
-    print("****************************")
-
+def print_product(product):   
+        print("\n****************************")
+        print("Detalles del producto:")
+        print("****************************")
+        print(f"\nID: {product.id_products}")
+        print(f"Nombre: {product.name}")
+        print(f"Descripción: {product.description}")
+        print(f"Precio: {product.price}")
+        print(f"Descuento (%): {product.discount}")
+        print(f"Stock: {product.stock}")
+        print(f"Imagen: {product.image}")
+        print(f"Número de páginas: {product.pages}")
+        print(f"Formato: {product.formato}")
+        print(f"Peso (kg): {product.weight}")
+        print(f"ISBN: {product.isbn}")
+        print(f"ID de categoría: {product.id_categories}")
+        print("****************************")
+        
 
 def read_product_by_id(connection, product_id):
     try:
@@ -288,14 +289,30 @@ def is_valid_weight(value):
 def is_valid_id_categories(value):
     return value.isdigit() and int(value) > 0
 
+def print_products_with_stock(products):
+    in_stock_products = [product for product in products if product.stock > 0]
+
+    if in_stock_products:
+        product_data = []
+        for product in in_stock_products:
+            product_data.append([product.id_products, product.name, product.stock])
+
+        headers = ["ID", "Nombre", "Stock"]
+        table = tabulate(product_data, headers, tablefmt="grid")
+        print(table)
+    else:
+        print("No hay productos disponibles en stock.")
+
+
 def manage_products(connection):
         while True:
             print("\nMenú:")
             print("1. Crear producto")
-            print("2. Leer productos")
+            print("2. Ver productos en stock")
             print("3. Actualizar producto")
             print("4. Eliminar producto")
-            print("5. Salir")
+            print("5. Informacion completa de productos")
+            print("6. Salir")
 
             choice = input("Selecciona una opción: ")
 
@@ -373,13 +390,8 @@ def manage_products(connection):
                     print("No se puede crear un producto con stock no disponible.")
             elif choice == "2":
                 products = read_all_products(connection)
-                if products:
-                    print("\nListado de productos:")
-                    for product in products:
-                        if product.stock > 0:
-                            print_product(product)
-                    if all(product.stock == 0 for product in products):
-                        print("No hay productos disponibles.")
+                print_products_with_stock(products) 
+                
             elif choice == "3":
                 product_id = input("ID del producto a actualizar: ")
                 if product_id.isdigit():
@@ -490,6 +502,18 @@ def manage_products(connection):
                     print("Producto eliminado")
                 else:
                         print("ID de producto no válido.")
-
+             
             elif choice == "5":
+                products = read_all_products(connection)
+                if products:
+                    print("\nListado de productos:")
+                for product in products:
+                    if product.stock > 0:
+                        print_product(product)
+                if all(product.stock == 0 for product in products):
+                    print("No hay productos disponibles.")          
+
+            elif choice == "6":
                     break
+                
+                
