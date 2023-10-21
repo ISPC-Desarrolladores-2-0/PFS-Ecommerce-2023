@@ -1,6 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
-from categories import Category 
+from categories import Category
 from tabulate import tabulate
 
 
@@ -92,7 +92,6 @@ class Product:
         self.id_categories = id_categories
 
 
-        
 def get_categories(connection):
     try:
         cursor = connection.cursor()
@@ -107,7 +106,8 @@ def get_categories(connection):
         return categories
     except Error as e:
         print(f"Error al obtener las categorías: {e}")
-        
+
+
 def select_valid_category(connection):
     cursor = connection.cursor()
     while True:
@@ -127,7 +127,8 @@ def select_valid_category(connection):
             if cursor.fetchone():
                 return category_id
             else:
-                print("ID de categoría no válido. La categoría no existe en la base de datos.")
+                print(
+                    "ID de categoría no válido. La categoría no existe en la base de datos.")
         else:
             print("ID de categoría no válido. Debe ser un número entero.")
 
@@ -135,9 +136,9 @@ def select_valid_category(connection):
 def create_product(connection, product):
     try:
         cursor = connection.cursor()
-        
+
         print("Categorías disponibles:")
-        category_id = select_valid_category(connection)  
+        category_id = select_valid_category(connection)
         insert_query = """
             INSERT INTO products
             (name, description, price, discount, stock, image,
@@ -146,7 +147,7 @@ def create_product(connection, product):
         """
         values = (product.name, product.description, product.price, product.discount, product.stock,
                   product.image, product.pages, product.formato, product.weight, product.isbn, category_id)
-    
+
         cursor.execute(insert_query, values)
         connection.commit()
         return cursor.lastrowid
@@ -154,7 +155,7 @@ def create_product(connection, product):
         print(f"Error al crear un producto: {e}")
         return None
 
-    
+
 def read_all_products(connection):
     try:
         cursor = connection.cursor()
@@ -176,7 +177,7 @@ def update_product(connection, product):
         cursor = connection.cursor()
 
         print("Categorías disponibles:")
-        category_id = select_valid_category(connection)  
+        category_id = select_valid_category(connection)
 
         if category_id == 0:
             category_id = product.id_categories
@@ -190,9 +191,11 @@ def update_product(connection, product):
                 if cursor.fetchone():
                     product.id_categories = category_id
                 else:
-                    print("ID de categoría no válido. La categoría no existe en la base de datos.")
+                    print(
+                        "ID de categoría no válido. La categoría no existe en la base de datos.")
             except ValueError:
-                print("ID de categoría no válido. Debe ser un número entero o 0 para mantener la misma categoría.")
+                print(
+                    "ID de categoría no válido. Debe ser un número entero o 0 para mantener la misma categoría.")
 
         update_query = """
             UPDATE products
@@ -222,24 +225,24 @@ def delete_product(connection, product_id):
         print(f"Error al eliminar el producto: {e}")
 
 
-def print_product(product):   
-        print("\n****************************")
-        print("Detalles del producto:")
-        print("****************************")
-        print(f"\nID: {product.id_products}")
-        print(f"Nombre: {product.name}")
-        print(f"Descripción: {product.description}")
-        print(f"Precio: {product.price}")
-        print(f"Descuento (%): {product.discount}")
-        print(f"Stock: {product.stock}")
-        print(f"Imagen: {product.image}")
-        print(f"Número de páginas: {product.pages}")
-        print(f"Formato: {product.formato}")
-        print(f"Peso (kg): {product.weight}")
-        print(f"ISBN: {product.isbn}")
-        print(f"ID de categoría: {product.id_categories}")
-        print("****************************")
-        
+def print_product(product):
+    print("\n****************************")
+    print("Detalles del producto:")
+    print("****************************")
+    print(f"\nID: {product.id_products}")
+    print(f"Nombre: {product.name}")
+    print(f"Descripción: {product.description}")
+    print(f"Precio: {product.price}")
+    print(f"Descuento (%): {product.discount}")
+    print(f"Stock: {product.stock}")
+    print(f"Imagen: {product.image}")
+    print(f"Número de páginas: {product.pages}")
+    print(f"Formato: {product.formato}")
+    print(f"Peso (kg): {product.weight}")
+    print(f"ISBN: {product.isbn}")
+    print(f"ID de categoría: {product.id_categories}")
+    print("****************************")
+
 
 def read_product_by_id(connection, product_id):
     try:
@@ -259,7 +262,7 @@ def read_product_by_id(connection, product_id):
 
 
 def is_valid_string(value):
-    return bool(value.strip())  
+    return bool(value.strip())
 
 
 def is_valid_number(value):
@@ -289,13 +292,15 @@ def is_valid_weight(value):
 def is_valid_id_categories(value):
     return value.isdigit() and int(value) > 0
 
+
 def print_products_with_stock(products):
     in_stock_products = [product for product in products if product.stock > 0]
 
     if in_stock_products:
         product_data = []
         for product in in_stock_products:
-            product_data.append([product.id_products, product.name, product.stock])
+            product_data.append(
+                [product.id_products, product.name, product.stock])
 
         headers = ["ID", "Nombre", "Stock"]
         table = tabulate(product_data, headers, tablefmt="grid")
@@ -305,167 +310,215 @@ def print_products_with_stock(products):
 
 
 def manage_products(connection):
-        while True:
-            print("\nMenú:")
-            print("1. Crear producto")
-            print("2. Ver productos en stock")
-            print("3. Actualizar producto")
-            print("4. Eliminar producto")
-            print("5. Informacion completa de productos")
-            print("6. Salir")
+    while True:
+        print("\nMenú:")
+        print("1. Crear producto")
+        print("2. Ver productos en stock")
+        print("3. Actualizar producto")
+        print("4. Eliminar producto")
+        print("5. Informacion completa de productos")
+        print("6. Salir")
 
-            choice = input("Selecciona una opción: ")
+        choice = input("Selecciona una opción: ")
 
-            if choice == "1":
+        if choice == "1":
+            name = input("Nombre del producto: ").lower()
+            while not name:
+                print("El nombre no puede estar en blanco.")
                 name = input("Nombre del producto: ").lower()
-                while not name:
-                    print("El nombre no puede estar en blanco.")
-                    name = input("Nombre del producto: ").lower()
 
+            description = input("Descripción del producto: ").lower()
+            while not description:
+                print("La descripción no puede estar en blanco.")
                 description = input("Descripción del producto: ").lower()
-                while not description:
-                    print("La descripción no puede estar en blanco.")
-                    description = input("Descripción del producto: ").lower()
 
+            price = input("Precio del producto: ")
+            while not is_valid_number(price):
+                print("El precio no es válido. Ingresa un número válido.")
                 price = input("Precio del producto: ")
-                while not is_valid_number(price):
-                    print("El precio no es válido. Ingresa un número válido.")
-                    price = input("Precio del producto: ")
 
+            discount = input("Descuento (%): ")
+            while not is_valid_discount(discount):
+                print("El descuento no es válido. Ingresa un número entre 0 y 100.")
                 discount = input("Descuento (%): ")
-                while not is_valid_discount(discount):
-                    print("El descuento no es válido. Ingresa un número entre 0 y 100.")
-                    discount = input("Descuento (%): ")
 
-                stock = input("Cantidad en stock: ")
-                while not is_valid_stock(stock) or int(stock) <= 0:
-                    if not is_valid_stock(stock):
-                        print(
-                            "La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
-                    else:
-                        print("Error: El stock debe ser mayor que cero.")
-                    stock = input("Cantidad en stock: ")
-
-                image = input("Ruta de la imagen: ").lower()
-                while not is_valid_string(image):
-                    print("La ruta de la imagen no puede estar en blanco.")
-                    image = input("Ruta de la imagen: ").lower()
-
-                pages = input("Número de páginas: ")
-                while not is_valid_pages(pages):
+            stock = input("Cantidad en stock: ")
+            while not is_valid_stock(stock) or int(stock) <= 0:
+                if not is_valid_stock(stock):
                     print(
-                        "El número de páginas no es válido. Ingresa un número válido mayor a 0.")
-                    pages = input("Número de páginas: ")
-
-                formato = input("Formato: ").lower()
-                while not is_valid_string(formato):
-                    print("El formato no puede estar en blanco.")
-                    formato = input("Formato: ").lower()
-
-                weight = input("Peso (kg): ")
-                while not is_valid_weight(weight):
-                    print("El peso no es válido. Ingresa un número válido mayor a 0.")
-                    weight = input("Peso (kg): ")
-
-                isbn = input("ISBN: ").lower()
-                while not is_valid_string(isbn):
-                    print("El ISBN no puede estar en blanco.")
-                    isbn = input("ISBN: ").lower()
-
-                id_categories = input("ID de categoría: ")
-                while not is_valid_id_categories(id_categories):
-                    print(
-                        "El ID de categoría no es válido. Ingresa un número válido mayor a 0.")
-                    id_categories = input("ID de categoría: ")
-
-                if float(stock) > 0:
-                    new_product = Product(None, name, description, float(price), int(discount), int(stock), image,
-                                          int(pages), formato, float(weight), isbn, int(id_categories))
-                    product_id = create_product(connection, new_product)
-                    if product_id:
-                        print(f"Producto creado con ID: {product_id}")
-                    else:
-                        print("Error al crear el producto.")
+                        "La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
                 else:
-                    print("No se puede crear un producto con stock no disponible.")
-            elif choice == "2":
-                products = read_all_products(connection)
-                print_products_with_stock(products) 
-                
-            elif choice == "3":
+                    print("Error: El stock debe ser mayor que cero.")
+                stock = input("Cantidad en stock: ")
+
+            image = input("Ruta de la imagen: ").lower()
+            while not is_valid_string(image):
+                print("La ruta de la imagen no puede estar en blanco.")
+                image = input("Ruta de la imagen: ").lower()
+
+            pages = input("Número de páginas: ")
+            while not is_valid_pages(pages):
+                print(
+                    "El número de páginas no es válido. Ingresa un número válido mayor a 0.")
+                pages = input("Número de páginas: ")
+
+            formato = input("Formato: ").lower()
+            while not is_valid_string(formato):
+                print("El formato no puede estar en blanco.")
+                formato = input("Formato: ").lower()
+
+            weight = input("Peso (kg): ")
+            while not is_valid_weight(weight):
+                print("El peso no es válido. Ingresa un número válido mayor a 0.")
+                weight = input("Peso (kg): ")
+
+            isbn = input("ISBN: ").lower()
+            while not is_valid_string(isbn):
+                print("El ISBN no puede estar en blanco.")
+                isbn = input("ISBN: ").lower()
+
+            id_categories = input("ID de categoría: ")
+            while not is_valid_id_categories(id_categories):
+                print(
+                    "El ID de categoría no es válido. Ingresa un número válido mayor a 0.")
+                id_categories = input("ID de categoría: ")
+
+            if float(stock) > 0:
+                new_product = Product(None, name, description, float(price), int(discount), int(stock), image,
+                                      int(pages), formato, float(weight), isbn, int(id_categories))
+                product_id = create_product(connection, new_product)
+                if product_id:
+                    print(f"Producto creado con ID: {product_id}")
+                else:
+                    print("Error al crear el producto.")
+            else:
+                print("No se puede crear un producto con stock no disponible.")
+        elif choice == "2":
+            products = read_all_products(connection)
+            print_products_with_stock(products)
+
+        elif choice == "3":
+            while True:
                 product_id = input("ID del producto a actualizar: ")
                 if product_id.isdigit():
                     product_id = int(product_id)
-                    product_to_update = read_product_by_id(connection, product_id)
+                    product_to_update = read_product_by_id(
+                        connection, product_id)
                     if product_to_update:
                         print(f"Producto a actualizar:")
                         print_product(product_to_update)
 
-                        name = input("Nuevo nombre (dejar en blanco para mantener el mismo): ").lower()
-                        description = input("Nueva descripción (dejar en blanco para mantener la misma): ").lower()
-                        price = input("Nuevo precio (0 para mantener el mismo): ")
-                        discount = input("Nuevo descuento (%): ")
-                        stock = input("Nueva cantidad en stock (dejar en blanco para mantener el mismo): ")
-                        image = input("Nueva ruta de la imagen (dejar en blanco para mantener la misma): ").lower()
-                        pages = input("Nuevo número de páginas (0 para mantener el mismo): ")
-                        formato = input("Nuevo formato (dejar en blanco para mantener el mismo): ").lower()
-                        weight = input("Nuevo peso (kg) (0 para mantener el mismo): ")
-                        isbn = input("Nuevo ISBN (dejar en blanco para mantener el mismo): ")
-                        id_categories = input("Nuevo ID de categoría (0 para mantener el mismo): ")
+                        name = input(
+                            "Nuevo nombre : ").lower()
+                        while not is_valid_string(name):
+                            print("El nombre no puede estar en blanco.")
+                            name = input(
+                                "Nuevo nombre : ").lower()
 
-                        # Verifica si se ingresó un valor válido para cada atributo y luego actualiza el producto
-                        if is_valid_string(name):
-                            product_to_update.name = name
-                        if is_valid_string(description):
-                            product_to_update.description = description
-                        if is_valid_number(price):
-                            product_to_update.price = float(price)
-                        if is_valid_discount(discount):
-                            product_to_update.discount = int(discount)
-                        if is_valid_stock(stock):
+                        description = input(
+                            "Nueva descripción : ").lower()
+                        while not is_valid_string(description):
+                            print("La descripción no puede estar en blanco.")
+                            description = input(
+                                "Nueva descripción : ").lower()
+
+                        price = input(
+                            "Nuevo precio : ")
+                        while not is_valid_number(price):
+                            print(
+                                "El precio no es válido. Ingresa un número válido.")
+                            price = input(
+                                "Nuevo precio : ")
+
+                        discount = input("Nuevo descuento (%): ")
+                        while not is_valid_discount(discount):
+                            print(
+                                "El descuento no es válido. Ingresa un número entre 0 y 100.")
+                            discount = input("Nuevo descuento (%): ")
+
+                        stock = input(
+                            "Nueva cantidad en stock : ")
+                        if stock.strip() and stock.isdigit() and int(stock) < 0:
+                            print(
+                                "La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
+                        elif stock:
                             product_to_update.stock = int(stock)
-                        if is_valid_string(image):
-                            product_to_update.image = image
-                        if is_valid_pages(pages):
-                            product_to_update.pages = int(pages)
-                        if is_valid_string(formato):
-                            product_to_update.formato = formato
-                        if is_valid_weight(weight):
+
+                        image = input(
+                            "Nueva ruta de la imagen : ").lower()
+                        while not is_valid_string(image):
+                            print("La ruta de la imagen no puede estar en blanco.")
+                            image = input(
+                                "Nueva ruta de la imagen : ").lower()
+
+                        pages = input(
+                            "Nuevo número de páginas : ")
+                        while not is_valid_pages(pages):
+                            print(
+                                "El número de páginas no es válido. Ingresa un número mayor que 0.")
+                            pages = input(
+                                "Nuevo número de páginas : ")
+
+                        formato = input(
+                            "Nuevo formato : ").lower()
+                        while not is_valid_string(formato):
+                            print("El formato no puede estar en blanco.")
+                            formato = input(
+                                "Nuevo formato : ").lower()
+
+                        weight = input(
+                            "Nuevo peso (kg) : ")
+                        if weight.strip() and not is_valid_weight(weight):
+                            print(
+                                "El peso no es válido. Ingresa un número mayor que 0.")
+                        elif weight:
                             product_to_update.weight = float(weight)
-                        if is_valid_string(isbn):
-                            product_to_update.isbn = isbn
-                        if is_valid_id_categories(id_categories):
-                            product_to_update.id_categories = int(id_categories)
-                        
-                        # Luego, llama a la función de actualización
-                        update_product(connection, product_to_update)
-                        print("Producto actualizado")
+
+                        isbn = input(
+                            "Nuevo ISBN : ").lower()
+                        while not is_valid_string(isbn):
+                            print("El ISBN no puede estar en blanco.")
+                            isbn = input(
+                                "Nuevo ISBN : ").lower()
+
+                        id_categories = input(
+                            "Nuevo ID de categoría : ")
+                        while not is_valid_id_categories(id_categories):
+                            print(
+                                "El ID de categoría no es válido. Ingresa un número válido mayor a 0.")
+                            id_categories = input(
+                                "Nuevo ID de categoría (0 para mantener el mismo): ")
+
+                        updated_product_id = update_product(
+                            connection, product_to_update)
+                        if updated_product_id is not None:
+                            print(
+                                f"Producto actualizado con ID: {updated_product_id}")
+                        else:
+                            print("Error al actualizar el producto.")
+                        break
                     else:
                         print("Producto no encontrado.")
                 else:
                     print("ID de producto no válido.")
+        elif choice == "4":
+            product_id = input("ID del producto a eliminar: ")
+            if product_id.isdigit():
+                product_id = int(product_id)
+                delete_product(connection, product_id)
+                print("Producto eliminado")
+            else:
+                print("ID de producto no válido.")
 
+        elif choice == "5":
+            products = read_all_products(connection)
+            if products:
+                print("\nListado de productos:")
+            for product in products:
+                if product.stock > 0:
+                    print_product(product)
+            if all(product.stock == 0 for product in products):
+                print("No hay productos disponibles.")
 
-            elif choice == "4":
-                product_id = input("ID del producto a eliminar: ")
-                if product_id.isdigit():
-                    product_id = int(product_id)
-                    delete_product(connection, product_id)
-                    print("Producto eliminado")
-                else:
-                        print("ID de producto no válido.")
-             
-            elif choice == "5":
-                products = read_all_products(connection)
-                if products:
-                    print("\nListado de productos:")
-                for product in products:
-                    if product.stock > 0:
-                        print_product(product)
-                if all(product.stock == 0 for product in products):
-                    print("No hay productos disponibles.")          
-
-            elif choice == "6":
-                    break
-                
-                
+        elif choice == "6":
+            break
