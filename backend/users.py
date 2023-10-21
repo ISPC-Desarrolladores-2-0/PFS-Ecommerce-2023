@@ -1,6 +1,5 @@
-from connection import create_db_connection
-from mysql.connector import Error
-
+from connection import create_db_connection, close_db_connection
+from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 class User:
     def __init__(self, id_users, first_name, last_name, email, password, address, image):
         self.id_users = id_users
