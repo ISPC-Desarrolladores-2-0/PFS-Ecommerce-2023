@@ -86,21 +86,7 @@ def read_all_users(connection):
     except Error as e:
         print(f"Error al leer usuarios: {e}")
 
-def read_user_by_id(connection, user_id):
-    try:
-        cursor = connection.cursor()
-        query = "SELECT * FROM users WHERE id_users = %s"
-        cursor.execute(query, (user_id,))
-        row = cursor.fetchone()
 
-        if row:
-            return Usuario(*row)
-        else:
-            print("Usuario no encontrado")
-            return None
-    except Error as e:
-        print(f"Error al leer usuario por ID: {e}")
-        return None
 
 def update_user(connection, user):
     try:
