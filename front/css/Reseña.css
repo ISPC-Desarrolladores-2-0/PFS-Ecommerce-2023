@@ -19,7 +19,7 @@
 /* Estilos para las columnas */
 .reseña_card {
   width: 250px; /* Ancho de cada columna */
-  height: 280px;
+  height: 290px;
   padding: 10px;
   background-color: #ffffff; /* Color de fondo de las columnas */
   border: 5px solid #000000; /* Borde de 5px de ancho en color negro */
@@ -36,6 +36,7 @@
   font-family: "Bangers";
   letter-spacing: 2px;
 }
+
 
 .reseña_card .top img {
   width: 150px;
@@ -71,6 +72,7 @@
   text-transform: uppercase; /* Convierte el texto en mayúsculas */
   border-right-color: #e5ac57;
   letter-spacing: 3px;
+  -webkit-text-stroke: 1.2px black;
 }
 
 /* Estilo para los nombres */
