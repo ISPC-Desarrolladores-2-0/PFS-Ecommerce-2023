@@ -20,5 +20,3 @@ def close_db_connection(connection):
     if connection.is_connected():
         connection.close()
         print("Conexión a la base de datos cerrada")
-
-

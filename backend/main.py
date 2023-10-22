@@ -1,7 +1,9 @@
 from connection import create_db_connection, close_db_connection
-from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id, select_valid_category, get_categories
+from products import *
 from users import User, create_user, read_all_users, update_user, delete_user, manage_users, read_user_by_id
-from categories import Category 
+from categories import *
+from orders import *
+from facturacion import *
 
 def menu_principal():
     menu = True
@@ -32,13 +34,20 @@ def menu_principal():
                 print("No se pudo establecer una conexión a la base de datos de usuarios.")
         
         elif opcion == "3":
-            print("Gestión de ordenes (en construcción)")
+            connection = create_db_connection()
+            if connection:
+                manage_orders(connection)
+                close_db_connection(connection)
+            else:
+                print("No se pudo establecer una conexión a la base de datos de órdenes.")
+
         
-        elif opcion == "4":
-            print("Gestión de facturas (en construcción)")
-        
+        elif opcion == "4":    
+                process_billing()
+            
         elif opcion == "5":
-            print("Sección de Categorías (en construcción)")
+            print("Sección de Categorías... en construcción")            
+            
         
         elif opcion == "6":
             print("Ha salido del programa. ¡Hasta luego!")
