@@ -23,13 +23,13 @@ Diseño interactivo: https://www.figma.com/proto/O3BzmmLej6K3qpF2dIefST/Planet-S
 
 ## DESARROLLADORES:
 
-🟆 Benitez, Fabiola
-🟆 Barea, Silvana del Pilar
-🟆 Churquina Villa, Nicolás Isaías
-🟆 Martinez, Duncan
-🟆 Robles, Emilce
-🟆 Virinni, Marco
-🟆 Velez, Paula
-🟆 Vargas, Veronica Cecilia
-🟆 Villalba, Lucas Javier
-🟆 Zazzarini, Hernan
+* 🟆 Benitez, Fabiola
+* 🟆 Barea, Silvana del Pilar
+* 🟆 Churquina Villa, Nicolás Isaías
+* 🟆 Martinez, Duncan
+* 🟆 Robles, Emilce
+* 🟆 Virinni, Marco
+* 🟆 Velez, Paula
+* 🟆 Vargas, Veronica Cecilia
+* 🟆 Villalba, Lucas Javier
+* 🟆 Zazzarini, Hernan
