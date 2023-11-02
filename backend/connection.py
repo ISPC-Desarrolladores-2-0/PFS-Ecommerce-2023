@@ -6,7 +6,8 @@ def create_db_connection():
         connection = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='',
+            port=3306,
+            password='hernan',
             database='planetSuperheroesDB'
         )
         if connection.is_connected():
