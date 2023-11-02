@@ -1,19 +1,20 @@
 from connection import create_db_connection, close_db_connection
-from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
-from users import *
+from products import *
+from users import User, create_user, read_all_users, update_user, delete_user, manage_users, read_user_by_id
+from categories import *
 from orders import *
+from facturacion import *
 
 def menu_principal():
     menu = True
-    while menu:
+    while menu == True:
         print("\n•·.·•·.·•·.·•·.·• Menú Principal •·.·•·.·•·.·•·.·•\n")
         print("1. Gestionar Productos")
         print("2. Gestionar Usuarios")
-        print("3. Gestionar Órdenes")
-        print("4. Inicio")
-        print("5. Quienes Somos?")
-        print("6. Contacto")
-        print("7. Salir")
+        print("3. Gestionar Ordenes")
+        print("4. Gestionar Facturas")
+        print("5. Gestionar Categorias")
+        print("6. Salir")
         opcion = input("\n⮞ Ingrese una opción: ")
 
         if opcion == "1":
@@ -40,16 +41,15 @@ def menu_principal():
             else:
                 print("No se pudo establecer una conexión a la base de datos de órdenes.")
 
-        elif opcion == "4":
-            print("Sección de Inicio (en construcción)")
         
+        elif opcion == "4":    
+                process_billing()
+            
         elif opcion == "5":
-            print("Sección de Quiénes Somos? (en construcción)")
+            print("Sección de Categorías... en construcción")            
+            
         
         elif opcion == "6":
-            print("Sección de Contacto (en construcción)")
-        
-        elif opcion == "7":
             print("Ha salido del programa. ¡Hasta luego!")
             menu = False
         
