@@ -64,7 +64,7 @@ const checkPhone = () => {
     const phoneValue = phoneInput.value.trim();
 
     if (!isPhoneOk(phoneValue)) {
-        showError(phoneInput, "Telefono no valido, debe contener al menos 10 caracteres")
+        showError(phoneInput, "Telefono no valido, debe contener 10 caracteres")
     } else {
         showSuccess(phoneInput);
         valid = true;
@@ -137,10 +137,14 @@ const showSuccess = (input) => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
-    checkUserName(); 
-    checkPassword(); 
-    checkEmail(); 
-    checkPhone(); 
-    checkPasswordsMatch();
-    checkAddress(); 
+    const isValidUsername = checkUserName(); 
+    const isValidPassword = checkPassword(); 
+    const isValidEmail = checkEmail(); 
+    const isValidPhone = checkPhone(); 
+    const isValidPasswordMatch = checkPasswordsMatch();
+    const isValidAdress = checkAddress(); 
+
+    if (isValidUsername && isValidPassword && isValidEmail && isValidPhone && isValidPasswordMatch && isValidAdress) {
+        window.location.href = '../index.html';
+    }
 });
