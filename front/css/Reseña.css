@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
+#reseñas {
+  background-color: #9a1515;
+  padding: 80px;
+  width: 100%;
+}
+
+.reseña_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+/* Estilos para las columnas */
+.reseña_card {
+  width: 250px; /* Ancho de cada columna */
+  height: 290px;
+  padding: 10px;
+  background-color: #ffffff; /* Color de fondo de las columnas */
+  border: 5px solid #000000; /* Borde de 5px de ancho en color negro */
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+
+.reseña_card h2 {
+  font-family: "Bangers";
+  letter-spacing: 2px;
+}
+
+
+.reseña_card .top img {
+  width: 150px;
+}
+
+.reseña_card .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.reseña_card .bottom img {
+  width: 60px;
+}
+
+/* Estilos para limpiar los flotadores */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Estilo para el título de la reseña */
+.review-title h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 60px;
+  font-family: "Bangers"; /* Cambia "Hand drawn letters Royalty" a la fuente que desees */
+  font-size: 50px; /* Cambia "45px" al tamaño de fuente deseado */
+  font-weight: bold; /* Puedes ajustar el grosor de la fuente si lo deseas */
+  color: #e5ac57; /* Cambia "blue" al color que desees */
+  text-transform: uppercase; /* Convierte el texto en mayúsculas */
+  border-right-color: #e5ac57;
+  letter-spacing: 3px;
+  -webkit-text-stroke: 1.2px black;
+}
+
+/* Estilo para los nombres */
+.column h2 {
+  display: inline-block; /* Muestra los nombres en la misma línea que las imágenes */
+  margin-left: 10px; /* Agrega un margen izquierdo para separar la imagen del nombre */
+  font-family: "Hand drawn letters Royalty", sans-serif; /* Cambia "Hand drawn letters Royalty" a la fuente que desees */
+  font-size: 30px; /* Cambia "30px" al tamaño de fuente deseado */
+  font-weight: bold; /* Puedes ajustar el grosor de la fuente si lo deseas */
+  /* Otros estilos de fuente, como color, se pueden aplicar aquí */
+}
