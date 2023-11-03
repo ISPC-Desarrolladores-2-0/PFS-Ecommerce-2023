@@ -167,4 +167,3 @@ if __name__ == "__main__":
         close_db_connection(connection)  # Cerrar la conexión a la base de datos cuando hayas terminado
     else:
         print("No se pudo establecer una conexión a la base de datos.")
-        

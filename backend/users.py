@@ -1,6 +1,5 @@
-from connection import create_db_connection
-from mysql.connector import Error
-
+from connection import create_db_connection, close_db_connection
+from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 class User:
     def __init__(self, id_users, first_name, last_name, email, password, address, image):
         self.id_users = id_users
@@ -86,7 +85,21 @@ def read_all_users(connection):
     except Error as e:
         print(f"Error al leer usuarios: {e}")
 
+def read_user_by_id(connection, user_id):
+    try:
+        cursor = connection.cursor()
+        query = "SELECT * FROM users WHERE id_users = %s"
+        cursor.execute(query, (user_id,))
+        row = cursor.fetchone()
 
+        if row:
+            return Usuario(*row)
+        else:
+            print("Usuario no encontrado")
+            return None
+    except Error as e:
+        print(f"Error al leer usuario por ID: {e}")
+        return None
 
 def update_user(connection, user):
     try:
