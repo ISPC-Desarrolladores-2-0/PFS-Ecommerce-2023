@@ -191,7 +191,7 @@ def get_products_for_order(connection, order_id):
         products = cursor.fetchall()
         return products
     except Error as e:
-        print(f"Error al obtener los productos para el pedido: {e}")
+        print(f"Errror al obtener los productos para el pedido: {e}")
         
 
 def update_order(connection, order_id, new_id_user, new_state, new_orderDate, new_payment_method, new_shipping_method, new_payment_status):
