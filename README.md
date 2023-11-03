@@ -1,5 +1,8 @@
 # PFS-Ecommerce-2023
 
+## Deploy GithuPages: https://ispc-desarrolladores-2-0.github.io/PFS-Ecommerce-2023/
+## Deploy VERCEL: https://pfs-ecommerce-2023.vercel.app/   
+
 ## INTRODUCCIÓN
 Este repositorio contiene el código fuente y la documentación relacionada con nuestro Trabajo Práctico Integrador para el Módulo Programador Full Stack de la Tecnicatura Superior en Desarrollo Web y Aplicaciones Digitales. Este proyecto Consiste en la creación de una tienda online ficticia especializada en cómics **"Planet Superheroes Comic Store"**, hemos desarrollado el Frontend empleando HTML, CSS, Bootstrap y Javascript, y para la implementación del Backend Python y base de datos para el almacenamiento de información. 
 
