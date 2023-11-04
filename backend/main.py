@@ -41,7 +41,6 @@ def menu_principal():
             else:
                 print("No se pudo establecer una conexión a la base de datos de órdenes.")
 
-        
         elif opcion == "4":    
                 process_billing()
             
