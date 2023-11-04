@@ -46,8 +46,13 @@ def menu_principal():
                 process_billing()
             
         elif opcion == "5":
-            print("Sección de Categorías... en construcción")            
-            
+            connection = create_db_connection()
+            if connection:
+                categories_main(connection)
+                close_db_connection(connection)
+        
+            else:
+                print("No se pudo establecer una conexión a la base de datos de órdenes.")
         
         elif opcion == "6":
             print("Ha salido del programa. ¡Hasta luego!")

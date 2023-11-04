@@ -91,7 +91,7 @@ def delete_category(connection, category_id):
     except Error as e:
         print(f"Error al eliminar la categoría: {e}")
 def categories_main(connection):
-    selected_products = []  # Lista para almacenar los productos seleccionados
+   
     cursor = connection.cursor()
     while True:
         print("\nMenú:")
@@ -156,14 +156,14 @@ def categories_main(connection):
             print("Categoría eliminada")
 
         elif choice == "8":
-            return None  # Si elige salir, devuelve None
+            return None 
         
         
 if __name__ == "__main__":
-    connection = create_db_connection()  # Crear la conexión a la base de datos
+    connection = create_db_connection() 
 
     if connection:
-        categories_main(connection)  # Llamar a la función de gestión de pedidos con la conexión
-        close_db_connection(connection)  # Cerrar la conexión a la base de datos cuando hayas terminado
+        categories_main(connection) 
+        close_db_connection(connection) 
     else:
         print("No se pudo establecer una conexión a la base de datos.")

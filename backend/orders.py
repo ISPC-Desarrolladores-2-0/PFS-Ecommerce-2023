@@ -653,10 +653,10 @@ def manage_orders(connection):
         print("Ocurrió un error:", str(e))
 
 if __name__ == "__main__":
-    connection = create_db_connection()  # Crear la conexión a la base de datos
+    connection = create_db_connection() 
 
     if connection:
-        manage_orders(connection)  # Llamar a la función de gestión de pedidos con la conexión
-        close_db_connection(connection)  # Cerrar la conexión a la base de datos cuando hayas terminado
+        manage_orders(connection) 
+        close_db_connection(connection) 
     else:
         print("No se pudo establecer una conexión a la base de datos.")
