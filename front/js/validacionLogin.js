@@ -69,6 +69,10 @@ const showSuccess = (input) => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
-    checkUserName();
-    checkPassword();
+    const isValidUsername = checkUserName();
+    const isValidPassword = checkPassword();
+
+    if (isValidUsername && isValidPassword) {
+        window.location.href = '../index.html';
+    }
 });
