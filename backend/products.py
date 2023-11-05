@@ -346,7 +346,7 @@ def manage_products(connection):
             while not is_valid_stock(stock) or int(stock) <= 0:
                 if not is_valid_stock(stock):
                     print(
-                        "La cantidad en stock no es válida. Ingresa un número válido mayor o igual a 0.")
+                        "La cantidad en stock no es válida. Ingresa un número válido mayor a 0.")
                 else:
                     print("Error: El stock debe ser mayor que cero.")
                 stock = input("Cantidad en stock: ")
