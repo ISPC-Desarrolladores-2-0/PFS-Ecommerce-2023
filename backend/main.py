@@ -13,7 +13,7 @@ def menu_principal():
         print("2. Gestionar Usuarios")
         print("3. Gestionar Ordenes")
         print("4. Gestionar Facturas")
-        print("5. Gestionar Categorias")
+        print("5. Gestionar Categorias... en construcción")
         print("6. Salir")
         opcion = input("\n⮞ Ingrese una opción: ")
 

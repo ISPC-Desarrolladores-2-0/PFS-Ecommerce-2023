@@ -2,6 +2,9 @@ import mysql.connector
 from mysql.connector import Error
 from connection import create_db_connection, close_db_connection
 from tabulate import tabulate
+import re
+from datetime import datetime
+import connection
 
 class Order:
     def _init_(self, id_order, id_user, state, orderDate, payment_method, shipping_method, payment_status, total_amount):
@@ -366,9 +369,6 @@ def obtener_productos_comprados_por_usuario(conexion, id_usuario):
     except mysql.connector.Error as e:
         print(f"Error al consultar los productos comprados por el usuario: {e}")
 
-import re
-from datetime import datetime
-import connection
 
 
 def user_exists(cursor, user_id):
