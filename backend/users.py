@@ -1,3 +1,4 @@
+
 from connection import create_db_connection, close_db_connection
 from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 class User:
@@ -231,16 +232,9 @@ def manage_users(connection):
                     last_name = input(f"Nuevo apellido (deja en blanco para mantener el mismo: {user_to_update.last_name}): ")
                     email = input(f"Nuevo correo electrónico (deja en blanco para mantener el mismo: {user_to_update.email}): ")
                     password = input("Nueva contraseña (deja en blanco para mantener la misma): ")
-
                     address = input(f"Nueva dirección (deja en blanco para mantener el mismo: {user_to_update.address}): ")
-                    while not is_valid_string(address):
-                        print("La dirección no puede estar en blanco.")
-                        address = input("Dirección: ")
-
                     image = input(f"Nueva imagen (deja en blanco para mantener la misma: {user_to_update.image}): ")
-                    while not is_valid_string(image):
-                        print("La imagen no puede estar en blanco.")
-                        image = input("Imagen: ")
+                    
 
                     if is_valid_string(first_name):
                         user_to_update.first_name = first_name
