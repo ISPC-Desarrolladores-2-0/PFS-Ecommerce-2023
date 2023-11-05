@@ -1,4 +1,5 @@
-
+import mysql.connector
+from mysql.connector import Error
 from connection import create_db_connection, close_db_connection
 from products import Product, create_product, read_all_products, update_product, delete_product, manage_products, read_product_by_id
 class User:
